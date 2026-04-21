@@ -1,0 +1,2542 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Kilby Block Party 2026 — Taylor's Guide</title>
+<style>
+    :root {
+      --bg: #0c0c12;
+      --bg2: #12121c;
+      --bg3: #1c1c2a;
+      --kilby: #e85d2f;
+      --desert: #e8a030;
+      --lake: #4a90d9;
+      --mountain: #f0d040;
+      --r5: #4ade80;
+      --r4: #a3e635;
+      --r35: #fbbf24;
+      --r3: #fb923c;
+      --r2: #f87171;
+      --r1: #dc2626;
+      --text: #eeeef5;
+      --muted: #7777aa;
+      --border: #2a2a3e;
+      --card: #14141e;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(160deg, #0e0e1c 0%, #1a0826 50%, #08101e 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 52px 24px 44px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(188,147,255,0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-eyebrow { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--r4); margin-bottom: 14px; font-weight: 600; }
+    .hero h1 { font-size: clamp(2rem, 6vw, 3.8rem); font-weight: 900; letter-spacing: -1px; line-height: 1.1; margin-bottom: 6px; }
+    .hero h1 em { color: var(--r4); font-style: normal; }
+    .hero-dates { font-size: 15px; color: var(--muted); margin-bottom: 28px; }
+    .hero-dates span { color: var(--text); }
+    .hero-stats {
+      display: inline-flex; gap: 28px; flex-wrap: wrap; justify-content: center;
+      background: rgba(255,255,255,0.04); border: 1px solid var(--border);
+      border-radius: 14px; padding: 14px 28px;
+    }
+    .hero-stat { text-align: center; }
+    .hero-stat-num { font-size: 20px; font-weight: 800; color: var(--r4); }
+    .hero-stat-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
+
+    /* ── STAGE LEGEND ── */
+    .stage-legend {
+      display: flex; gap: 16px; flex-wrap: wrap; justify-content: center;
+      padding: 20px 24px 0; max-width: 900px; margin: 0 auto;
+    }
+    .stage-pill {
+      font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 20px;
+      letter-spacing: 0.5px;
+    }
+    .stage-kilby  { background: rgba(232,93,47,0.2);  color: var(--kilby); border: 1px solid rgba(232,93,47,0.3); }
+    .stage-desert { background: rgba(232,160,48,0.2); color: var(--desert);border: 1px solid rgba(232,160,48,0.3); }
+    .stage-lake   { background: rgba(74,144,217,0.2); color: var(--lake);  border: 1px solid rgba(74,144,217,0.3); }
+    .stage-mountain{ background: rgba(240,208,64,0.2);color: var(--mountain);border: 1px solid rgba(240,208,64,0.3); }
+
+    /* ── RATING LEGEND ── */
+    .rating-legend {
+      display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;
+      padding: 16px 24px 0; max-width: 900px; margin: 0 auto;
+    }
+    .rl-item { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--muted); }
+    .rl-dot { width: 8px; height: 8px; border-radius: 50%; }
+
+    /* ── DAY TABS ── */
+    .tabs { display: flex; gap: 0; max-width: 1100px; margin: 32px auto 0; padding: 0 24px; border-bottom: 1px solid var(--border); }
+    .tab-btn {
+      background: none; border: none; color: var(--muted); font-size: 14px; font-weight: 600;
+      padding: 12px 24px; cursor: pointer; font-family: inherit;
+      border-bottom: 2px solid transparent; margin-bottom: -1px; transition: all 0.15s;
+    }
+    .tab-btn:hover { color: var(--text); }
+    .tab-btn.active { color: var(--r4); border-bottom-color: var(--r4); }
+
+    /* ── DAY PANEL ── */
+    .day-panel { display: none; max-width: 1100px; margin: 0 auto; padding: 24px 24px 60px; }
+    .day-panel.active { display: block; }
+
+    /* ── SHORTLIST BANNER ── */
+    .shortlist {
+      background: linear-gradient(135deg, rgba(74,222,128,0.07), rgba(163,230,53,0.05));
+      border: 1px solid rgba(74,222,128,0.2);
+      border-radius: 14px; padding: 20px 24px; margin-bottom: 28px;
+    }
+    .shortlist h3 { font-size: 13px; text-transform: uppercase; letter-spacing: 2px; color: var(--r4); margin-bottom: 14px; font-weight: 700; }
+    .shortlist-items { display: flex; flex-wrap: wrap; gap: 8px; }
+    .shortlist-item {
+      background: rgba(74,222,128,0.1); border: 1px solid rgba(74,222,128,0.25);
+      border-radius: 8px; padding: 6px 12px; font-size: 12px; font-weight: 600; color: var(--r5);
+    }
+    .shortlist-item span { font-weight: 400; color: var(--muted); margin-left: 4px; }
+
+    /* ── TIME SLOT ── */
+    .time-slot { margin-bottom: 8px; }
+    .time-slot-header {
+      display: flex; align-items: center; gap: 12px; margin-bottom: 10px;
+    }
+    .time-label {
+      font-size: 11px; font-weight: 700; color: var(--muted); letter-spacing: 1px;
+      white-space: nowrap; text-transform: uppercase;
+    }
+    .time-divider { flex: 1; height: 1px; background: var(--border); }
+    .conflict-badge {
+      font-size: 10px; font-weight: 700; color: #ff6b6b; letter-spacing: 1px;
+      background: rgba(255,107,107,0.12); border: 1px solid rgba(255,107,107,0.3);
+      border-radius: 4px; padding: 2px 7px;
+    }
+    .slot-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; margin-bottom: 20px; }
+
+    /* ── ARTIST CARD ── */
+    .card {
+      background: var(--card); border: 1px solid var(--border); border-radius: 14px;
+      padding: 18px; position: relative; overflow: hidden; transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .card:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,0.4); }
+    .card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    }
+    .card.r5::before { background: var(--r5); }
+    .card.r4::before { background: var(--r4); }
+    .card.r35::before { background: var(--r35); }
+    .card.r3::before { background: var(--r3); }
+    .card.r2::before { background: var(--r2); }
+    .card.r1::before { background: var(--r1); }
+    .card.r5 { border-color: rgba(74,222,128,0.25); }
+    .card.r5:hover { border-color: var(--r5); box-shadow: 0 8px 28px rgba(74,222,128,0.1); }
+    .card.r4 { border-color: rgba(163,230,53,0.25); }
+    .card.r4:hover { border-color: var(--r4); box-shadow: 0 8px 28px rgba(163,230,53,0.1); }
+    .card.r35 { border-color: rgba(251,191,36,0.2); }
+    .card.r3 { border-color: rgba(251,146,60,0.2); }
+
+    .card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: 10px; }
+    .card-left { flex: 1; }
+    .card-name { font-size: 16px; font-weight: 800; line-height: 1.2; margin-bottom: 4px; }
+    .card-meta { display: flex; flex-wrap: wrap; gap: 5px; align-items: center; }
+    .stage-tag {
+      font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 4px; letter-spacing: 0.5px;
+    }
+    .time-tag { font-size: 10px; color: var(--muted); }
+    .scrobble-tag {
+      font-size: 10px; padding: 2px 7px; background: rgba(251,191,36,0.1);
+      border: 1px solid rgba(251,191,36,0.2); border-radius: 4px; color: var(--r35); font-weight: 600;
+    }
+
+    .rating-badge {
+      font-size: 13px; font-weight: 800; flex-shrink: 0;
+      padding: 4px 10px; border-radius: 8px; line-height: 1;
+    }
+    .r5 .rating-badge { background: rgba(74,222,128,0.15); color: var(--r5); }
+    .r4 .rating-badge { background: rgba(163,230,53,0.15); color: var(--r4); }
+    .r35 .rating-badge { background: rgba(251,191,36,0.15); color: var(--r35); }
+    .r3 .rating-badge { background: rgba(251,146,60,0.15); color: var(--r3); }
+    .r2 .rating-badge { background: rgba(248,113,113,0.15); color: var(--r2); }
+    .r1 .rating-badge { background: rgba(220,38,38,0.15); color: var(--r1); }
+
+    .card-section { margin-top: 10px; }
+    .card-section-label { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); font-weight: 700; margin-bottom: 2px; }
+    .card-section-text { font-size: 12.5px; color: #aaaacc; line-height: 1.55; }
+    .card-section-text.taylor-take { color: var(--text); font-style: italic; }
+    .card-divider { height: 1px; background: var(--border); margin: 10px 0; }
+
+    .rec-arrow { font-size: 11px; font-weight: 600; margin-top: 10px; }
+    .r5 .rec-arrow { color: var(--r5); }
+    .r4 .rec-arrow { color: var(--r4); }
+    .r35 .rec-arrow { color: var(--r35); }
+    .r3 .rec-arrow { color: var(--r3); }
+    .r2 .rec-arrow { color: var(--r2); }
+
+    footer { text-align: center; padding: 28px 24px; border-top: 1px solid var(--border); color: var(--muted); font-size: 12px; }
+    .private-nav {
+      text-align: center; padding: 12px 24px 24px; 
+    }
+    .private-nav-btn {
+      background: none; border: none; color: rgba(119,119,170,0.35); font-size: 11px;
+      cursor: pointer; font-family: inherit; padding: 4px 10px; border-radius: 6px;
+      transition: color 0.2s; letter-spacing: 0.5px;
+    }
+    .private-nav-btn:hover { color: var(--muted); }
+    footer a { color: var(--r35); text-decoration: none; }
+
+
+
+
+    /* ── HERO TAGLINE + INFO ── */
+    .hero-tagline {
+      font-size: 15px; color: var(--text); margin-bottom: 8px; font-weight: 500;
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+    }
+    .hero-tagline em { color: var(--r35); font-style: italic; }
+    .info-trigger {
+      background: rgba(255,255,255,0.08); border: 1px solid var(--border);
+      color: var(--muted); border-radius: 50%; width: 22px; height: 22px;
+      font-size: 12px; cursor: pointer; font-weight: 700; flex-shrink: 0;
+      display: inline-flex; align-items: center; justify-content: center;
+      transition: all 0.15s;
+    }
+    .info-trigger:hover { border-color: var(--r35); color: var(--r35); }
+    .info-box {
+      display: none; position: absolute; top: 20px; right: 20px;
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 14px; padding: 20px 22px; max-width: 360px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5); z-index: 500; text-align: left;
+    }
+    .info-box.open { display: block; }
+    .info-box-close {
+      position: absolute; top: 12px; right: 14px; background: none; border: none;
+      color: var(--muted); font-size: 18px; cursor: pointer; line-height: 1;
+    }
+    .info-box-close:hover { color: var(--text); }
+    .info-box h4 { font-size: 12px; text-transform: uppercase; letter-spacing: 2px;
+      color: var(--r35); font-weight: 700; margin-bottom: 14px; }
+    .info-qa { margin-bottom: 12px; }
+    .info-qa:last-child { margin-bottom: 0; }
+    .info-q { font-size: 12px; font-weight: 700; color: var(--text); margin-bottom: 3px; }
+    .info-a { font-size: 12px; color: #9999bb; line-height: 1.55; }
+
+    /* ── FAQ TAB ── */
+    .faq-section { margin-bottom: 32px; }
+    .faq-section-title {
+      font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px;
+      color: var(--r35); padding: 8px 0 10px; border-bottom: 1px solid rgba(251,191,36,0.2);
+      margin-bottom: 16px;
+    }
+    .faq-item {
+      border: 1px solid var(--border); border-radius: 10px; margin-bottom: 8px;
+      overflow: hidden; background: var(--card);
+    }
+    .faq-q {
+      padding: 14px 16px; font-size: 13px; font-weight: 700; color: var(--text);
+      cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+      gap: 12px; user-select: none;
+    }
+    .faq-q:hover { color: var(--r35); }
+    .faq-q::after { content: '+'; font-size: 18px; font-weight: 300; color: var(--muted); flex-shrink: 0; }
+    .faq-item.open .faq-q::after { content: '−'; color: var(--r35); }
+    .faq-a {
+      display: none; padding: 0 16px 14px; font-size: 13px; color: #9999bb;
+      line-height: 1.65; border-top: 1px solid var(--border);
+    }
+    .faq-item.open .faq-a { display: block; }
+    .faq-a a { color: var(--r35); }
+    .faq-a ul { padding-left: 16px; margin-top: 6px; }
+    .faq-a li { margin-bottom: 3px; }
+    .faq-intro {
+      background: var(--bg3); border: 1px solid var(--border); border-radius: 14px;
+      padding: 18px 22px; margin-bottom: 24px; font-size: 13px; color: var(--muted); line-height: 1.6;
+    }
+    .faq-intro strong { color: var(--text); }
+
+    /* ── AFTER PARTIES TAB ── */
+    .party-night { margin-bottom: 36px; }
+    .party-night-header {
+      font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px;
+      color: var(--text); padding: 10px 0 12px; border-bottom: 1px solid var(--border);
+      margin-bottom: 18px; display: flex; align-items: center; gap: 12px;
+    }
+    .party-night-header .night-date { color: var(--r35); }
+    .party-night-header .night-type {
+      font-size: 10px; padding: 2px 8px; border-radius: 12px; font-weight: 700;
+      background: rgba(251,191,36,0.12); border: 1px solid rgba(251,191,36,0.25);
+      color: var(--r35);
+    }
+    .party-night-header .night-type.kickoff {
+      background: rgba(163,230,53,0.1); border-color: rgba(163,230,53,0.25); color: var(--r4);
+    }
+    .party-card {
+      background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+      padding: 16px; margin-bottom: 12px; display: flex; gap: 14px; align-items: flex-start;
+    }
+    .party-card:hover { border-color: rgba(251,191,36,0.3); }
+    .party-venue-pill {
+      font-size: 10px; font-weight: 800; padding: 4px 10px; border-radius: 20px;
+      text-transform: uppercase; letter-spacing: 0.5px; flex-shrink: 0; margin-top: 2px;
+    }
+    .venue-urban { background: rgba(74,222,128,0.12); border: 1px solid rgba(74,222,128,0.25); color: var(--r5); }
+    .venue-metro { background: rgba(188,147,255,0.12); border: 1px solid rgba(188,147,255,0.25); color: #bc93ff; }
+    .venue-kilby { background: rgba(232,93,47,0.12); border: 1px solid rgba(232,93,47,0.3); color: #e85d2f; }
+    .venue-complex { background: rgba(74,144,217,0.12); border: 1px solid rgba(74,144,217,0.3); color: #4a90d9; }
+    .venue-bluegenes { background: rgba(240,100,150,0.12); border: 1px solid rgba(240,100,150,0.3); color: #f06496; }
+    .party-card-content { flex: 1; }
+    .party-artists { font-size: 16px; font-weight: 800; color: var(--text); margin-bottom: 4px; }
+    .party-meta { font-size: 12px; color: var(--muted); margin-bottom: 8px; }
+    .party-meta strong { color: #9999bb; }
+    .party-kbp-note {
+      font-size: 11px; padding: 3px 8px; border-radius: 12px; display: inline-block;
+      background: rgba(251,191,36,0.08); border: 1px solid rgba(251,191,36,0.2);
+      color: var(--r35); margin-bottom: 8px;
+    }
+    .party-ticket-btn {
+      display: inline-block; font-size: 11px; font-weight: 700; color: var(--text);
+      text-decoration: none; padding: 5px 12px; border: 1px solid var(--border);
+      border-radius: 8px; background: var(--bg3); transition: all 0.15s;
+    }
+    .party-ticket-btn:hover { border-color: var(--r35); color: var(--r35); }
+    .party-free-note { font-size: 11px; color: var(--r5); font-weight: 600; }
+    .parties-intro {
+      background: var(--bg3); border: 1px solid var(--border); border-radius: 14px;
+      padding: 18px 22px; margin-bottom: 28px; font-size: 13px; color: var(--muted); line-height: 1.6;
+    }
+    .parties-intro strong { color: var(--text); }
+
+    /* ── CONFLICT TOOLTIP ── */
+    .conflict-badge { position: relative; cursor: help; }
+    .conflict-badge[data-conflict]::after {
+      content: attr(data-conflict);
+      position: absolute; bottom: 130%; left: 50%; transform: translateX(-50%);
+      background: #1a1a28; border: 1px solid rgba(248,113,113,0.45);
+      color: #f87171; font-size: 11px; font-weight: 600; white-space: nowrap;
+      padding: 5px 11px; border-radius: 7px; pointer-events: none;
+      opacity: 0; transition: opacity 0.15s; z-index: 100;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.5);
+    }
+    .conflict-badge[data-conflict]::before {
+      content: ''; position: absolute; bottom: 118%; left: 50%; transform: translateX(-50%);
+      border: 5px solid transparent; border-top-color: rgba(248,113,113,0.45);
+      pointer-events: none; opacity: 0; transition: opacity 0.15s; z-index: 100;
+    }
+    .conflict-badge[data-conflict]:hover::after,
+    .conflict-badge[data-conflict]:hover::before,
+    .conflict-badge[data-conflict].tip-open::after,
+    .conflict-badge[data-conflict].tip-open::before { opacity: 1; }
+
+    /* ── PASSWORD MODAL ── */
+    .pw-overlay {
+      display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.75);
+      z-index: 2000; align-items: center; justify-content: center;
+    }
+    .pw-overlay.open { display: flex; }
+    .pw-box {
+      background: var(--bg2); border: 1px solid var(--border); border-radius: 16px;
+      padding: 32px 28px; width: 320px; text-align: center;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.6);
+    }
+    .pw-box h3 { font-size: 16px; font-weight: 800; color: var(--text); margin-bottom: 6px; }
+    .pw-box p { font-size: 12px; color: var(--muted); margin-bottom: 20px; }
+    .pw-input {
+      width: 100%; background: var(--bg3); border: 1px solid var(--border);
+      border-radius: 8px; padding: 10px 14px; font-size: 14px; color: var(--text);
+      outline: none; margin-bottom: 12px; text-align: center; letter-spacing: 2px;
+    }
+    .pw-input:focus { border-color: var(--r35); }
+    .pw-submit {
+      width: 100%; background: var(--r35); color: #111; border: none; border-radius: 8px;
+      padding: 10px; font-size: 13px; font-weight: 700; cursor: pointer;
+    }
+    .pw-submit:hover { opacity: 0.9; }
+    .pw-cancel {
+      display: block; margin-top: 10px; font-size: 12px; color: var(--muted);
+      cursor: pointer; background: none; border: none; width: 100%;
+    }
+    .pw-cancel:hover { color: var(--text); }
+    .pw-error {
+      display: none; color: var(--r2); font-size: 12px; margin-bottom: 10px;
+    }
+    /* Locked tab style */
+    .tab-btn.locked::after { content: ' 🔒'; opacity: 0.6; }
+
+    /* ── EDIT MODE ── */
+    .edit-fab {
+      position: fixed; bottom: 24px; right: 24px; z-index: 1000;
+      background: var(--r35); color: #111; border: none; border-radius: 24px;
+      padding: 11px 18px; font-size: 13px; font-weight: 700; cursor: pointer;
+      box-shadow: 0 4px 20px rgba(251,191,36,0.35); transition: all 0.2s; white-space: nowrap;
+    }
+    .edit-fab:hover { transform: scale(1.04); }
+    .edit-fab.active { background: var(--r5); box-shadow: 0 4px 20px rgba(74,222,128,0.35); }
+    .export-btn {
+      position: fixed; bottom: 24px; right: 195px; z-index: 1000; display: none;
+      background: var(--bg3); color: var(--text); border: 1px solid var(--border);
+      border-radius: 24px; padding: 11px 18px; font-size: 13px; font-weight: 600;
+      cursor: pointer; box-shadow: 0 4px 16px rgba(0,0,0,0.3); white-space: nowrap;
+    }
+    .export-btn:hover { border-color: var(--r35); color: var(--r35); }
+    /* Taylor/AI labels */
+    .taylor-label { color: var(--r5) !important; }
+    .ai-label { color: var(--r4) !important; }
+    .taylor-take:empty::before { content: attr(data-placeholder); color: var(--muted); font-style: italic; font-size: 12px; }
+    body.edit-mode .taylor-take {
+      border: 1px dashed rgba(251,191,36,0.5); border-radius: 4px;
+      padding: 5px 8px; min-height: 42px; outline: none; cursor: text;
+    }
+    body.edit-mode .taylor-take:focus { border-color: var(--r35); background: rgba(251,191,36,0.04); }
+    body.edit-mode .taylor-take:empty::before { color: rgba(251,191,36,0.5); }
+
+    /* ── REVIEW TABS ── */
+    .review-intro {
+      background: linear-gradient(135deg, rgba(74,222,128,0.07), rgba(163,230,53,0.04));
+      border: 1px solid rgba(74,222,128,0.2); border-radius: 14px;
+      padding: 20px 24px; margin-bottom: 28px;
+    }
+    .review-intro h2 { font-size: 17px; font-weight: 800; color: var(--r5); margin-bottom: 8px; }
+    .review-intro p { font-size: 13px; color: var(--muted); line-height: 1.6; margin-bottom: 5px; }
+    .review-tier { margin-bottom: 32px; }
+    .review-tier-header {
+      font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px;
+      padding: 8px 0 10px; border-bottom: 1px solid var(--border); margin-bottom: 18px; color: var(--muted);
+    }
+    .review-tier-header.t1 { color: var(--r2); border-bottom-color: rgba(248,113,113,0.25); }
+    .review-tier-header.t2 { color: var(--r35); border-bottom-color: rgba(251,191,36,0.25); }
+    .review-tier-header.t3 { color: var(--r4); border-bottom-color: rgba(163,230,53,0.2); }
+    .review-tier-header.t4 { color: var(--muted); }
+    .card-day-badge {
+      font-size: 10px; padding: 2px 7px; background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border); border-radius: 4px; color: var(--muted); font-weight: 600;
+    }
+    .new-album-badge {
+      font-size: 10px; padding: 2px 7px; background: rgba(74,222,128,0.12);
+      border: 1px solid rgba(74,222,128,0.3); border-radius: 4px; color: var(--r5); font-weight: 700;
+    }
+    .spotify-btn {
+      display: inline-block; margin-top: 10px; font-size: 11px; font-weight: 600;
+      color: #1DB954; text-decoration: none; padding: 3px 10px;
+      border: 1px solid rgba(29,185,84,0.3); border-radius: 12px; background: rgba(29,185,84,0.07);
+    }
+    .spotify-btn:hover { background: rgba(29,185,84,0.15); border-color: #1DB954; }
+    .reviewed-intro {
+      background: linear-gradient(135deg, rgba(163,230,53,0.07), rgba(251,191,36,0.04));
+      border: 1px solid rgba(163,230,53,0.2); border-radius: 14px;
+      padding: 20px 24px; margin-bottom: 28px;
+    }
+    .reviewed-intro h2 { font-size: 17px; font-weight: 800; color: var(--r4); margin-bottom: 8px; }
+    .reviewed-intro p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+    .note-badge {
+      font-size: 10px; padding: 2px 8px; background: rgba(251,191,36,0.12);
+      border: 1px solid rgba(251,191,36,0.3); border-radius: 4px; color: var(--r35); font-weight: 700;
+    }
+
+    @media (max-width: 600px) {
+      .slot-cards { grid-template-columns: 1fr; }
+      .tabs { overflow-x: auto; }
+      .tab-btn { padding: 10px 16px; font-size: 13px; }
+    }
+  </style>
+</head>
+<body>
+<header class="hero" style="position:relative">
+
+<div class="info-box" id="info-box">
+  <button class="info-box-close" onclick="toggleInfoBox()">×</button>
+  <h4>About This Guide</h4>
+  <div class="info-qa">
+    <div class="info-q">Q: What is this ranking based on?</div>
+    <div class="info-a">A: Taylor's opinion, plus a well aged concoction of Taylor's Last.fm data (think Spotify Wrapped but for your <em>entire life</em>), previous KBP '24 and '25 guides and rankings, and self-edits by Taylor as he listened to the artists.</div>
+  </div>
+</div>
+<p class="hero-eyebrow">Taylor's Personal Guide</p>
+<h1>Kilby Block Party <em>2026</em></h1>
+<p class="hero-dates">Salt Lake City  ·  <span>May 15–17, 2026</span></p>
+<p class="hero-tagline">Your KBP26 Guide Based On Your <em>Lightly</em> Opinionated Friend, Taylor <button class="info-trigger" onclick="toggleInfoBox()" title="How this works">ℹ</button></p>
+<div class="hero-stats">
+<div class="hero-stat"><div class="hero-stat-num">68</div><div class="hero-stat-label">Artists</div></div>
+<div class="hero-stat"><div class="hero-stat-num">3</div><div class="hero-stat-label">Days</div></div>
+<div class="hero-stat"><div class="hero-stat-num">4</div><div class="hero-stat-label">Stages</div></div>
+<div class="hero-stat"><div class="hero-stat-num">8</div><div class="hero-stat-label">Must-Sees</div></div>
+</div>
+</header>
+<div class="stage-legend">
+<div class="stage-pill stage-kilby">● Kilby Stage</div>
+<div class="stage-pill stage-desert">● Desert Stage</div>
+<div class="stage-pill stage-lake">● Lake Stage</div>
+<div class="stage-pill stage-mountain">● Mountain Stage</div>
+</div>
+<div class="rating-legend">
+<div class="rl-item"><div class="rl-dot" style="background:var(--r5)"></div> 5/5 Must See</div>
+<div class="rl-item"><div class="rl-dot" style="background:var(--r4)"></div> 4/5 High Priority</div>
+<div class="rl-item"><div class="rl-dot" style="background:var(--r35)"></div> 3.5/5 Worth Catching</div>
+<div class="rl-item"><div class="rl-dot" style="background:var(--r3)"></div> 3/5 If Nearby</div>
+<div class="rl-item"><div class="rl-dot" style="background:var(--r2)"></div> 2/5 Skip</div>
+</div>
+<div class="tabs">
+<button class="tab-btn" onclick="showDay('kickoff',this)" id="kickoff-tab">🎪 Kick Off Party</button>
+<button class="tab-btn active" onclick="showDay('fri',this)">Friday May 15</button>
+<button class="tab-btn" onclick="showDay('sat',this)">Saturday May 16</button>
+<button class="tab-btn" onclick="showDay('sun',this)">Sunday May 17</button>
+<button class="tab-btn" onclick="showDay('parties',this)">🎉 After Parties</button>
+<button class="tab-btn" onclick="showDay('faq',this)">❓ FAQ</button>
+
+</div>
+<!-- ═══════════════════════════════════════════ FRIDAY ═══ -->
+<div class="day-panel active" id="day-fri">
+<div class="shortlist">
+<h3>⚡ Friday Shortlist</h3>
+<div class="shortlist-items">
+<div class="shortlist-item">Hotline TNT <span>12:50 Desert</span></div>
+<div class="shortlist-item">NewDad <span>1:30 Kilby</span></div>
+<div class="shortlist-item">Snail Mail <span>3:55 Lake</span></div>
+<div class="shortlist-item">Beach Bunny <span>4:50 Kilby</span></div>
+<div class="shortlist-item">Father John Misty <span>5:45 Lake</span></div>
+<div class="shortlist-item">Japanese Breakfast <span>6:50 Kilby</span></div>
+<div class="shortlist-item">Modest Mouse <span>7:55 Lake</span></div>
+</div>
+</div>
+<!-- 11:45 -->
+<div class="time-slot">
+<div class="time-slot-header"><span class="time-label">11:45 – 12:10</span><div class="time-divider"></div></div>
+<div class="slot-cards">
+<div class="card r2">
+<div class="card-top">
+<div class="card-left">
+<div class="card-name">Gonk</div>
+<div class="card-meta"><span class="stage-tag stage-desert">Desert</span><span class="time-tag">11:45–12:10</span></div>
+</div>
+<div class="rating-badge">2/5</div>
+</div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Experimental / local SLC</div></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Openers are openers. Grab food, find your people. Skip.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<a class="spotify-btn" href="https://open.spotify.com/search/Gonk" target="_blank">▶ Open in Spotify</a></div>
+<div class="card r2">
+<div class="card-top">
+<div class="card-left">
+<div class="card-name">Dad Bod</div>
+<div class="card-meta"><span class="stage-tag stage-lake">Lake</span><span class="time-tag">11:45–12:10</span></div>
+</div>
+<div class="rating-badge">2/5</div>
+</div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Local / emerging</div></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">It's noon. You're still finding parking. Skip.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<a class="spotify-btn" href="https://open.spotify.com/search/Dad%20Bod" target="_blank">▶ Open in Spotify</a></div>
+</div>
+</div>
+<!-- 12:15 -->
+<div class="time-slot">
+<div class="time-slot-header"><span class="time-label">12:15 – 12:40</span><div class="time-divider"></div></div>
+<div class="slot-cards">
+<div class="card r2">
+<div class="card-top">
+<div class="card-left">
+<div class="card-name">Gelli Haha</div>
+<div class="card-meta"><span class="stage-tag stage-kilby">Kilby</span><span class="time-tag">12:15–12:40</span></div>
+</div>
+<div class="rating-badge">2/5</div>
+</div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Local SLC / indie</div></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Local opener. Get your bearings first.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<a class="spotify-btn" href="https://open.spotify.com/search/Gelli%20Haha" target="_blank">▶ Open in Spotify</a></div>
+<div class="card r2">
+<div class="card-top">
+<div class="card-left">
+<div class="card-name">Nadezhda</div>
+<div class="card-meta"><span class="stage-tag stage-mountain">Mountain</span><span class="time-tag">12:15–12:40</span></div>
+</div>
+<div class="rating-badge">2/5</div>
+</div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Local / emerging</div></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Pre-listen to decide. Low stakes.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<a class="spotify-btn" href="https://open.spotify.com/search/Nadezhda" target="_blank">▶ Open in Spotify</a></div>
+</div>
+</div>
+<!-- 12:50 -->
+<div class="time-slot">
+<div class="time-slot-header"><span class="time-label">12:50 – 1:20</span><div class="time-divider"></div></div>
+<div class="slot-cards">
+<div class="card r4">
+<div class="card-top">
+<div class="card-left">
+<div class="card-name">Hotline TNT</div>
+<div class="card-meta"><span class="stage-tag stage-desert">Desert</span><span class="time-tag">12:50–1:20</span></div>
+</div>
+<div class="rating-badge">4/5</div>
+</div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Shoegaze / noise pop / indie rock</div></div>
+<div class="card-section"><div class="card-section-label">Vibe</div><div class="card-section-text">Heavy, melodic, loud — like Beach House got plugged into a wall</div></div>
+<div class="card-section"><div class="card-section-label">Similar Artists</div><div class="card-section-text">My Bloody Valentine, Ride, Slowdive</div></div>
+<div class="card-divider"></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">One of the buzziest bands in indie right now. "Cartwheel" is loud and gorgeous. Fits your dreamy/atmospheric zone — just way more distorted. This is the first real set of the day, go in.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<div class="rec-arrow">↑ Good opener for the day</div>
+<a class="spotify-btn" href="https://open.spotify.com/search/Hotline%20TNT" target="_blank">▶ Open in Spotify</a></div>
+<div class="card r2">
+<div class="card-top">
+<div class="card-left">
+<div class="card-name">Wombo</div>
+<div class="card-meta"><span class="stage-tag stage-lake">Lake</span><span class="time-tag">12:50–1:20</span></div>
+</div>
+<div class="rating-badge">2/5</div>
+</div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Indie rock / psych / post-punk</div></div>
+<div class="card-section"><div class="card-section-label">Similar Artists</div><div class="card-section-text">Deerhoof, Parquet Courts</div></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Quirky and off-kilter. Fine if Hotline TNT disappoints. But it won't.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<a class="spotify-btn" href="https://open.spotify.com/search/Wombo" target="_blank">▶ Open in Spotify</a></div>
+</div>
+</div>
+<!-- 1:30 -->
+<div class="time-slot">
+<div class="time-slot-header"><span class="time-label">1:30 – 2:00</span><div class="time-divider"></div></div>
+<div class="slot-cards">
+<div class="card r4">
+<div class="card-top">
+<div class="card-left">
+<div class="card-name">NewDad</div>
+<div class="card-meta"><span class="stage-tag stage-kilby">Kilby</span><span class="time-tag">1:30–2:00</span></div>
+</div>
+<div class="rating-badge">4/5</div>
+</div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Dream pop / shoegaze / indie rock</div></div>
+<div class="card-section"><div class="card-section-label">Vibe</div><div class="card-section-text">Hazy, gorgeous, Irish cool. Like Beach House got an edge.</div></div>
+<div class="card-section"><div class="card-section-label">Similar Artists</div><div class="card-section-text">Beach House, Alvvays, Wild Nothing</div></div>
+<div class="card-divider"></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">You love Beach House, Wild Nothing, and dreamy atmospherics. NewDad is this generation's answer to that sound. Sleeper pick — don't miss it.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<div class="rec-arrow">↑ Direct fit with your taste</div>
+<a class="spotify-btn" href="https://open.spotify.com/search/NewDad" target="_blank">▶ Open in Spotify</a></div>
+<div class="card r2">
+<div class="card-top">
+<div class="card-left">
+<div class="card-name">Provoker</div>
+<div class="card-meta"><span class="stage-tag stage-mountain">Mountain</span><span class="time-tag">1:30–2:00</span></div>
+</div>
+<div class="rating-badge">2/5</div>
+</div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Indie rock / emerging</div></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Limited profile. Pre-listen to decide. NewDad is the obvious call here.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<a class="spotify-btn" href="https://open.spotify.com/search/Provoker" target="_blank">▶ Open in Spotify</a></div>
+</div>
+</div>
+<!-- 2:10 -->
+<div class="time-slot">
+<div class="time-slot-header"><span class="time-label">2:10 – 2:50</span><div class="time-divider"></div></div>
+<div class="slot-cards">
+<div class="card r2">
+<div class="card-top">
+<div class="card-left">
+<div class="card-name">Die Spitz</div>
+<div class="card-meta"><span class="stage-tag stage-desert">Desert</span><span class="time-tag">2:10–2:50</span></div>
+</div>
+<div class="rating-badge">2/5</div>
+</div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Indie rock / post-punk</div></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Emerging act. Pre-listen to evaluate but probably a break time.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<a class="spotify-btn" href="https://open.spotify.com/search/Die%20Spitz" target="_blank">▶ Open in Spotify</a></div>
+<div class="card r35">
+<div class="card-top">
+<div class="card-left">
+<div class="card-name">Dry Cleaning</div>
+<div class="card-meta"><span class="stage-tag stage-lake">Lake</span><span class="time-tag">2:10–2:50</span></div>
+</div>
+<div class="rating-badge">3.5/5</div>
+</div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Post-punk / spoken word / UK indie</div></div>
+<div class="card-section"><div class="card-section-label">Vibe</div><div class="card-section-text">Deadpan, intelligent, wiry — like someone set a grocery list to a great band</div></div>
+<div class="card-section"><div class="card-section-label">Similar Artists</div><div class="card-section-text">Squid, black midi, Shopping</div></div>
+<div class="card-divider"></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Brilliantly weird UK post-punk. Florence Shaw's spoken vocals over driving guitar is genuinely hypnotic. "New Long Leg" is excellent. Worth an hour of your afternoon.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<div class="rec-arrow">→ Good afternoon discovery</div>
+<a class="spotify-btn" href="https://open.spotify.com/search/Dry%20Cleaning" target="_blank">▶ Open in Spotify</a></div>
+</div>
+</div>
+<!-- 3:00 -->
+<div class="time-slot">
+<div class="time-slot-header"><span class="time-label">3:00 – 3:50</span><div class="time-divider"></div></div>
+<div class="slot-cards">
+<div class="card r3">
+<div class="card-top">
+<div class="card-left">
+<div class="card-name">Ritt Momney</div>
+<div class="card-meta"><span class="stage-tag stage-kilby">Kilby</span><span class="time-tag">3:00–3:50</span></div>
+</div>
+<div class="rating-badge">3/5</div>
+</div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Indie pop / dream pop / singer-songwriter</div></div>
+<div class="card-section"><div class="card-section-label">Vibe</div><div class="card-section-text">Soft, melancholic, bedroom-pop warmth. SLC local hero.</div></div>
+<div class="card-section"><div class="card-section-label">Similar Artists</div><div class="card-section-text">Rex Orange County, Cavetown, Men I Trust</div></div>
+<div class="card-divider"></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">SLC's own. Earnest indie pop with real charm. "Into Your Arms" is lovely. A nice chill stretch before the evening heats up.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<a class="spotify-btn" href="https://open.spotify.com/search/Ritt%20Momney" target="_blank">▶ Open in Spotify</a></div>
+<div class="card r2">
+<div class="card-top">
+<div class="card-left">
+<div class="card-name">Show Me The Body</div>
+<div class="card-meta"><span class="stage-tag stage-mountain">Mountain</span><span class="time-tag">3:00–3:50</span></div>
+</div>
+<div class="rating-badge">2/5</div>
+</div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Hardcore / noise rock / punk</div></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Not your genre. Respected in underground punk circles but this one's a hard pass. Stay at Kilby with Ritt Momney.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<a class="spotify-btn" href="https://open.spotify.com/search/Show%20Me%20The%20Body" target="_blank">▶ Open in Spotify</a></div>
+</div>
+</div>
+<!-- 3:55 ⚡ CONFLICT -->
+<div class="time-slot">
+<div class="time-slot-header">
+<span class="time-label">3:55 – 4:45</span>
+<div class="time-divider"></div>
+<span class="conflict-badge">⚡ CONFLICT</span>
+</div>
+<div class="slot-cards">
+<div class="card r3">
+<div class="card-top">
+<div class="card-left">
+<div class="card-name">Drugdealer</div>
+<div class="card-meta"><span class="stage-tag stage-desert">Desert</span><span class="time-tag">3:55–4:45</span></div>
+</div>
+<div class="rating-badge">3/5</div>
+</div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Psych pop / soft rock / California haze</div></div>
+<div class="card-section"><div class="card-section-label">Vibe</div><div class="card-section-text">Lush, vintage-feeling, warm Californian sun</div></div>
+<div class="card-section"><div class="card-section-label">Similar Artists</div><div class="card-section-text">Mild High Club, Unknown Mortal Orchestra, Real Estate</div></div>
+<div class="card-divider"></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Breezy vintage pop-rock with real charm. Good — but Snail Mail is playing at the same time. This is a Snail Mail slot.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<a class="spotify-btn" href="https://open.spotify.com/search/Drugdealer" target="_blank">▶ Open in Spotify</a></div>
+<div class="card r5">
+<div class="card-top">
+<div class="card-left">
+<div class="card-name">Snail Mail</div>
+<div class="card-meta">
+<span class="stage-tag stage-lake">Lake</span>
+<span class="time-tag">3:55–4:45</span>
+<span class="scrobble-tag">201 scrobbles · #65</span>
+</div>
+</div>
+<div class="rating-badge">5/5</div>
+</div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Indie rock / alt rock / grunge-adjacent</div></div>
+<div class="card-section"><div class="card-section-label">Vibe</div><div class="card-section-text">Vulnerable, intense, completely committed — the kind of set you feel in your chest</div></div>
+<div class="card-section"><div class="card-section-label">Similar Artists</div><div class="card-section-text">Soccer Mommy, Mitski, Lucy Dacus</div></div>
+<div class="card-divider"></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">201 scrobbles. Your #65 all-time artist. Lindsey Jordan writes songs that sound like they were written specifically about things you've felt but couldn't articulate. This is a must. Do not miss it.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes...">201 scrobbles — my #65 all-time. ⭐ New album "Ricochet" (March 2026) — listen through before the show! Favorites so far: Pristine, Heat Wave, Ben Franklin, Headlock, Mia.</div></div>
+<div class="rec-arrow">★ Must See · Go to Lake Stage</div>
+<a class="spotify-btn" href="https://open.spotify.com/search/Snail%20Mail" target="_blank">▶ Open in Spotify</a></div>
+</div>
+</div>
+<!-- 4:50 -->
+<div class="time-slot">
+<div class="time-slot-header"><span class="time-label">4:50 – 5:40</span><div class="time-divider"></div></div>
+<div class="slot-cards">
+<div class="card r35">
+<div class="card-top">
+<div class="card-left">
+<div class="card-name">Beach Bunny</div>
+<div class="card-meta"><span class="stage-tag stage-kilby">Kilby</span><span class="time-tag">4:50–5:40</span></div>
+</div>
+<div class="rating-badge">3.5/5</div>
+</div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Indie pop / power pop / alt rock</div></div>
+<div class="card-section"><div class="card-section-label">Vibe</div><div class="card-section-text">Bright, energetic, hook-heavy — like indie rock for the golden hour</div></div>
+<div class="card-section"><div class="card-section-label">Similar Artists</div><div class="card-section-text">Alvvays, Snail Mail, Soccer Mommy</div></div>
+<div class="card-divider"></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Lili Trifilio writes really sharp, catchy pop-rock songs about love and getting wrecked by it. "Prom Queen" is a genuine bop. Good golden-hour energy. Worth it after Snail Mail.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<div class="rec-arrow">→ Solid 4:50 choice</div>
+<a class="spotify-btn" href="https://open.spotify.com/search/Beach%20Bunny" target="_blank">▶ Open in Spotify</a></div>
+<div class="card r3">
+<div class="card-top">
+<div class="card-left">
+<div class="card-name">Kevin Morby</div>
+<div class="card-meta"><span class="stage-tag stage-mountain">Mountain</span><span class="time-tag">4:50–5:40</span></div>
+</div>
+<div class="rating-badge">3/5</div>
+</div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Indie folk / folk rock</div></div>
+<div class="card-section"><div class="card-section-label">Vibe</div><div class="card-section-text">Sprawling, Dylan-esque, unhurried</div></div>
+<div class="card-section"><div class="card-section-label">Similar Artists</div><div class="card-section-text">Father John Misty, The War on Drugs, Phosphorescent</div></div>
+<div class="card-divider"></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Good songwriter with a lot of critical praise. "Singing Saw" is excellent. But Beach Bunny has better live energy for this time of day.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<a class="spotify-btn" href="https://open.spotify.com/search/Kevin%20Morby" target="_blank">▶ Open in Spotify</a></div>
+</div>
+</div>
+<!-- 5:45 ⚡ CONFLICT -->
+<div class="time-slot">
+<div class="time-slot-header">
+<span class="time-label">5:45 – 6:45</span>
+<div class="time-divider"></div>
+<span class="conflict-badge">⚡ CONFLICT</span>
+</div>
+<div class="slot-cards">
+<div class="card r3">
+<div class="card-top">
+<div class="card-left">
+<div class="card-name">Chanel Beads</div>
+<div class="card-meta"><span class="stage-tag stage-desert">Desert</span><span class="time-tag">5:45–6:45</span></div>
+</div>
+<div class="rating-badge">3/5</div>
+</div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Electronic / indie pop / experimental</div></div>
+<div class="card-section"><div class="card-section-label">Vibe</div><div class="card-section-text">Glitchy and atmospheric, Brooklyn-produced</div></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Interesting but Father John Misty is an easy call at this time. Catch Chanel Beads if FJM is in a weird spoken-word phase.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<a class="spotify-btn" href="https://open.spotify.com/search/Chanel%20Beads" target="_blank">▶ Open in Spotify</a></div>
+<div class="card r4">
+<div class="card-top">
+<div class="card-left">
+<div class="card-name">Father John Misty</div>
+<div class="card-meta">
+<span class="stage-tag stage-lake">Lake</span>
+<span class="time-tag">5:45–6:45</span>
+<span class="scrobble-tag">77 scrobbles · #141</span>
+</div>
+</div>
+<div class="rating-badge">4/5</div>
+</div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Indie folk / baroque pop / art rock</div></div>
+<div class="card-section"><div class="card-section-label">Vibe</div><div class="card-section-text">Theatrical, sardonic, beautiful — half philosophy lecture, half lounge singer</div></div>
+<div class="card-section"><div class="card-section-label">Similar Artists</div><div class="card-section-text">Fleet Foxes, Andy Shauf, Destroyer</div></div>
+<div class="card-divider"></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Josh Tillman is genuinely one of the most compelling live performers alive. He might talk for 5 minutes between songs about existential dread, or he might not say a word. Either way, golden hour + FJM is a perfect combination. 77 scrobbles and counting.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<div class="rec-arrow">↑ Go to Lake Stage</div>
+<a class="spotify-btn" href="https://open.spotify.com/search/Father%20John%20Misty" target="_blank">▶ Open in Spotify</a></div>
+</div>
+</div>
+<!-- 6:50 -->
+<div class="time-slot">
+<div class="time-slot-header"><span class="time-label">6:50 – 7:50</span><div class="time-divider"></div></div>
+<div class="slot-cards">
+<div class="card r4">
+<div class="card-top">
+<div class="card-left">
+<div class="card-name">Japanese Breakfast</div>
+<div class="card-meta">
+<span class="stage-tag stage-kilby">Kilby</span>
+<span class="time-tag">6:50–7:50</span>
+<span class="scrobble-tag">80 scrobbles · #138</span>
+</div>
+</div>
+<div class="rating-badge">4/5</div>
+</div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Indie pop / indie rock / art pop</div></div>
+<div class="card-section"><div class="card-section-label">Vibe</div><div class="card-section-text">Joyful, expansive, emotionally generous — Michelle Zauner live is something special</div></div>
+<div class="card-section"><div class="card-section-label">Similar Artists</div><div class="card-section-text">Alvvays, Snail Mail, Mitski</div></div>
+<div class="card-divider"></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">80 scrobbles and a live show people rave about. She's warm, funny, and completely at home on a festival stage. "Jubilee" tracks hit incredible live. This is a proper evening headliner energy slot.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<div class="rec-arrow">↑ Strong evening set</div>
+<a class="spotify-btn" href="https://open.spotify.com/search/Japanese%20Breakfast" target="_blank">▶ Open in Spotify</a></div>
+<div class="card r2">
+<div class="card-top">
+<div class="card-left">
+<div class="card-name">Pattie Gonia</div>
+<div class="card-meta"><span class="stage-tag stage-mountain">Mountain</span><span class="time-tag">6:50–7:50</span></div>
+</div>
+<div class="rating-badge">2/5</div>
+</div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Performance / activism / drag</div></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Not a music set. Cool outdoors/queer activist moment but not your priority. Japanese Breakfast is the call.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<a class="spotify-btn" href="https://open.spotify.com/search/Pattie%20Gonia" target="_blank">▶ Open in Spotify</a></div>
+</div>
+</div>
+<!-- 7:55 -->
+<div class="time-slot">
+<div class="time-slot-header"><span class="time-label">7:55 – 8:55</span><div class="time-divider"></div></div>
+<div class="slot-cards">
+<div class="card r2">
+<div class="card-top">
+<div class="card-left">
+<div class="card-name">Sports</div>
+<div class="card-meta"><span class="stage-tag stage-desert">Desert</span><span class="time-tag">7:55–8:55</span></div>
+</div>
+<div class="rating-badge">2/5</div>
+</div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Lo-fi indie rock</div></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Modest Mouse is right there. Easy call.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<a class="spotify-btn" href="https://open.spotify.com/search/Sports" target="_blank">▶ Open in Spotify</a></div>
+<div class="card r5">
+<div class="card-top">
+<div class="card-left">
+<div class="card-name">Modest Mouse</div>
+<div class="card-meta">
+<span class="stage-tag stage-lake">Lake</span>
+<span class="time-tag">7:55–8:55</span>
+<span class="scrobble-tag">283 scrobbles · #39</span>
+</div>
+</div>
+<div class="rating-badge">5/5</div>
+</div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Indie rock / alternative / post-punk</div></div>
+<div class="card-section"><div class="card-section-label">Vibe</div><div class="card-section-text">Isaac Brock's howl + the best guitar tones in indie rock. Long, sprawling, electric.</div></div>
+<div class="card-section"><div class="card-section-label">Similar Artists</div><div class="card-section-text">Built to Spill, Pavement, The Shins</div></div>
+<div class="card-divider"></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">283 scrobbles. Your #39 all-time. "Float On," "Dashboard," "Ocean Breathes Salty," "Missed the Boat" — this is a career-spanning set from a band that has been defining indie rock since before most of this lineup was born. Pre-game is required. This is a Friday night closer.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<div class="rec-arrow">★ Must See · The Friday night anchor</div>
+<a class="spotify-btn" href="https://open.spotify.com/search/Modest%20Mouse" target="_blank">▶ Open in Spotify</a></div>
+</div>
+</div>
+<!-- 9:00 -->
+<div class="time-slot">
+<div class="time-slot-header"><span class="time-label">9:00 – 10:15</span><div class="time-divider"></div></div>
+<div class="slot-cards">
+<div class="card r35">
+<div class="card-top">
+<div class="card-left">
+<div class="card-name">Turnstile</div>
+<div class="card-meta"><span class="stage-tag stage-kilby">Kilby</span><span class="time-tag">9:00–10:15</span></div>
+</div>
+<div class="rating-badge">3.5/5</div>
+</div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Hardcore / post-hardcore / punk</div></div>
+<div class="card-section"><div class="card-section-label">Vibe</div><div class="card-section-text">Pure chaotic joy — crowd-surfing, circle pits, somehow also danceable</div></div>
+<div class="card-section"><div class="card-section-label">Similar Artists</div><div class="card-section-text">Nothing remotely in your library</div></div>
+<div class="card-divider"></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Not your genre at all — but "GLOW ON" crossed over because even people who hate hardcore loved it. Their live show is genuinely one of the most chaotic, joyful spectacles in music right now. If you're feeling it after Modest Mouse, go for 20 minutes. At minimum it's an experience.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<div class="rec-arrow">→ Optional finale — at least 20 minutes</div>
+<a class="spotify-btn" href="https://open.spotify.com/search/Turnstile" target="_blank">▶ Open in Spotify</a></div>
+</div>
+</div>
+</div><!-- /day-fri -->
+<!-- ═══════════════════════════════════════════ SATURDAY ═══ -->
+<div class="day-panel" id="day-sat">
+<div class="shortlist">
+<h3>⚡ Saturday Shortlist</h3>
+<div class="shortlist-items">
+<div class="shortlist-item">Feeble Little Horse <span>1:30 Kilby</span></div>
+<div class="shortlist-item">Clap Your Hands Say Yeah <span>3:00 Kilby</span></div>
+<div class="shortlist-item">The Last Dinner Party <span>5:45 Lake</span></div>
+<div class="shortlist-item">Lucy Dacus <span>6:50 Kilby</span></div>
+<div class="shortlist-item">Alex G <span>7:55 Lake</span></div>
+<div class="shortlist-item">The xx <span>9:00 Kilby</span></div>
+</div>
+</div>
+<div class="time-slot">
+<div class="time-slot-header"><span class="time-label">11:45 – 12:10</span><div class="time-divider"></div></div>
+<div class="slot-cards">
+<div class="card r2"><div class="card-top"><div class="card-left"><div class="card-name">Chalk (SLC)</div><div class="card-meta"><span class="stage-tag stage-desert">Desert</span><span class="time-tag">11:45–12:10</span></div></div><div class="rating-badge">2/5</div></div><div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Local SLC act. Grab coffee and get settled first.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div><a class="spotify-btn" href="https://open.spotify.com/search/Chalk%20SLC" target="_blank">▶ Open in Spotify</a></div>
+<div class="card r2"><div class="card-top"><div class="card-left"><div class="card-name">Wilbere</div><div class="card-meta"><span class="stage-tag stage-lake">Lake</span><span class="time-tag">11:45–12:10</span></div></div><div class="rating-badge">2/5</div></div><div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Local opener. Ease in.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div><a class="spotify-btn" href="https://open.spotify.com/search/Wilbere" target="_blank">▶ Open in Spotify</a></div>
+</div>
+</div>
+<div class="time-slot">
+<div class="time-slot-header"><span class="time-label">12:15 – 12:40</span><div class="time-divider"></div></div>
+<div class="slot-cards">
+<div class="card r2"><div class="card-top"><div class="card-left"><div class="card-name">Cardinals</div><div class="card-meta"><span class="stage-tag stage-kilby">Kilby</span><span class="time-tag">12:15–12:40</span></div></div><div class="rating-badge">2/5</div></div><div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Local act. Skip and get food.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div><a class="spotify-btn" href="https://open.spotify.com/search/Cardinals" target="_blank">▶ Open in Spotify</a></div>
+<div class="card r2"><div class="card-top"><div class="card-left"><div class="card-name">Jill Whit</div><div class="card-meta"><span class="stage-tag stage-mountain">Mountain</span><span class="time-tag">12:15–12:40</span></div></div><div class="rating-badge">2/5</div></div><div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Pre-listen. Low expectations.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div><a class="spotify-btn" href="https://open.spotify.com/search/Jill%20Whit" target="_blank">▶ Open in Spotify</a></div>
+</div>
+</div>
+<div class="time-slot">
+<div class="time-slot-header"><span class="time-label">12:50 – 1:20</span><div class="time-divider"></div></div>
+<div class="slot-cards">
+<div class="card r2"><div class="card-top"><div class="card-left"><div class="card-name">The Kilans</div><div class="card-meta"><span class="stage-tag stage-desert">Desert</span><span class="time-tag">12:50–1:20</span></div></div><div class="rating-badge">2/5</div></div><div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Local act. Probably skip.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div><a class="spotify-btn" href="https://open.spotify.com/search/The%20Kilans" target="_blank">▶ Open in Spotify</a></div>
+<div class="card r2"><div class="card-top"><div class="card-left"><div class="card-name">YHWH Nailgun</div><div class="card-meta"><span class="stage-tag stage-lake">Lake</span><span class="time-tag">12:50–1:20</span></div></div><div class="rating-badge">1/5</div></div><div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Experimental noise</div></div><div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">That name alone. Hard pass.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div><a class="spotify-btn" href="https://open.spotify.com/search/YHWH%20Nailgun" target="_blank">▶ Open in Spotify</a></div>
+</div>
+</div>
+<div class="time-slot">
+<div class="time-slot-header"><span class="time-label">1:30 – 2:00</span><div class="time-divider"></div></div>
+<div class="slot-cards">
+<div class="card r35">
+<div class="card-top">
+<div class="card-left">
+<div class="card-name">Feeble Little Horse</div>
+<div class="card-meta"><span class="stage-tag stage-kilby">Kilby</span><span class="time-tag">1:30–2:00</span></div>
+</div>
+<div class="rating-badge">3.5/5</div>
+</div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Shoegaze / noise pop / indie rock</div></div>
+<div class="card-section"><div class="card-section-label">Vibe</div><div class="card-section-text">Fuzzy, melodic, hazy and loud in equal measure</div></div>
+<div class="card-section"><div class="card-section-label">Similar Artists</div><div class="card-section-text">Hotline TNT, Knifeplay, Glitterer</div></div>
+<div class="card-divider"></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Pittsburgh shoegaze with a big underground buzz. "Girl with Fish" is a banger. Continuing the dreamy/fuzzy theme from Friday's Hotline TNT. Good first real set of Saturday.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<div class="rec-arrow">→ Good Saturday opener</div>
+<a class="spotify-btn" href="https://open.spotify.com/search/Feeble%20Little%20Horse" target="_blank">▶ Open in Spotify</a></div>
+<div class="card r2"><div class="card-top"><div class="card-left"><div class="card-name">FIGHTMASTER</div><div class="card-meta"><span class="stage-tag stage-mountain">Mountain</span><span class="time-tag">1:30–2:00</span></div></div><div class="rating-badge">2/5</div></div><div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Pre-listen to decide. Feeble Little Horse is the obvious call.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div><a class="spotify-btn" href="https://open.spotify.com/search/FIGHTMASTER" target="_blank">▶ Open in Spotify</a></div>
+</div>
+</div>
+<div class="time-slot">
+<div class="time-slot-header"><span class="time-label">2:10 – 2:50</span><div class="time-divider"></div></div>
+<div class="slot-cards">
+<div class="card r3">
+<div class="card-top">
+<div class="card-left">
+<div class="card-name">Automatic</div>
+<div class="card-meta"><span class="stage-tag stage-desert">Desert</span><span class="time-tag">2:10–2:50</span></div>
+</div>
+<div class="rating-badge">3/5</div>
+</div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Post-punk / electronic / cold wave</div></div>
+<div class="card-section"><div class="card-section-label">Vibe</div><div class="card-section-text">Minimal, tightly wound, icy and danceable</div></div>
+<div class="card-section"><div class="card-section-label">Similar Artists</div><div class="card-section-text">Dry Cleaning, Bodega, Snail Mail</div></div>
+<div class="card-divider"></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">LA trio with sharp electronic post-punk. "Damage Control" is good. Decent afternoon bridging act.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<a class="spotify-btn" href="https://open.spotify.com/search/Automatic" target="_blank">▶ Open in Spotify</a></div>
+<div class="card r3">
+<div class="card-top">
+<div class="card-left">
+<div class="card-name">Lyn Lapid</div>
+<div class="card-meta"><span class="stage-tag stage-lake">Lake</span><span class="time-tag">2:10–2:50</span></div>
+</div>
+<div class="rating-badge">3/5</div>
+</div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Indie pop / singer-songwriter</div></div>
+<div class="card-section"><div class="card-section-label">Vibe</div><div class="card-section-text">Soft, earnest, emotional</div></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Young Filipino-American artist with breakout singles. Heartfelt and well-crafted. Probably tie with Automatic — flip a coin or wander between stages.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<a class="spotify-btn" href="https://open.spotify.com/search/Lyn%20Lapid" target="_blank">▶ Open in Spotify</a></div>
+</div>
+</div>
+<div class="time-slot">
+<div class="time-slot-header"><span class="time-label">3:00 – 3:50</span><div class="time-divider"></div></div>
+<div class="slot-cards">
+<div class="card r35">
+<div class="card-top">
+<div class="card-left">
+<div class="card-name">Clap Your Hands Say Yeah</div>
+<div class="card-meta"><span class="stage-tag stage-kilby">Kilby</span><span class="time-tag">3:00–3:50</span></div>
+</div>
+<div class="rating-badge">3.5/5</div>
+</div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Indie rock / art rock / lo-fi</div></div>
+<div class="card-section"><div class="card-section-label">Vibe</div><div class="card-section-text">Wiry, earnest, early-blog-era indie nostalgia</div></div>
+<div class="card-section"><div class="card-section-label">Similar Artists</div><div class="card-section-text">Arcade Fire, The National, Beirut</div></div>
+<div class="card-divider"></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Their 2005 self-titled debut is genuinely one of the great indie rock albums. Alec Ounsworth's yelpy vocals are an acquired taste but it totally works live. Mid-2000s nostalgia trip that holds up.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<div class="rec-arrow">→ Indie nostalgia worth catching</div>
+<a class="spotify-btn" href="https://open.spotify.com/search/Clap%20Your%20Hands%20Say%20Yeah" target="_blank">▶ Open in Spotify</a></div>
+<div class="card r2">
+<div class="card-top">
+<div class="card-left">
+<div class="card-name">Jane Remover</div>
+<div class="card-meta"><span class="stage-tag stage-mountain">Mountain</span><span class="time-tag">3:00–3:50</span></div>
+</div>
+<div class="rating-badge">2/5</div>
+</div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Hyperpop / emo / electronic</div></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Underground and intense. Niche but beloved. Not in your zone. Stay at Kilby.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<a class="spotify-btn" href="https://open.spotify.com/search/Jane%20Remover" target="_blank">▶ Open in Spotify</a></div>
+</div>
+</div>
+<div class="time-slot">
+<div class="time-slot-header"><span class="time-label">3:55 – 4:45</span><div class="time-divider"></div></div>
+<div class="slot-cards">
+<div class="card r3">
+<div class="card-top">
+<div class="card-left">
+<div class="card-name">Ben Kweller</div>
+<div class="card-meta"><span class="stage-tag stage-desert">Desert</span><span class="time-tag">3:55–4:45</span></div>
+</div>
+<div class="rating-badge">3/5</div>
+</div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Indie rock / pop rock / singer-songwriter</div></div>
+<div class="card-section"><div class="card-section-label">Vibe</div><div class="card-section-text">Warm, unpretentious guitar pop — "On My Way" era indie warmth</div></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">KBP regular and fan favorite. Warm, charming, easy-going set. "On My Way" is a genuine crowd-pleaser. Good chill stretch before the evening heats up.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<a class="spotify-btn" href="https://open.spotify.com/search/Ben%20Kweller" target="_blank">▶ Open in Spotify</a></div>
+<div class="card r3">
+<div class="card-top">
+<div class="card-left">
+<div class="card-name">Between Friends</div>
+<div class="card-meta"><span class="stage-tag stage-lake">Lake</span><span class="time-tag">3:55–4:45</span></div>
+</div>
+<div class="rating-badge">3/5</div>
+</div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Electropop / indie pop / R&amp;B</div></div>
+<div class="card-section"><div class="card-section-label">Vibe</div><div class="card-section-text">Slick, smooth, LA electropop</div></div>
+<div class="card-section"><div class="card-section-label">Similar Artists</div><div class="card-section-text">Amber Mark, Blood Orange, Dua Lipa</div></div>
+<div class="card-divider"></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">R&amp;B-leaning indie pop that fits your Blood Orange/Amber Mark sensibility. "Girl" is a bop. Could go either way between this and Ben Kweller depending on vibe.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<a class="spotify-btn" href="https://open.spotify.com/search/Between%20Friends" target="_blank">▶ Open in Spotify</a></div>
+</div>
+</div>
+<div class="time-slot">
+<div class="time-slot-header"><span class="time-label">4:50 – 5:40</span><div class="time-divider"></div></div>
+<div class="slot-cards">
+<div class="card r3">
+<div class="card-top">
+<div class="card-left">
+<div class="card-name">Briston Maroney</div>
+<div class="card-meta"><span class="stage-tag stage-kilby">Kilby</span><span class="time-tag">4:50–5:40</span></div>
+</div>
+<div class="rating-badge">3/5</div>
+</div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Indie pop / folk pop</div></div>
+<div class="card-section"><div class="card-section-label">Vibe</div><div class="card-section-text">Earnest Tennessee indie pop, polished and crowd-friendly</div></div>
+<div class="card-section"><div class="card-section-label">Similar Artists</div><div class="card-section-text">Coin, Lany, Hippo Campus</div></div>
+<div class="card-divider"></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">"Fences" and "June" are genuinely good songs. Clean, polished, easy to like. Good pre-evening energy. Not groundbreaking but solid.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<a class="spotify-btn" href="https://open.spotify.com/search/Briston%20Maroney" target="_blank">▶ Open in Spotify</a></div>
+<div class="card r35">
+<div class="card-top">
+<div class="card-left">
+<div class="card-name">Dehd</div>
+<div class="card-meta"><span class="stage-tag stage-mountain">Mountain</span><span class="time-tag">4:50–5:40</span></div>
+</div>
+<div class="rating-badge">3.5/5</div>
+</div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Indie rock / jangle pop / post-punk</div></div>
+<div class="card-section"><div class="card-section-label">Vibe</div><div class="card-section-text">Scrappy Chicago rock trio — raw, reverb-drenched, and surprisingly catchy</div></div>
+<div class="card-section"><div class="card-section-label">Similar Artists</div><div class="card-section-text">The Breeders, Alvvays, Guided by Voices</div></div>
+<div class="card-divider"></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">"Blue Skies" is a really good record. Energetic and punchy live. Slight edge over Briston Maroney if you want something with more indie grit.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<div class="rec-arrow">→ Slight edge over Briston Maroney</div>
+<a class="spotify-btn" href="https://open.spotify.com/search/Dehd" target="_blank">▶ Open in Spotify</a></div>
+</div>
+</div>
+<!-- 5:45 ⚡ CONFLICT -->
+<div class="time-slot">
+<div class="time-slot-header">
+<span class="time-label">5:45 – 6:45</span>
+<div class="time-divider"></div>
+<span class="conflict-badge">⚡ CONFLICT</span>
+</div>
+<div class="slot-cards">
+<div class="card r35">
+<div class="card-top">
+<div class="card-left">
+<div class="card-name">Caroline</div>
+<div class="card-meta"><span class="stage-tag stage-desert">Desert</span><span class="time-tag">5:45–6:45</span></div>
+</div>
+<div class="rating-badge">3.5/5</div>
+</div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Art rock / experimental / post-rock</div></div>
+<div class="card-section"><div class="card-section-label">Vibe</div><div class="card-section-text">Challenging, textural, genuinely inventive UK collective</div></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Critically adored and genuinely fascinating. But The Last Dinner Party is a better time-slot call for overall energy. Catch Caroline if TDP doesn't sound appealing after a listen.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<a class="spotify-btn" href="https://open.spotify.com/search/Caroline" target="_blank">▶ Open in Spotify</a></div>
+<div class="card r4">
+<div class="card-top">
+<div class="card-left">
+<div class="card-name">The Last Dinner Party</div>
+<div class="card-meta"><span class="stage-tag stage-lake">Lake</span><span class="time-tag">5:45–6:45</span></div>
+</div>
+<div class="rating-badge">4/5</div>
+</div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Art rock / chamber pop / indie rock</div></div>
+<div class="card-section"><div class="card-section-label">Vibe</div><div class="card-section-text">Theatrical, operatic, and bombastic — "Nothing Matters" energy</div></div>
+<div class="card-section"><div class="card-section-label">Similar Artists</div><div class="card-section-text">Florence + the Machine, Kate Bush, The Japanese House</div></div>
+<div class="card-divider"></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">UK five-piece who blew up with "Nothing Matters" — big, theatrical, maximalist art rock. They sound like they belong in a concert hall more than a festival but that's exactly why it works. Great pre-evening energy slot.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<div class="rec-arrow">↑ Go to Lake Stage</div>
+<a class="spotify-btn" href="https://open.spotify.com/search/The%20Last%20Dinner%20Party" target="_blank">▶ Open in Spotify</a></div>
+</div>
+</div>
+<div class="time-slot">
+<div class="time-slot-header"><span class="time-label">6:50 – 7:50</span><div class="time-divider"></div></div>
+<div class="slot-cards">
+<div class="card r4">
+<div class="card-top">
+<div class="card-left">
+<div class="card-name">Lucy Dacus</div>
+<div class="card-meta"><span class="stage-tag stage-kilby">Kilby</span><span class="time-tag">6:50–7:50</span></div>
+</div>
+<div class="rating-badge">4/5</div>
+</div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Indie rock / folk rock / alt rock</div></div>
+<div class="card-section"><div class="card-section-label">Vibe</div><div class="card-section-text">Literary, earnest, emotionally big — the Snail Mail of singer-songwriters</div></div>
+<div class="card-section"><div class="card-section-label">Similar Artists</div><div class="card-section-text">Snail Mail, Phoebe Bridgers, Angel Olsen</div></div>
+<div class="card-divider"></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Boygenius member in her own right. "Home Video" is exceptional — "Thumbs" alone makes her worth seeing. You love Snail Mail, this is the natural next step. Deeply felt, beautifully performed.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<div class="rec-arrow">↑ You love Snail Mail — try this</div>
+<a class="spotify-btn" href="https://open.spotify.com/search/Lucy%20Dacus" target="_blank">▶ Open in Spotify</a></div>
+<div class="card r3">
+<div class="card-top">
+<div class="card-left">
+<div class="card-name">The Moss</div>
+<div class="card-meta"><span class="stage-tag stage-mountain">Mountain</span><span class="time-tag">6:50–7:50</span></div>
+</div>
+<div class="rating-badge">3/5</div>
+</div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Indie rock / psych rock</div></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Austin psych-rock. Decent. But Lucy Dacus is the obvious call here.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<a class="spotify-btn" href="https://open.spotify.com/search/The%20Moss" target="_blank">▶ Open in Spotify</a></div>
+</div>
+</div>
+<div class="time-slot">
+<div class="time-slot-header"><span class="time-label">7:55 – 8:55</span><div class="time-divider"></div></div>
+<div class="slot-cards">
+<div class="card r2">
+<div class="card-top">
+<div class="card-left">
+<div class="card-name">Quadeca</div>
+<div class="card-meta"><span class="stage-tag stage-desert">Desert</span><span class="time-tag">7:55–8:55</span></div>
+</div>
+<div class="rating-badge">2/5</div>
+</div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Hip hop / alternative rap</div></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">YouTube-turned-rapper. Nothing in your listening history points to this. Alex G is right there.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<a class="spotify-btn" href="https://open.spotify.com/search/Quadeca" target="_blank">▶ Open in Spotify</a></div>
+<div class="card r35">
+<div class="card-top">
+<div class="card-left">
+<div class="card-name">Alex G</div>
+<div class="card-meta"><span class="stage-tag stage-lake">Lake</span><span class="time-tag">7:55–8:55</span></div>
+</div>
+<div class="rating-badge">3.5/5</div>
+</div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Indie folk / lo-fi / bedroom pop</div></div>
+<div class="card-section"><div class="card-section-label">Vibe</div><div class="card-section-text">Sonically adventurous, emotionally complex, genre-fluid</div></div>
+<div class="card-section"><div class="card-section-label">Similar Artists</div><div class="card-section-text">Elliott Smith, Sufjan Stevens, Snail Mail</div></div>
+<div class="card-divider"></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Sandy Alex G has a devoted cult following and for good reason — his songs range from hushed folk to distorted noise and it all somehow works. "Rocket" is a great album. Artist's artist. Good pre-headliner set.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<div class="rec-arrow">→ Good The xx warm-up</div>
+<a class="spotify-btn" href="https://open.spotify.com/search/Alex%20G" target="_blank">▶ Open in Spotify</a></div>
+</div>
+</div>
+<div class="time-slot">
+<div class="time-slot-header"><span class="time-label">9:00 – 10:15</span><div class="time-divider"></div></div>
+<div class="slot-cards">
+<div class="card r5">
+<div class="card-top">
+<div class="card-left">
+<div class="card-name">The xx</div>
+<div class="card-meta">
+<span class="stage-tag stage-kilby">Kilby</span>
+<span class="time-tag">9:00–10:15</span>
+<span class="scrobble-tag">44 scrobbles · #244</span>
+</div>
+</div>
+<div class="rating-badge">5/5</div>
+</div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Dream pop / indie electronic / minimalist</div></div>
+<div class="card-section"><div class="card-section-label">Vibe</div><div class="card-section-text">Dark, intimate, gorgeous — like listening to Men I Trust in an empty room at 2am</div></div>
+<div class="card-section"><div class="card-section-label">Similar Artists</div><div class="card-section-text">Men I Trust, The Japanese House, Rhye</div></div>
+<div class="card-divider"></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">The scrobble count (44) undersells this completely. The xx sit in the exact same atmospheric pocket as your top 10 artists — Men I Trust, Japanese House, Rhye, Elder Island. Their live show is sparse, immersive, and completely transcendent. This is the Saturday night headliner. Be at the front.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<div class="rec-arrow">★ Must See · Saturday headliner</div>
+<a class="spotify-btn" href="https://open.spotify.com/search/The%20xx" target="_blank">▶ Open in Spotify</a></div>
+</div>
+</div>
+</div><!-- /day-sat -->
+<!-- ═══════════════════════════════════════════ SUNDAY ═══ -->
+<div class="day-panel" id="day-sun">
+<div class="shortlist">
+<h3>⚡ Sunday Shortlist — The Big Day</h3>
+<div class="shortlist-items">
+<div class="shortlist-item">TOPS <span>3:00 Mountain</span></div>
+<div class="shortlist-item">Grandaddy <span>3:55 Lake</span></div>
+<div class="shortlist-item">Flipturn <span>4:50 Kilby</span></div>
+<div class="shortlist-item">American Football <span>4:50 Mountain ⚡</span></div>
+<div class="shortlist-item">Magdalena Bay <span>5:45 Lake</span></div>
+<div class="shortlist-item">Wild Nothing (Gemini) <span>6:50 Mountain ⚡</span></div>
+<div class="shortlist-item">Hayley Williams <span>6:50 Kilby ⚡</span></div>
+<div class="shortlist-item">Blood Orange <span>7:55 Lake</span></div>
+<div class="shortlist-item">Lorde <span>9:00 Kilby</span></div>
+</div>
+</div>
+<div class="time-slot">
+<div class="time-slot-header"><span class="time-label">11:45 – 12:10</span><div class="time-divider"></div></div>
+<div class="slot-cards">
+<div class="card r2"><div class="card-top"><div class="card-left"><div class="card-name">Bad Luck Brigade</div><div class="card-meta"><span class="stage-tag stage-desert">Desert</span><span class="time-tag">11:45–12:10</span></div></div><div class="rating-badge">2/5</div></div><div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Local act. Opening slot. Get in, get food.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div><a class="spotify-btn" href="https://open.spotify.com/search/Bad%20Luck%20Brigade" target="_blank">▶ Open in Spotify</a></div>
+<div class="card r2"><div class="card-top"><div class="card-left"><div class="card-name">Rachael Jenkins</div><div class="card-meta"><span class="stage-tag stage-lake">Lake</span><span class="time-tag">11:45–12:10</span></div></div><div class="rating-badge">2/5</div></div><div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Emerging singer-songwriter. Pre-listen to decide.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div><a class="spotify-btn" href="https://open.spotify.com/search/Rachael%20Jenkins" target="_blank">▶ Open in Spotify</a></div>
+</div>
+</div>
+<div class="time-slot">
+<div class="time-slot-header"><span class="time-label">12:15 – 12:40</span><div class="time-divider"></div></div>
+<div class="slot-cards">
+<div class="card r2"><div class="card-top"><div class="card-left"><div class="card-name">Folk Bitch Trio</div><div class="card-meta"><span class="stage-tag stage-kilby">Kilby</span><span class="time-tag">12:15–12:40</span></div></div><div class="rating-badge">2/5</div></div><div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Indie folk / wry acoustic</div></div><div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">The name is doing a lot of work. Low stakes early slot.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div><a class="spotify-btn" href="https://open.spotify.com/search/Folk%20Bitch%20Trio" target="_blank">▶ Open in Spotify</a></div>
+<div class="card r2"><div class="card-top"><div class="card-left"><div class="card-name">Starr 67</div><div class="card-meta"><span class="stage-tag stage-mountain">Mountain</span><span class="time-tag">12:15–12:40</span></div></div><div class="rating-badge">2/5</div></div><div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Local act. Skip.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div><a class="spotify-btn" href="https://open.spotify.com/search/Starr%2067" target="_blank">▶ Open in Spotify</a></div>
+</div>
+</div>
+<div class="time-slot">
+<div class="time-slot-header"><span class="time-label">12:50 – 1:20</span><div class="time-divider"></div></div>
+<div class="slot-cards">
+<div class="card r2"><div class="card-top"><div class="card-left"><div class="card-name">Old Mervs</div><div class="card-meta"><span class="stage-tag stage-desert">Desert</span><span class="time-tag">12:50–1:20</span></div></div><div class="rating-badge">2/5</div></div><div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Local act. Skip.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div><a class="spotify-btn" href="https://open.spotify.com/search/Old%20Mervs" target="_blank">▶ Open in Spotify</a></div>
+<div class="card r2"><div class="card-top"><div class="card-left"><div class="card-name">Mustard Service</div><div class="card-meta"><span class="stage-tag stage-lake">Lake</span><span class="time-tag">12:50–1:20</span></div></div><div class="rating-badge">2/5</div></div><div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Indie pop / indie rock</div></div><div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Chicago indie pop with a blogosphere following. Pre-listen to decide — might surprise you.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div><a class="spotify-btn" href="https://open.spotify.com/search/Mustard%20Service" target="_blank">▶ Open in Spotify</a></div>
+</div>
+</div>
+<div class="time-slot">
+<div class="time-slot-header"><span class="time-label">1:30 – 2:00</span><div class="time-divider"></div></div>
+<div class="slot-cards">
+<div class="card r3">
+<div class="card-top">
+<div class="card-left">
+<div class="card-name">Hannah Cohen</div>
+<div class="card-meta"><span class="stage-tag stage-kilby">Kilby</span><span class="time-tag">1:30–2:00</span></div>
+</div>
+<div class="rating-badge">3/5</div>
+</div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Indie folk / dream pop</div></div>
+<div class="card-section"><div class="card-section-label">Vibe</div><div class="card-section-text">Soft, intimate, Sunday afternoon gentle</div></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">"Welcome Home" is a beautiful record. Understated and lovely — perfect for a slow Sunday afternoon opener before the day ramps up.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<a class="spotify-btn" href="https://open.spotify.com/search/Hannah%20Cohen" target="_blank">▶ Open in Spotify</a></div>
+<div class="card r2">
+<div class="card-top">
+<div class="card-left">
+<div class="card-name">This Is Lorelei</div>
+<div class="card-meta"><span class="stage-tag stage-mountain">Mountain</span><span class="time-tag">1:30–2:00</span></div>
+</div>
+<div class="rating-badge">2/5</div>
+</div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Indie pop / chamber pop</div></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Subtle and delicate. Hannah Cohen is the better call.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<a class="spotify-btn" href="https://open.spotify.com/search/This%20Is%20Lorelei" target="_blank">▶ Open in Spotify</a></div>
+</div>
+</div>
+<div class="time-slot">
+<div class="time-slot-header"><span class="time-label">2:10 – 2:50</span><div class="time-divider"></div></div>
+<div class="slot-cards">
+<div class="card r2"><div class="card-top"><div class="card-left"><div class="card-name">Glom</div><div class="card-meta"><span class="stage-tag stage-desert">Desert</span><span class="time-tag">2:10–2:50</span></div></div><div class="rating-badge">2/5</div></div><div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Local / emerging. Pre-listen.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div><a class="spotify-btn" href="https://open.spotify.com/search/Glom" target="_blank">▶ Open in Spotify</a></div>
+<div class="card r3">
+<div class="card-top">
+<div class="card-left">
+<div class="card-name">Smerz</div>
+<div class="card-meta"><span class="stage-tag stage-lake">Lake</span><span class="time-tag">2:10–2:50</span></div>
+</div>
+<div class="rating-badge">3/5</div>
+</div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Electronic / avant-pop / experimental</div></div>
+<div class="card-section"><div class="card-section-label">Vibe</div><div class="card-section-text">Norwegian minimalist electronic — hypnotic and strange</div></div>
+<div class="card-section"><div class="card-section-label">Similar Artists</div><div class="card-section-text">Arca, Kelela, Yves Tumor</div></div>
+<div class="card-divider"></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Unusual and compelling. Not your usual zone but worth 20 minutes if you're nearby. They exist in an interesting space between hypnotic and jarring.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<a class="spotify-btn" href="https://open.spotify.com/search/Smerz" target="_blank">▶ Open in Spotify</a></div>
+</div>
+</div>
+<!-- 3:00 ⚡ CONFLICT -->
+<div class="time-slot">
+<div class="time-slot-header">
+<span class="time-label">3:00 – 3:50</span>
+<div class="time-divider"></div>
+<span class="conflict-badge">⚡ CONFLICT</span>
+</div>
+<div class="slot-cards">
+<div class="card r35">
+<div class="card-top">
+<div class="card-left">
+<div class="card-name">Melody's Echo Chamber</div>
+<div class="card-meta"><span class="stage-tag stage-kilby">Kilby</span><span class="time-tag">3:00–3:50</span></div>
+</div>
+<div class="rating-badge">3.5/5</div>
+</div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Psychedelic pop / dream pop / neo-psych</div></div>
+<div class="card-section"><div class="card-section-label">Vibe</div><div class="card-section-text">Swirling, hallucinatory French psych-pop</div></div>
+<div class="card-section"><div class="card-section-label">Similar Artists</div><div class="card-section-text">Tame Impala, Unknown Mortal Orchestra, Beach House</div></div>
+<div class="card-divider"></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">"Bon Voyage" is gorgeous — lush psychedelic French pop. Dreamy and atmospheric in a way that fits your taste well. But TOPS is also playing right now…</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<a class="spotify-btn" href="https://open.spotify.com/search/Melodys%20Echo%20Chamber" target="_blank">▶ Open in Spotify</a></div>
+<div class="card r4">
+<div class="card-top">
+<div class="card-left">
+<div class="card-name">TOPS</div>
+<div class="card-meta">
+<span class="stage-tag stage-mountain">Mountain</span>
+<span class="time-tag">3:00–3:50</span>
+<span class="scrobble-tag">96 scrobbles · #117</span>
+</div>
+</div>
+<div class="rating-badge">4/5</div>
+</div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Synth pop / indie pop / dream pop</div></div>
+<div class="card-section"><div class="card-section-label">Vibe</div><div class="card-section-text">Montreal cool — shimmering, nostalgic, perfectly warm</div></div>
+<div class="card-section"><div class="card-section-label">Similar Artists</div><div class="card-section-text">Men I Trust, Yumi Zouma, Real Estate</div></div>
+<div class="card-divider"></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">96 scrobbles and your #117 all-time. You already know and love TOPS — that smooth, shimmery Montreal synth-pop sound. This is a Sunday afternoon golden hour special. Lean into it. Slight edge over Melody's Echo Chamber because you actually listen to them.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<div class="rec-arrow">↑ Slight edge — you already love them</div>
+<a class="spotify-btn" href="https://open.spotify.com/search/TOPS" target="_blank">▶ Open in Spotify</a></div>
+</div>
+</div>
+<div class="time-slot">
+<div class="time-slot-header"><span class="time-label">3:55 – 4:45</span><div class="time-divider"></div></div>
+<div class="slot-cards">
+<div class="card r2"><div class="card-top"><div class="card-left"><div class="card-name">Freak Slug</div><div class="card-meta"><span class="stage-tag stage-desert">Desert</span><span class="time-tag">3:55–4:45</span></div></div><div class="rating-badge">2/5</div></div><div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Not much to go on. Grandaddy is playing at the same time.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div><a class="spotify-btn" href="https://open.spotify.com/search/Freak%20Slug" target="_blank">▶ Open in Spotify</a></div>
+<div class="card r35">
+<div class="card-top">
+<div class="card-left">
+<div class="card-name">Grandaddy</div>
+<div class="card-meta"><span class="stage-tag stage-lake">Lake</span><span class="time-tag">3:55–4:45</span></div>
+</div>
+<div class="rating-badge">3.5/5</div>
+</div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Indie rock / space rock / alt country</div></div>
+<div class="card-section"><div class="card-section-label">Vibe</div><div class="card-section-text">Melancholy, beautiful, lo-fi Americana — "The Sophtware Slump" vibes</div></div>
+<div class="card-section"><div class="card-section-label">Similar Artists</div><div class="card-section-text">Modest Mouse, Built to Spill, Sparklehorse</div></div>
+<div class="card-divider"></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">"The Sophtware Slump" is legitimately one of indie rock's most underrated albums. Jason Lytle's melancholy-futuristic-Americana thing is gorgeous and hits differently in the afternoon sun. Don't sleep on this one.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<div class="rec-arrow">→ Underrated gem</div>
+<a class="spotify-btn" href="https://open.spotify.com/search/Grandaddy" target="_blank">▶ Open in Spotify</a></div>
+</div>
+</div>
+<!-- 4:50 ⚡ CONFLICT -->
+<div class="time-slot">
+<div class="time-slot-header">
+<span class="time-label">4:50 – 5:40</span>
+<div class="time-divider"></div>
+<span class="conflict-badge">⚡ CONFLICT</span>
+</div>
+<div class="slot-cards">
+<div class="card r4">
+<div class="card-top">
+<div class="card-left">
+<div class="card-name">Flipturn</div>
+<div class="card-meta">
+<span class="stage-tag stage-kilby">Kilby</span>
+<span class="time-tag">4:50–5:40</span>
+<span class="scrobble-tag">150 scrobbles · #86</span>
+</div>
+</div>
+<div class="rating-badge">4/5</div>
+</div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Indie rock / dream pop / alternative</div></div>
+<div class="card-section"><div class="card-section-label">Vibe</div><div class="card-section-text">Breezy, melodic, outdoors-in-the-evening indie rock</div></div>
+<div class="card-section"><div class="card-section-label">Similar Artists</div><div class="card-section-text">Local Natives, Washed Out, Alvvays</div></div>
+<div class="card-divider"></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">150 scrobbles and your #86 artist — you clearly love flipturn already. They're great in the open air right before the evening headliners kick off. This is a tough conflict though because American Football is also playing.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<div class="rec-arrow">↑ 150 scrobbles says you know what to do</div>
+<a class="spotify-btn" href="https://open.spotify.com/search/Flipturn" target="_blank">▶ Open in Spotify</a></div>
+<div class="card r35">
+<div class="card-top">
+<div class="card-left">
+<div class="card-name">American Football</div>
+<div class="card-meta"><span class="stage-tag stage-mountain">Mountain</span><span class="time-tag">4:50–5:40</span></div>
+</div>
+<div class="rating-badge">3.5/5</div>
+</div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Emo / math rock / post-rock</div></div>
+<div class="card-section"><div class="card-section-label">Vibe</div><div class="card-section-text">The album that defined an entire genre — understated, precise, beautiful</div></div>
+<div class="card-section"><div class="card-section-label">Similar Artists</div><div class="card-section-text">The Promise Ring, Cap'n Jazz, Mineral</div></div>
+<div class="card-divider"></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">They wrote the house that emo grew up in. The self-titled "House Album" is genuinely legendary and they don't tour often. Not your everyday listen but a rare live experience. Flip a coin between this and flipturn — both are real. Lean flipturn if you want guaranteed vibes.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<div class="rec-arrow">→ Rare live show — worth 20 mins at least</div>
+<a class="spotify-btn" href="https://open.spotify.com/search/American%20Football" target="_blank">▶ Open in Spotify</a></div>
+</div>
+</div>
+<!-- 5:45 -->
+<div class="time-slot">
+<div class="time-slot-header"><span class="time-label">5:45 – 6:45</span><div class="time-divider"></div></div>
+<div class="slot-cards">
+<div class="card r2"><div class="card-top"><div class="card-left"><div class="card-name">KennyHoopla</div><div class="card-meta"><span class="stage-tag stage-desert">Desert</span><span class="time-tag">5:45–6:45</span></div></div><div class="rating-badge">2/5</div></div><div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Pop punk / alt pop</div></div><div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Not your genre. Magdalena Bay is playing right now.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div><a class="spotify-btn" href="https://open.spotify.com/search/KennyHoopla" target="_blank">▶ Open in Spotify</a></div>
+<div class="card r4">
+<div class="card-top">
+<div class="card-left">
+<div class="card-name">Magdalena Bay</div>
+<div class="card-meta"><span class="stage-tag stage-lake">Lake</span><span class="time-tag">5:45–6:45</span></div>
+</div>
+<div class="rating-badge">4/5</div>
+</div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Synth pop / dream pop / indie electronic</div></div>
+<div class="card-section"><div class="card-section-label">Vibe</div><div class="card-section-text">Maximalist, euphoric, lush — everything you love about Men I Trust but with a massive pop sheen</div></div>
+<div class="card-section"><div class="card-section-label">Similar Artists</div><div class="card-section-text">Men I Trust, The Japanese House, Carly Rae Jepsen</div></div>
+<div class="card-divider"></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">"Imaginal Disk" was one of the most acclaimed albums of 2024 — a maximalist synth-pop concept record that sits exactly in your Men I Trust / Japanese House zone. If you haven't listened yet, do it now before this set. This is the Sunday pre-headliner peak. Easy call.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<div class="rec-arrow">↑ Go to Lake Stage — Sunday evening standout</div>
+<a class="spotify-btn" href="https://open.spotify.com/search/Magdalena%20Bay" target="_blank">▶ Open in Spotify</a></div>
+</div>
+</div>
+<!-- 6:50 ⚡ CONFLICT -->
+<div class="time-slot">
+<div class="time-slot-header">
+<span class="time-label">6:50 – 7:50</span>
+<div class="time-divider"></div>
+<span class="conflict-badge">⚡ BIGGEST CONFLICT OF THE WEEKEND</span>
+</div>
+<div class="slot-cards">
+<div class="card r4">
+<div class="card-top">
+<div class="card-left">
+<div class="card-name">Hayley Williams</div>
+<div class="card-meta"><span class="stage-tag stage-kilby">Kilby</span><span class="time-tag">6:50–7:50</span></div>
+</div>
+<div class="rating-badge">4/5</div>
+</div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Alt pop / indie rock / pop punk</div></div>
+<div class="card-section"><div class="card-section-label">Vibe</div><div class="card-section-text">One of rock's great vocalists — whether solo or Paramore energy</div></div>
+<div class="card-section"><div class="card-section-label">Similar Artists</div><div class="card-section-text">Paramore, Soccer Mommy, Soccer Mommy</div></div>
+<div class="card-divider"></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Hayley Williams solo is genuinely interesting — "Petals for Armor" went places Paramore never did. But this is THE hardest call of the weekend because Wild Nothing is playing Gemini in full at the same time...</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<a class="spotify-btn" href="https://open.spotify.com/search/Hayley%20Williams" target="_blank">▶ Open in Spotify</a></div>
+<div class="card r5">
+<div class="card-top">
+<div class="card-left">
+<div class="card-name">Wild Nothing (Playing Gemini)</div>
+<div class="card-meta">
+<span class="stage-tag stage-mountain">Mountain</span>
+<span class="time-tag">6:50–7:50</span>
+<span class="scrobble-tag">74 scrobbles · #148</span>
+</div>
+</div>
+<div class="rating-badge">5/5</div>
+</div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Dream pop / shoegaze / indie pop</div></div>
+<div class="card-section"><div class="card-section-label">Vibe</div><div class="card-section-text">Crystalline, lush, perfect dream pop — "Gemini" is a complete masterpiece</div></div>
+<div class="card-section"><div class="card-section-label">Similar Artists</div><div class="card-section-text">Beach House, The xx, Men I Trust</div></div>
+<div class="card-divider"></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">They are playing "Gemini" IN FULL. This is not a regular Wild Nothing set — this is a complete album performance of one of the great dream pop albums ever made. "Live in Dreams," "Chinatown," "Shadow" played front to back at sunset before Blood Orange and Lorde? This is the Mountain Stage call. Hayley Williams will tour again. A full Gemini performance may not happen again for years.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<div class="rec-arrow">★ Full "Gemini" album set — don't miss this</div>
+<a class="spotify-btn" href="https://open.spotify.com/search/Wild%20Nothing%20Playing%20Gemini" target="_blank">▶ Open in Spotify</a></div>
+</div>
+</div>
+<!-- 7:55 -->
+<div class="time-slot">
+<div class="time-slot-header"><span class="time-label">7:55 – 8:55</span><div class="time-divider"></div></div>
+<div class="slot-cards">
+<div class="card r2"><div class="card-top"><div class="card-left"><div class="card-name">Ethan Regan</div><div class="card-meta"><span class="stage-tag stage-desert">Desert</span><span class="time-tag">7:55–8:55</span></div></div><div class="rating-badge">2/5</div></div><div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Blood Orange is playing right now. This is not a difficult decision.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div><a class="spotify-btn" href="https://open.spotify.com/search/Ethan%20Regan" target="_blank">▶ Open in Spotify</a></div>
+<div class="card r5">
+<div class="card-top">
+<div class="card-left">
+<div class="card-name">Blood Orange</div>
+<div class="card-meta">
+<span class="stage-tag stage-lake">Lake</span>
+<span class="time-tag">7:55–8:55</span>
+<span class="scrobble-tag">535 scrobbles · #16 all-time</span>
+</div>
+</div>
+<div class="rating-badge">5/5</div>
+</div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">R&amp;B / indie soul / neo-soul / electronic</div></div>
+<div class="card-section"><div class="card-section-label">Vibe</div><div class="card-section-text">Emotionally precise, deeply personal, cinematically beautiful</div></div>
+<div class="card-section"><div class="card-section-label">Similar Artists</div><div class="card-section-text">Frank Ocean, Solange, How to Dress Well</div></div>
+<div class="card-divider"></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">535 scrobbles. Your #16 all-time artist. Dev Hynes creates music that exists in its own emotional universe — live it's immersive and hypnotic, like watching someone else's most private feelings become your own. "Freetown Sound," "Negro Swan," "Cupid Deluxe" — the catalog is staggering. This is the penultimate set before Lorde. Be at the front of the Lake Stage.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes...">535 scrobbles — my #16 all-time. Favorites: Champagne Coast, You're Not Good Enough, Augustine, Desirée, Jewelry, Smoke.</div></div>
+<div class="rec-arrow">★ Must See · Your #16 artist. Go.</div>
+<a class="spotify-btn" href="https://open.spotify.com/search/Blood%20Orange" target="_blank">▶ Open in Spotify</a></div>
+</div>
+</div>
+<!-- 9:00 -->
+<div class="time-slot">
+<div class="time-slot-header"><span class="time-label">9:00 – 10:30</span><div class="time-divider"></div></div>
+<div class="slot-cards">
+<div class="card r5">
+<div class="card-top">
+<div class="card-left">
+<div class="card-name">Lorde</div>
+<div class="card-meta">
+<span class="stage-tag stage-kilby">Kilby</span>
+<span class="time-tag">9:00–10:30</span>
+<span class="scrobble-tag">132 scrobbles · #95</span>
+</div>
+</div>
+<div class="rating-badge">5/5</div>
+</div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Art pop / indie pop / electropop</div></div>
+<div class="card-section"><div class="card-section-label">Vibe</div><div class="card-section-text">Epic, emotionally overwhelming, pure spectacle from one of pop's great auteurs</div></div>
+<div class="card-section"><div class="card-section-label">Similar Artists</div><div class="card-section-text">Melodrama is its own genre</div></div>
+<div class="card-divider"></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">The Sunday headliner. 132 scrobbles and this is one of the best live performers in pop music. She's been away for years and this feels like a proper return. "Melodrama" live is a complete emotional experience — "Green Light," "Liability," "Supercut," "Writer in the Dark." "Royals" is obligatory. This is the closer. Finish strong. Be there from the first song.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<div class="rec-arrow">★ Weekend finale. Don't miss a second.</div>
+<a class="spotify-btn" href="https://open.spotify.com/search/Lorde" target="_blank">▶ Open in Spotify</a></div>
+</div>
+</div>
+</div><!-- /day-sun -->
+<div class="day-panel" id="day-faq">
+  <div class="faq-intro">
+    <strong>Official Kilby Block Party FAQ</strong> — pulled straight from <a href="https://www.kilbyblockparty.com/faq" target="_blank" style="color:var(--r35)">kilbyblockparty.com/faq</a>. Click any question to expand.
+  </div>
+
+  <div class="faq-section">
+    <div class="faq-section-title">📍 Getting There</div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Where is the Utah State Fairpark?</div><div class="faq-a">155 N 1000 W, Salt Lake City, UT 84116.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How do I get to the event?</div><div class="faq-a">Your KBP ticket includes <strong>FREE UTA transit</strong> all weekend (May 15–17)! Ride all local buses, TRAX, FrontRunner, and more. Recommended: UTA TRAX Green Line to <strong>Fairpark Station</strong>. More info at <a href="https://rideuta.com" target="_blank">rideuta.com</a>.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How do I park at the event?</div><div class="faq-a">Very limited parking. <strong>Premium Lot</strong> (~250 N 1000 W, on-site) and <strong>Secondary Lot</strong> (1201 W North Temple, across the street) are available as add-ons through May 14. 3-Day passes include re-entry; single-day passes do not. Accessible parking: email <a href="mailto:accessibility@snspresents.com">accessibility@snspresents.com</a>.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Is there a bike valet?</div><div class="faq-a">Yes! <strong>GreenBike Bike Valet</strong> at the east entrance — free (tips appreciated), open 11am to 30 min after last show. No bike? Use a GreenBike for free all weekend with promo code <strong>KBP26</strong> in the BCycle app. Find stations at <a href="https://greenbikeutah.org" target="_blank">greenbikeutah.org</a>.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Can I ride a Lime Scooter?</div><div class="faq-a">Yes! Lime Scooters are welcome. Park in designated scooter zones near the festival entrance — check the Lime app for closest marked zones.</div></div>
+  </div>
+
+  <div class="faq-section">
+    <div class="faq-section-title">🎟 Tickets & Entry</div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">When do gates open?</div><div class="faq-a">Gates open daily at <strong>11:30am</strong>. Each day runs until approximately <strong>10:30pm</strong>.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Are single day tickets available?</div><div class="faq-a">Single day tickets and individual lineup times are not currently available. Check back for more info.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Is re-entry allowed?</div><div class="faq-a"><strong>3-Day pass holders only</strong>. You must have your wristband on to re-enter, and will go through security again.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Is this event all ages?</div><div class="faq-a">Yes! All ages welcome. Children <strong>under 2</strong> get free entry. Tickets required for everyone 2 and older.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Do you offer payment plans?</div><div class="faq-a">Yes, <strong>24tix</strong> offers payment plan options. Select the Payment Plan option at checkout (available until March 2026).</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Where is the wristband pickup?</div><div class="faq-a">More info coming soon! Download the official KBP app for updates.</div></div>
+  </div>
+
+  <div class="faq-section">
+    <div class="faq-section-title">🎒 What To Bring</div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">What should I bring?</div><div class="faq-a"><ul><li>Your ID</li><li>Your ticket / wristband</li><li>Credit card or tap-to-pay (<strong>cashless event</strong>)</li><li>Empty plastic or aluminum water bottle</li><li>Travel-sized, non-aerosol sunscreen &amp; hand sanitizer</li><li>Earplugs</li></ul></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">What is the bag policy?</div><div class="faq-a">ALL bags are searched at entry. Allowed:<ul><li><strong>Clear bags</strong> (plastic/vinyl/PVC) no larger than 12" × 12" × 6"</li><li><strong>Small clutch/fanny pack</strong> 6" × 9" or smaller (doesn't need to be clear)</li><li><strong>Hydration packs</strong> (must be emptied of liquid)</li><li>One <strong>diaper bag</strong> for parents with children</li></ul></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">What items are allowed?</div><div class="faq-a"><ul><li>Prescription medication in original container (daily amounts only)</li><li>Soft-sided baby strollers</li><li>Empty plastic/aluminum water bottles (no glass)</li><li>Travel-sized non-aerosol sunscreen &amp; hand sanitizer</li><li>Rain ponchos, earplugs, small battery-powered fans</li><li>E-cigs only (no extra juice/cartridges)</li><li>Portable phone power banks</li><li>Point &amp; shoot cameras or cameras with detachable lenses <strong>shorter than 2 inches</strong></li></ul></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">What items are prohibited?</div><div class="faq-a"><ul><li>Chairs, stools, blankets, tents, coolers</li><li>Animals (service animals allowed with screening)</li><li>Outside food or drink</li><li>Glass containers of any kind</li><li>Professional cameras (lenses longer than 2"), monopods, selfie sticks, GoPro mounts</li><li>Weapons of any kind</li><li>Umbrellas, fireworks, drugs, large signs/banners, laser pointers</li><li>Aerosol, glowsticks, markers, paint</li><li>Roller skates, hoverboards, skateboards, scooters (mobility devices ok)</li></ul></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Will there be food, drinks, and alcohol?</div><div class="faq-a">Yes! Multiple food trucks, beer &amp; liquor tents, and <strong>free water stations</strong>. You may bring your own empty water bottle to refill. <strong>Kilby is cashless</strong> — credit cards and tap-to-pay only.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Are there storage and charging lockers?</div><div class="faq-a">Yes! Reserve your storage &amp; charging locker in advance through the KBP ticket link.</div></div>
+  </div>
+
+  <div class="faq-section">
+    <div class="faq-section-title">♿ Accessibility</div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">What accessibility accommodations are available?</div><div class="faq-a">Email <a href="mailto:accessibility@snspresents.com">accessibility@snspresents.com</a> for any accommodation requests — the team will get right back to you.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Are ASL interpreters available?</div><div class="faq-a">Yes, by request. The request deadline has passed (March 15, 2025), but email <a href="mailto:accessibility@snspresents.com">accessibility@snspresents.com</a> to ask.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Where is lost &amp; found?</div><div class="faq-a"><strong>ALL IN EVENTS</strong> runs Lost &amp; Found near the <strong>Access Center at the Lake Stage corner</strong>. Open daily from gates-open to close. Post-festival pickup: Monday May 18, 10am–2pm at the Fairgrounds. Email: <a href="mailto:lostandfound@allinevents.co">lostandfound@allinevents.co</a>.</div></div>
+  </div>
+
+  <div class="faq-section">
+    <div class="faq-section-title">📋 Venue Rules</div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">What are the key venue rules?</div><div class="faq-a"><ul><li><strong>Cashless event</strong> — credit cards / tap-to-pay only</li><li>No camping (including in parking lots)</li><li>Zero-tolerance for fighting or harassment — immediate removal, no refund</li><li>No sitting directly in front of stages</li><li>No moshing, crowd surfing, stage diving, or throwing anything</li><li>Concerts are rain or shine. No refunds or exchanges.</li><li>Artists subject to change — refunds not issued for cancellations</li><li>Security may search bags, pat down, and refuse entry at their discretion</li></ul></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Who made the KBP artwork?</div><div class="faq-a">Poster art by <strong>Chloe Monson</strong>! Check her out at <a href="https://instagram.com/chlomons" target="_blank">@chlomons</a>.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Still have questions?</div><div class="faq-a">Ticketing: <a href="mailto:support@24tix.com">support@24tix.com</a> · Everything else: <a href="mailto:support@snspresents.com">support@snspresents.com</a></div></div>
+  </div>
+</div><!-- /day-faq -->
+
+<div class="day-panel" id="day-kickoff">
+  <div class="parties-intro">
+    <strong>KBP 2026 Kickoff Shows</strong> — Pre-festival shows on <strong>May 13–14</strong> at venues around SLC. These are ticketed separately from the main festival. All shows are 18+/21+ — check venue.
+  </div>
+
+<div class="party-night">
+    <div class="party-night-header">
+      <span class="night-date">Tuesday, May 13</span>
+      <span class="night-type kickoff">Pre-Festival Kickoff</span>
+    </div>
+    <div class="party-card">
+      <span class="party-venue-pill venue-urban">Urban Lounge</span>
+      <div class="party-card-content">
+        <div class="party-artists">Molotov Dress</div>
+        
+        <a class="party-ticket-btn" href="https://www.24tix.com/event/15822893970" target="_blank">🎟 Get Tickets</a>
+        <div style="margin-top:6px;font-size:12px;color:var(--muted)">SLC indie rock. Good early warm-up to the weekend.</div>
+      </div>
+    </div>
+    <div class="party-card">
+      <span class="party-venue-pill venue-urban">Urban Lounge</span>
+      <div class="party-card-content">
+        <div class="party-artists">Pixie &amp; The Partygrass Boys</div>
+        
+        <a class="party-ticket-btn" href="https://www.24tix.com/event/56430623502" target="_blank">🎟 Get Tickets</a>
+        <div style="margin-top:6px;font-size:12px;color:var(--muted)">Festive fun — a bit of a departure from the KBP sound but a good time.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="party-night">
+    <div class="party-night-header">
+      <span class="night-date">Wednesday, May 14</span>
+      <span class="night-type kickoff">Kickoff Night</span>
+    </div>
+    <div class="party-card">
+      <span class="party-venue-pill venue-kilby">Kilby Court</span>
+      <div class="party-card-content">
+        <div class="party-artists">Foxtide</div>
+        <div class="party-kbp-note">🎪 At the namesake venue!</div>
+        <a class="party-ticket-btn" href="https://www.24tix.com/event/79774202169" target="_blank">🎟 Get Tickets</a>
+        <div style="margin-top:6px;font-size:12px;color:var(--muted)">The original Kilby Court. Small, intimate, the real KBP spirit.</div>
+      </div>
+    </div>
+    <div class="party-card">
+      <span class="party-venue-pill venue-urban">Urban Lounge</span>
+      <div class="party-card-content">
+        <div class="party-artists">Show Me The Body</div>
+        <div class="party-kbp-note">🎪 Also plays Friday at KBP</div>
+        <a class="party-ticket-btn" href="https://www.24tix.com/event/28122331380" target="_blank">🎟 Get Tickets</a>
+        <div style="margin-top:6px;font-size:12px;color:var(--muted)">Hardcore/noise rock. Catch them here if you want a more intimate show before their main stage set.</div>
+      </div>
+    </div>
+    <div class="party-card">
+      <span class="party-venue-pill venue-metro">Metro Music Hall</span>
+      <div class="party-card-content">
+        <div class="party-artists">DYKED</div>
+        
+        <a class="party-ticket-btn" href="https://www.24tix.com/event/58986403916" target="_blank">🎟 Get Tickets</a>
+        
+      </div>
+    </div>
+  </div>
+</div><!-- /day-kickoff -->
+
+<div class="day-panel" id="day-parties">
+  <div class="parties-intro">
+    <strong>KBP 2026 After Parties</strong> — official after-parties following each night of the festival, from <a href="https://www.kilbyblockparty.com/afterparties" target="_blank" style="color:var(--r35)">kilbyblockparty.com/afterparties</a>. All shows are 18+/21+ — check venue.
+  </div>
+
+  <div class="party-night">
+    <div class="party-night-header">
+      <span class="night-date">Friday, May 15</span>
+      <span class="night-type">Night 1 After Parties</span>
+    </div>
+    <div class="party-card">
+      <span class="party-venue-pill venue-urban">Urban Lounge</span>
+      <div class="party-card-content">
+        <div class="party-artists">Kevin Morby</div>
+        <div class="party-kbp-note">🎪 After his KBP set (4:50pm Mountain Stage)</div>
+        <a class="party-ticket-btn" href="https://www.24tix.com/event/80836993523" target="_blank">🎟 Get Tickets</a>
+        <div style="margin-top:6px;font-size:12px;color:var(--muted)">He plays the fest in the afternoon — if you dug his set, this is the perfect follow-up in a much smaller room.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="party-night">
+    <div class="party-night-header">
+      <span class="night-date">Saturday, May 16</span>
+      <span class="night-type">Night 2 After Parties</span>
+    </div>
+    <div class="party-card">
+      <span class="party-venue-pill venue-metro">Metro Music Hall</span>
+      <div class="party-card-content">
+        <div class="party-artists">Snail Mail</div>
+        <div class="party-kbp-note">🎪 After her KBP set (3:55pm Lake Stage)</div>
+        <a class="party-ticket-btn" href="https://www.24tix.com/event/58150284601" target="_blank">🎟 Get Tickets</a>
+        <div style="margin-top:6px;font-size:12px;color:var(--muted)">🔥 If you loved her KBP set, this is the move. Metro is a great room and she'll probably go deeper into the catalog.</div>
+      </div>
+    </div>
+    <div class="party-card">
+      <span class="party-venue-pill venue-metro">Metro Music Hall</span>
+      <div class="party-card-content">
+        <div class="party-artists">Dehd + Automatic</div>
+        <div class="party-kbp-note">🎪 Both play KBP Saturday</div>
+        <a class="party-ticket-btn" href="https://www.24tix.com/event/64370392483" target="_blank">🎟 Get Tickets</a>
+        <div style="margin-top:6px;font-size:12px;color:var(--muted)">A double-header of two of Saturday's best afternoon acts in a tight venue.</div>
+      </div>
+    </div>
+    <div class="party-card">
+      <span class="party-venue-pill venue-urban">Urban Lounge</span>
+      <div class="party-card-content">
+        <div class="party-artists">Sports</div>
+        <div class="party-kbp-note">🎪 Also plays Friday at KBP</div>
+        <a class="party-ticket-btn" href="https://www.24tix.com/event/59355949964" target="_blank">🎟 Get Tickets</a>
+        
+      </div>
+    </div>
+    <div class="party-card">
+      <span class="party-venue-pill venue-complex">The Complex</span>
+      <div class="party-card-content">
+        <div class="party-artists">Queerby Block Party</div>
+        <div class="party-kbp-note">🎪 KBP's official LGBTQ+ celebration</div>
+        <a class="party-ticket-btn" href="https://www.thecomplexslc.com/event-2886.htm" target="_blank">🎟 Get Tickets</a>
+        <div style="margin-top:6px;font-size:12px;color:var(--muted)">The official queer satellite event — bigger venue, different energy, always a great time.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="party-night">
+    <div class="party-night-header">
+      <span class="night-date">Sunday, May 17</span>
+      <span class="night-type">Night 3 After Parties</span>
+    </div>
+    <div class="party-card">
+      <span class="party-venue-pill venue-metro">Metro Music Hall</span>
+      <div class="party-card-content">
+        <div class="party-artists">Melody's Echo Chamber + TOPS</div>
+        <div class="party-kbp-note">🎪 Both play KBP Sunday (3:00pm)</div>
+        <a class="party-ticket-btn" href="https://www.24tix.com/event/21631242777" target="_blank">🎟 Get Tickets</a>
+        <div style="margin-top:6px;font-size:12px;color:var(--muted)">Two of Sunday's best afternoon acts together in one late-night set. If you loved TOPS at the fest, this is a no-brainer.</div>
+      </div>
+    </div>
+    <div class="party-card">
+      <span class="party-venue-pill venue-bluegenes">Blue Genes</span>
+      <div class="party-card-content">
+        <div class="party-artists">Mustard Service</div>
+        
+        <a class="party-ticket-btn" href="https://www.24tix.com/events/33578344807" target="_blank">🎟 Get Tickets</a>
+        <div style="margin-top:6px;font-size:12px;color:var(--muted)">Chicago indie pop closing out the weekend at Blue Genes.</div>
+      </div>
+    </div>
+    <div class="party-card">
+      <span class="party-venue-pill venue-bluegenes">Blue Genes</span>
+      <div class="party-card-content">
+        <div class="party-artists">KBP Karaoke Night</div>
+        <div class="party-kbp-note">🎪 Official KBP closing event</div>
+        <a class="party-ticket-btn" href="https://www.bluegenesslc.com/" target="_blank">🎟 More Info</a>
+        <div style="margin-top:6px;font-size:12px;color:var(--muted)">The unofficial-official send-off. Sing it out. You've earned it.</div>
+      </div>
+    </div>
+  </div>
+</div><!-- /day-parties -->
+
+<div class="day-panel" id="day-review">
+<div class="review-intro">
+<h2>🎵 Bands to Review Before KBP</h2>
+<p>Sorted by priority: <strong>late-day slots = bigger draw = learn these first.</strong> Target: work through Tier 1 &amp; 2 before the festival. Add to your Spotify playlist as you go.</p>
+<p>Enable <strong>✏️ Edit Mode</strong> (bottom-right) to type notes directly into each card, then export the updated HTML to redeploy.</p>
+</div>
+<div class="review-tier">
+<div class="review-tier-header t1">🔥 Tier 1 — Start Here (Late-Night Headliner Territory)</div>
+<div class="slot-cards">
+
+<div class="card r5">
+<div class="card-top"><div class="card-left">
+<div class="card-name">Wild Nothing (Playing Gemini)</div>
+<div class="card-meta">
+<span class="stage-tag stage-mountain">Mountain Stage</span>
+<span class="card-day-badge">Sun · 6:50–7:50</span>
+<span class="scrobble-tag">74 scrobbles · #148</span><span class="conflict-badge" data-conflict="vs Hayley Williams · Kilby Stage · same time" style="font-size:10px;padding:2px 6px" tabindex="0">⚡ Conflict</span>
+</div>
+</div><div class="rating-badge">5/5</div></div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Dream pop / shoegaze / indie pop</div></div>
+<div class="card-section"><div class="card-section-label">Similar</div><div class="card-section-text">Beach House, The xx, Men I Trust</div></div>
+<div class="card-divider"></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Playing the full Gemini album front-to-back — one of dream pop's great records. "Live in Dreams," "Chinatown," "Shadow." This is a rare full-album set at sunset. If you haven't heard Gemini, fix that now. (⚡ Biggest conflict: vs Hayley Williams)</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<a class="spotify-btn" href="https://open.spotify.com/search/Wild%20Nothing%20Playing%20Gemini" target="_blank">▶ Open in Spotify</a>
+</div>
+<div class="card r5">
+<div class="card-top"><div class="card-left">
+<div class="card-name">The xx</div>
+<div class="card-meta">
+<span class="stage-tag stage-kilby">Kilby Stage</span>
+<span class="card-day-badge">Sat · 9:00–10:15</span>
+<span class="scrobble-tag">44 scrobbles · #244</span>
+</div>
+</div><div class="rating-badge">5/5</div></div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Dream pop / indie electronic / minimalist</div></div>
+<div class="card-section"><div class="card-section-label">Similar</div><div class="card-section-text">Men I Trust, The Japanese House, Rhye</div></div>
+<div class="card-divider"></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">The Saturday headliner. 44 scrobbles undersells it — they sit in the exact atmospheric pocket as your top 10 artists. Their live show is sparse, immersive, completely transcendent. Be at the front.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<a class="spotify-btn" href="https://open.spotify.com/search/The%20xx" target="_blank">▶ Open in Spotify</a>
+</div>
+<div class="card r4">
+<div class="card-top"><div class="card-left">
+<div class="card-name">Hayley Williams</div>
+<div class="card-meta">
+<span class="stage-tag stage-kilby">Kilby Stage</span>
+<span class="card-day-badge">Sun · 6:50–7:50</span>
+<span class="conflict-badge" data-conflict="vs Wild Nothing playing Gemini · Mountain Stage" style="font-size:10px;padding:2px 6px" tabindex="0">⚡ Conflict</span>
+</div>
+</div><div class="rating-badge">4/5</div></div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Alt pop / indie rock / pop punk</div></div>
+<div class="card-section"><div class="card-section-label">Similar</div><div class="card-section-text">Paramore, Soccer Mommy</div></div>
+<div class="card-divider"></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Her solo album "Petals for Armor" went places Paramore never did — lush, introspective, surprisingly tender. One of rock's great vocalists. (⚡ Conflicts with Wild Nothing playing Gemini — that's the harder call)</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<a class="spotify-btn" href="https://open.spotify.com/search/Hayley%20Williams" target="_blank">▶ Open in Spotify</a>
+</div>
+<div class="card r4">
+<div class="card-top"><div class="card-left">
+<div class="card-name">Magdalena Bay</div>
+<div class="card-meta">
+<span class="stage-tag stage-lake">Lake Stage</span>
+<span class="card-day-badge">Sun · 5:45–6:45</span>
+</div>
+</div><div class="rating-badge">4/5</div></div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Synth pop / dream pop / indie electronic</div></div>
+<div class="card-section"><div class="card-section-label">Similar</div><div class="card-section-text">Men I Trust, The Japanese House, Carly Rae Jepsen</div></div>
+<div class="card-divider"></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">"Imaginal Disk" was the most-acclaimed album of 2024 — maximalist synth-pop concept record that sits exactly in your Men I Trust / Japanese House zone. If you haven't listened yet, do it this week. Sunday pre-headliner peak.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<a class="spotify-btn" href="https://open.spotify.com/search/Magdalena%20Bay" target="_blank">▶ Open in Spotify</a>
+</div>
+<div class="card r4">
+<div class="card-top"><div class="card-left">
+<div class="card-name">The Last Dinner Party</div>
+<div class="card-meta">
+<span class="stage-tag stage-lake">Lake Stage</span>
+<span class="card-day-badge">Sat · 5:45–6:45</span>
+</div>
+</div><div class="rating-badge">4/5</div></div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Art rock / chamber pop / indie rock</div></div>
+<div class="card-section"><div class="card-section-label">Similar</div><div class="card-section-text">Florence + the Machine, Kate Bush, The Japanese House</div></div>
+<div class="card-divider"></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">UK five-piece who blew up with "Nothing Matters" — big, theatrical, maximalist art rock. They sound like they belong in a concert hall. Great pre-evening energy. Pre-listen to "Prelude to Ecstasy."</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<a class="spotify-btn" href="https://open.spotify.com/search/The%20Last%20Dinner%20Party" target="_blank">▶ Open in Spotify</a>
+</div>
+<div class="card r4">
+<div class="card-top"><div class="card-left">
+<div class="card-name">Lucy Dacus</div>
+<div class="card-meta">
+<span class="stage-tag stage-kilby">Kilby Stage</span>
+<span class="card-day-badge">Sat · 6:50–7:50</span>
+</div>
+</div><div class="rating-badge">4/5</div></div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Indie rock / folk rock / alt rock</div></div>
+<div class="card-section"><div class="card-section-label">Similar</div><div class="card-section-text">Snail Mail, Phoebe Bridgers, Angel Olsen</div></div>
+<div class="card-divider"></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Boygenius member in her own right. "Home Video" is exceptional — "Thumbs" alone makes her worth seeing. You love Snail Mail; this is the natural next step. Deeply felt, beautifully performed.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<a class="spotify-btn" href="https://open.spotify.com/search/Lucy%20Dacus" target="_blank">▶ Open in Spotify</a>
+</div>
+<div class="card r4">
+<div class="card-top"><div class="card-left">
+<div class="card-name">Japanese Breakfast</div>
+<div class="card-meta">
+<span class="stage-tag stage-kilby">Kilby Stage</span>
+<span class="card-day-badge">Fri · 6:50–7:50</span>
+<span class="scrobble-tag">80 scrobbles · #138</span>
+</div>
+</div><div class="rating-badge">4/5</div></div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Indie pop / indie rock / art pop</div></div>
+<div class="card-section"><div class="card-section-label">Similar</div><div class="card-section-text">Alvvays, Snail Mail, Mitski</div></div>
+<div class="card-divider"></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">"Jubilee" tracks hit incredible live. Michelle Zauner is warm, funny, completely at home on a festival stage. 80 scrobbles and a live show people rave about.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<a class="spotify-btn" href="https://open.spotify.com/search/Japanese%20Breakfast" target="_blank">▶ Open in Spotify</a>
+</div>
+<div class="card r35">
+<div class="card-top"><div class="card-left">
+<div class="card-name">Turnstile</div>
+<div class="card-meta">
+<span class="stage-tag stage-kilby">Kilby Stage</span>
+<span class="card-day-badge">Fri · 9:00–10:15</span>
+</div>
+</div><div class="rating-badge">3.5/5</div></div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Hardcore / post-hardcore / punk</div></div>
+<div class="card-section"><div class="card-section-label">Similar</div><div class="card-section-text">Nothing in your library — but try it anyway</div></div>
+<div class="card-divider"></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Not your genre but "GLOW ON" crossed over because even people who hate hardcore loved it. Their live show is genuinely one of the most chaotic, joyful spectacles in music. After Modest Mouse, give it 20 minutes.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<a class="spotify-btn" href="https://open.spotify.com/search/Turnstile" target="_blank">▶ Open in Spotify</a>
+</div>
+</div>
+</div>
+<div class="review-tier">
+<div class="review-tier-header t2">⭐ Tier 2 — High Priority Afternoon/Evening Acts</div>
+<div class="slot-cards">
+<div class="card r5">
+<div class="card-top"><div class="card-left">
+<div class="card-name">Snail Mail</div>
+<div class="card-meta">
+<span class="stage-tag stage-lake">Lake Stage</span>
+<span class="card-day-badge">Fri · 3:55–4:45</span>
+<span class="scrobble-tag">201 scrobbles · #65</span><span class="new-album-badge">✨ New: Ricochet (March 2026)</span><span class="conflict-badge" data-conflict="vs Drugdealer · Desert Stage · same time" style="font-size:10px;padding:2px 6px" tabindex="0">⚡ Conflict</span>
+</div>
+</div><div class="rating-badge">5/5</div></div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Indie rock / alt rock / grunge-adjacent</div></div>
+<div class="card-section"><div class="card-section-label">Similar</div><div class="card-section-text">Soccer Mommy, Mitski, Lucy Dacus</div></div>
+<div class="card-divider"></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Lindsey Jordan writes songs that feel like they were written about things you've felt but couldn't articulate. 201 scrobbles and a brand new album — this is your opportunity to hear "Ricochet" live right after it dropped.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes...">201 scrobbles — my #65 all-time. ⭐ New album "Ricochet" (March 2026) — listen through before the show! Existing favorites: Pristine, Heat Wave, Ben Franklin, Headlock, Mia.</div></div>
+<a class="spotify-btn" href="https://open.spotify.com/search/Snail%20Mail" target="_blank">▶ Open in Spotify</a>
+</div>
+<div class="card r35">
+<div class="card-top"><div class="card-left">
+<div class="card-name">Alex G</div>
+<div class="card-meta">
+<span class="stage-tag stage-lake">Lake Stage</span>
+<span class="card-day-badge">Sat · 7:55–8:55</span>
+</div>
+</div><div class="rating-badge">3.5/5</div></div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Indie folk / lo-fi / bedroom pop</div></div>
+<div class="card-section"><div class="card-section-label">Similar</div><div class="card-section-text">Elliott Smith, Sufjan Stevens, Snail Mail</div></div>
+<div class="card-divider"></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Sandy Alex G has a devoted cult following — songs range from hushed folk to distorted noise and it all works. "Rocket" is a great album. Artist's artist and good The xx warm-up.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<a class="spotify-btn" href="https://open.spotify.com/search/Alex%20G" target="_blank">▶ Open in Spotify</a>
+</div>
+<div class="card r35">
+<div class="card-top"><div class="card-left">
+<div class="card-name">American Football</div>
+<div class="card-meta">
+<span class="stage-tag stage-mountain">Mountain Stage</span>
+<span class="card-day-badge">Sun · 4:50–5:40</span>
+<span class="conflict-badge" data-conflict="vs Flipturn · Kilby Stage · same time" style="font-size:10px;padding:2px 6px" tabindex="0">⚡ Conflict</span>
+</div>
+</div><div class="rating-badge">3.5/5</div></div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Emo / math rock / post-rock</div></div>
+<div class="card-section"><div class="card-section-label">Similar</div><div class="card-section-text">The Promise Ring, Cap'n Jazz, Mineral</div></div>
+<div class="card-divider"></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">They wrote the house that emo grew up in. The "House Album" is genuinely legendary and they don't tour often. Rare live show. (⚡ Conflicts with flipturn)</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<a class="spotify-btn" href="https://open.spotify.com/search/American%20Football" target="_blank">▶ Open in Spotify</a>
+</div>
+<div class="card r4">
+<div class="card-top"><div class="card-left">
+<div class="card-name">TOPS</div>
+<div class="card-meta">
+<span class="stage-tag stage-mountain">Mountain Stage</span>
+<span class="card-day-badge">Sun · 3:00–3:50</span>
+<span class="scrobble-tag">96 scrobbles · #117</span><span class="conflict-badge" data-conflict="vs Melody's Echo Chamber · Kilby Stage" style="font-size:10px;padding:2px 6px" tabindex="0">⚡ Conflict</span>
+</div>
+</div><div class="rating-badge">4/5</div></div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Synth pop / indie pop / dream pop</div></div>
+<div class="card-section"><div class="card-section-label">Similar</div><div class="card-section-text">Men I Trust, Yumi Zouma, Real Estate</div></div>
+<div class="card-divider"></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Montreal cool — shimmering, nostalgic, perfectly warm. 96 scrobbles says you already like this. Sunday afternoon golden hour slot. Slight edge over Melody's Echo Chamber playing at the same time.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<a class="spotify-btn" href="https://open.spotify.com/search/TOPS" target="_blank">▶ Open in Spotify</a>
+</div>
+<div class="card r35">
+<div class="card-top"><div class="card-left">
+<div class="card-name">Grandaddy</div>
+<div class="card-meta">
+<span class="stage-tag stage-lake">Lake Stage</span>
+<span class="card-day-badge">Sun · 3:55–4:45</span>
+</div>
+</div><div class="rating-badge">3.5/5</div></div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Indie rock / space rock / alt country</div></div>
+<div class="card-section"><div class="card-section-label">Similar</div><div class="card-section-text">Modest Mouse, Built to Spill, Sparklehorse</div></div>
+<div class="card-divider"></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">"The Sophtware Slump" is one of indie rock's most underrated albums. Jason Lytle's melancholy-futuristic-Americana thing hits differently in afternoon sun. Don't sleep on this one.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<a class="spotify-btn" href="https://open.spotify.com/search/Grandaddy" target="_blank">▶ Open in Spotify</a>
+</div>
+<div class="card r35">
+<div class="card-top"><div class="card-left">
+<div class="card-name">Melody's Echo Chamber</div>
+<div class="card-meta">
+<span class="stage-tag stage-kilby">Kilby Stage</span>
+<span class="card-day-badge">Sun · 3:00–3:50</span>
+<span class="conflict-badge" data-conflict="vs TOPS · Mountain Stage · same time" style="font-size:10px;padding:2px 6px" tabindex="0">⚡ Conflict</span>
+</div>
+</div><div class="rating-badge">3.5/5</div></div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Psychedelic pop / dream pop / neo-psych</div></div>
+<div class="card-section"><div class="card-section-label">Similar</div><div class="card-section-text">Tame Impala, Unknown Mortal Orchestra, Beach House</div></div>
+<div class="card-divider"></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Lush, swirling hallucinatory French psych-pop. "Bon Voyage" is gorgeous. Dreamy and atmospheric in a way that fits your taste. (⚡ Conflicts with TOPS — lean TOPS if you had to pick)</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<a class="spotify-btn" href="https://open.spotify.com/search/Melodys%20Echo%20Chamber" target="_blank">▶ Open in Spotify</a>
+</div>
+<div class="card r35">
+<div class="card-top"><div class="card-left">
+<div class="card-name">Caroline</div>
+<div class="card-meta">
+<span class="stage-tag stage-desert">Desert Stage</span>
+<span class="card-day-badge">Sat · 5:45–6:45</span>
+<span class="conflict-badge" data-conflict="vs The Last Dinner Party · Lake Stage" style="font-size:10px;padding:2px 6px" tabindex="0">⚡ Conflict</span>
+</div>
+</div><div class="rating-badge">3.5/5</div></div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Art rock / experimental / post-rock</div></div>
+<div class="card-section"><div class="card-section-label">Similar</div><div class="card-section-text">Squid, black midi</div></div>
+<div class="card-divider"></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Critically adored UK collective — genuinely fascinating, textural, inventive. Worth catching if The Last Dinner Party doesn't appeal after a listen. (⚡ Conflicts with The Last Dinner Party)</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<a class="spotify-btn" href="https://open.spotify.com/search/Caroline" target="_blank">▶ Open in Spotify</a>
+</div>
+</div>
+</div>
+<div class="review-tier">
+<div class="review-tier-header t3">🎸 Tier 3 — Solid Afternoon Acts</div>
+<div class="slot-cards">
+<div class="card r35">
+<div class="card-top"><div class="card-left">
+<div class="card-name">Dehd</div>
+<div class="card-meta">
+<span class="stage-tag stage-mountain">Mountain Stage</span>
+<span class="card-day-badge">Sat · 4:50–5:40</span>
+</div>
+</div><div class="rating-badge">3.5/5</div></div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Indie rock / jangle pop / post-punk</div></div>
+<div class="card-section"><div class="card-section-label">Similar</div><div class="card-section-text">The Breeders, Alvvays, Guided by Voices</div></div>
+<div class="card-divider"></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Scrappy Chicago rock trio — raw, reverb-drenched, surprisingly catchy. "Blue Skies" is a good record. Slight edge over Briston Maroney if you want indie grit.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<a class="spotify-btn" href="https://open.spotify.com/search/Dehd" target="_blank">▶ Open in Spotify</a>
+</div>
+<div class="card r35">
+<div class="card-top"><div class="card-left">
+<div class="card-name">Clap Your Hands Say Yeah</div>
+<div class="card-meta">
+<span class="stage-tag stage-kilby">Kilby Stage</span>
+<span class="card-day-badge">Sat · 3:00–3:50</span>
+</div>
+</div><div class="rating-badge">3.5/5</div></div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Indie rock / art rock / lo-fi</div></div>
+<div class="card-section"><div class="card-section-label">Similar</div><div class="card-section-text">Arcade Fire, The National, Beirut</div></div>
+<div class="card-divider"></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Their 2005 debut is genuinely one of the great indie rock albums. Mid-2000s nostalgia that holds up. Alec Ounsworth's yelpy vocals are an acquired taste but totally work live.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<a class="spotify-btn" href="https://open.spotify.com/search/Clap%20Your%20Hands%20Say%20Yeah" target="_blank">▶ Open in Spotify</a>
+</div>
+<div class="card r35">
+<div class="card-top"><div class="card-left">
+<div class="card-name">Beach Bunny</div>
+<div class="card-meta">
+<span class="stage-tag stage-kilby">Kilby Stage</span>
+<span class="card-day-badge">Fri · 4:50–5:40</span>
+</div>
+</div><div class="rating-badge">3.5/5</div></div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Indie pop / power pop / alt rock</div></div>
+<div class="card-section"><div class="card-section-label">Similar</div><div class="card-section-text">Alvvays, Snail Mail, Soccer Mommy</div></div>
+<div class="card-divider"></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Lili Trifilio writes sharp, catchy pop-rock songs about love and getting wrecked by it. "Prom Queen" is a genuine bop. Good golden-hour energy after Snail Mail.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<a class="spotify-btn" href="https://open.spotify.com/search/Beach%20Bunny" target="_blank">▶ Open in Spotify</a>
+</div>
+<div class="card r35">
+<div class="card-top"><div class="card-left">
+<div class="card-name">Dry Cleaning</div>
+<div class="card-meta">
+<span class="stage-tag stage-lake">Lake Stage</span>
+<span class="card-day-badge">Fri · 2:10–2:50</span>
+</div>
+</div><div class="rating-badge">3.5/5</div></div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Post-punk / spoken word / UK indie</div></div>
+<div class="card-section"><div class="card-section-label">Similar</div><div class="card-section-text">Squid, black midi, Shopping</div></div>
+<div class="card-divider"></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Florence Shaw's deadpan spoken vocals over driving guitar is genuinely hypnotic. "New Long Leg" is excellent. Brilliantly weird. Worth an afternoon hour.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<a class="spotify-btn" href="https://open.spotify.com/search/Dry%20Cleaning" target="_blank">▶ Open in Spotify</a>
+</div>
+<div class="card r35">
+<div class="card-top"><div class="card-left">
+<div class="card-name">Feeble Little Horse</div>
+<div class="card-meta">
+<span class="stage-tag stage-kilby">Kilby Stage</span>
+<span class="card-day-badge">Sat · 1:30–2:00</span>
+</div>
+</div><div class="rating-badge">3.5/5</div></div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Shoegaze / noise pop / indie rock</div></div>
+<div class="card-section"><div class="card-section-label">Similar</div><div class="card-section-text">Hotline TNT, Knifeplay, Glitterer</div></div>
+<div class="card-divider"></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Pittsburgh shoegaze with big underground buzz. "Girl with Fish" is a banger. Continuing the dreamy/fuzzy theme from Hotline TNT. Good first real set of Saturday.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<a class="spotify-btn" href="https://open.spotify.com/search/Feeble%20Little%20Horse" target="_blank">▶ Open in Spotify</a>
+</div>
+<div class="card r4">
+<div class="card-top"><div class="card-left">
+<div class="card-name">Hotline TNT</div>
+<div class="card-meta">
+<span class="stage-tag stage-desert">Desert Stage</span>
+<span class="card-day-badge">Fri · 12:50–1:20</span>
+</div>
+</div><div class="rating-badge">4/5</div></div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Shoegaze / noise pop / indie rock</div></div>
+<div class="card-section"><div class="card-section-label">Similar</div><div class="card-section-text">My Bloody Valentine, Ride, Slowdive</div></div>
+<div class="card-divider"></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">One of the buzziest bands in indie right now. "Cartwheel" is loud and gorgeous. Fits your dreamy/atmospheric zone — just way more distorted. First real set of Friday, go in.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<a class="spotify-btn" href="https://open.spotify.com/search/Hotline%20TNT" target="_blank">▶ Open in Spotify</a>
+</div>
+<div class="card r4">
+<div class="card-top"><div class="card-left">
+<div class="card-name">NewDad</div>
+<div class="card-meta">
+<span class="stage-tag stage-kilby">Kilby Stage</span>
+<span class="card-day-badge">Fri · 1:30–2:00</span>
+</div>
+</div><div class="rating-badge">4/5</div></div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Dream pop / shoegaze / indie rock</div></div>
+<div class="card-section"><div class="card-section-label">Similar</div><div class="card-section-text">Beach House, Alvvays, Wild Nothing</div></div>
+<div class="card-divider"></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Hazy, gorgeous Irish cool. You love Beach House, Wild Nothing, and dreamy atmospherics — NewDad is this generation's answer to that sound. Sleeper pick, don't miss it.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<a class="spotify-btn" href="https://open.spotify.com/search/NewDad" target="_blank">▶ Open in Spotify</a>
+</div>
+</div>
+</div>
+<div class="review-tier">
+<div class="review-tier-header t4">📋 Tier 4 — Nice to Know (Lower Urgency)</div>
+<div class="slot-cards">
+<div class="card r3">
+<div class="card-top"><div class="card-left">
+<div class="card-name">Between Friends</div>
+<div class="card-meta">
+<span class="stage-tag stage-lake">Lake Stage</span>
+<span class="card-day-badge">Sat · 3:55–4:45</span>
+</div>
+</div><div class="rating-badge">3/5</div></div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Electropop / indie pop / R&amp;B</div></div>
+<div class="card-section"><div class="card-section-label">Similar</div><div class="card-section-text">Amber Mark, Blood Orange, Dua Lipa</div></div>
+<div class="card-divider"></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">R&amp;B-leaning indie pop that fits your Blood Orange sensibility. "Girl" is a bop.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<a class="spotify-btn" href="https://open.spotify.com/search/Between%20Friends" target="_blank">▶ Open in Spotify</a>
+</div>
+<div class="card r3">
+<div class="card-top"><div class="card-left">
+<div class="card-name">Briston Maroney</div>
+<div class="card-meta">
+<span class="stage-tag stage-kilby">Kilby Stage</span>
+<span class="card-day-badge">Sat · 4:50–5:40</span>
+</div>
+</div><div class="rating-badge">3/5</div></div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Indie pop / folk pop</div></div>
+<div class="card-section"><div class="card-section-label">Similar</div><div class="card-section-text">Coin, Lany, Hippo Campus</div></div>
+<div class="card-divider"></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">"Fences" and "June" are genuinely good songs. Clean, polished, easy to like.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<a class="spotify-btn" href="https://open.spotify.com/search/Briston%20Maroney" target="_blank">▶ Open in Spotify</a>
+</div>
+<div class="card r3">
+<div class="card-top"><div class="card-left">
+<div class="card-name">Lyn Lapid</div>
+<div class="card-meta">
+<span class="stage-tag stage-lake">Lake Stage</span>
+<span class="card-day-badge">Sat · 2:10–2:50</span>
+</div>
+</div><div class="rating-badge">3/5</div></div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Indie pop / singer-songwriter</div></div>
+<div class="card-section"><div class="card-section-label">Similar</div><div class="card-section-text">Snail Mail, Soccer Mommy</div></div>
+<div class="card-divider"></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Young Filipino-American artist with breakout singles. Heartfelt and well-crafted.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<a class="spotify-btn" href="https://open.spotify.com/search/Lyn%20Lapid" target="_blank">▶ Open in Spotify</a>
+</div>
+<div class="card r3">
+<div class="card-top"><div class="card-left">
+<div class="card-name">Chanel Beads</div>
+<div class="card-meta">
+<span class="stage-tag stage-desert">Desert Stage</span>
+<span class="card-day-badge">Fri · 5:45–6:45</span>
+</div>
+</div><div class="rating-badge">3/5</div></div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Electronic / indie pop / experimental</div></div>
+<div class="card-section"><div class="card-section-label">Similar</div><div class="card-section-text">Bladee, Oneohtrix, SOPHIE</div></div>
+<div class="card-divider"></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Glitchy and atmospheric Brooklyn electronic pop. Interesting but FJM is the call at this time.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<a class="spotify-btn" href="https://open.spotify.com/search/Chanel%20Beads" target="_blank">▶ Open in Spotify</a>
+</div>
+<div class="card r3">
+<div class="card-top"><div class="card-left">
+<div class="card-name">Ben Kweller</div>
+<div class="card-meta">
+<span class="stage-tag stage-desert">Desert Stage</span>
+<span class="card-day-badge">Sat · 3:55–4:45</span>
+</div>
+</div><div class="rating-badge">3/5</div></div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Indie rock / pop rock / singer-songwriter</div></div>
+<div class="card-section"><div class="card-section-label">Similar</div><div class="card-section-text">Weezer, The Shins, Bright Eyes</div></div>
+<div class="card-divider"></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">KBP regular and fan favorite. Warm, charming, easy-going. "On My Way" is a genuine crowd-pleaser.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<a class="spotify-btn" href="https://open.spotify.com/search/Ben%20Kweller" target="_blank">▶ Open in Spotify</a>
+</div>
+<div class="card r3">
+<div class="card-top"><div class="card-left">
+<div class="card-name">Ritt Momney</div>
+<div class="card-meta">
+<span class="stage-tag stage-kilby">Kilby Stage</span>
+<span class="card-day-badge">Fri · 3:00–3:50</span>
+</div>
+</div><div class="rating-badge">3/5</div></div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Indie pop / dream pop / singer-songwriter</div></div>
+<div class="card-section"><div class="card-section-label">Similar</div><div class="card-section-text">Rex Orange County, Cavetown, Men I Trust</div></div>
+<div class="card-divider"></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">SLC local hero. Earnest indie pop with real charm. "Into Your Arms" is lovely.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<a class="spotify-btn" href="https://open.spotify.com/search/Ritt%20Momney" target="_blank">▶ Open in Spotify</a>
+</div>
+<div class="card r3">
+<div class="card-top"><div class="card-left">
+<div class="card-name">Kevin Morby</div>
+<div class="card-meta">
+<span class="stage-tag stage-mountain">Mountain Stage</span>
+<span class="card-day-badge">Fri · 4:50–5:40</span>
+</div>
+</div><div class="rating-badge">3/5</div></div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Indie folk / folk rock</div></div>
+<div class="card-section"><div class="card-section-label">Similar</div><div class="card-section-text">Father John Misty, The War on Drugs, Phosphorescent</div></div>
+<div class="card-divider"></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Good songwriter with a lot of critical praise. "Singing Saw" is excellent. Beach Bunny has better energy for this time of day though.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<a class="spotify-btn" href="https://open.spotify.com/search/Kevin%20Morby" target="_blank">▶ Open in Spotify</a>
+</div>
+<div class="card r3">
+<div class="card-top"><div class="card-left">
+<div class="card-name">Automatic</div>
+<div class="card-meta">
+<span class="stage-tag stage-desert">Desert Stage</span>
+<span class="card-day-badge">Sat · 2:10–2:50</span>
+</div>
+</div><div class="rating-badge">3/5</div></div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Post-punk / electronic / cold wave</div></div>
+<div class="card-section"><div class="card-section-label">Similar</div><div class="card-section-text">Dry Cleaning, Bodega</div></div>
+<div class="card-divider"></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">LA trio with sharp electronic post-punk. "Damage Control" is good. Decent afternoon bridging act.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<a class="spotify-btn" href="https://open.spotify.com/search/Automatic" target="_blank">▶ Open in Spotify</a>
+</div>
+<div class="card r3">
+<div class="card-top"><div class="card-left">
+<div class="card-name">Drugdealer</div>
+<div class="card-meta">
+<span class="stage-tag stage-desert">Desert Stage</span>
+<span class="card-day-badge">Fri · 3:55–4:45</span>
+<span class="conflict-badge" data-conflict="vs Snail Mail · Lake Stage · same time" style="font-size:10px;padding:2px 6px" tabindex="0">⚡ Conflict</span>
+</div>
+</div><div class="rating-badge">3/5</div></div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Psych pop / soft rock / California haze</div></div>
+<div class="card-section"><div class="card-section-label">Similar</div><div class="card-section-text">Mild High Club, Unknown Mortal Orchestra</div></div>
+<div class="card-divider"></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Breezy vintage pop-rock. Good — but Snail Mail is playing at the same time. This is a Snail Mail slot.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<a class="spotify-btn" href="https://open.spotify.com/search/Drugdealer" target="_blank">▶ Open in Spotify</a>
+</div>
+<div class="card r3">
+<div class="card-top"><div class="card-left">
+<div class="card-name">Hannah Cohen</div>
+<div class="card-meta">
+<span class="stage-tag stage-kilby">Kilby Stage</span>
+<span class="card-day-badge">Sun · 1:30–2:00</span>
+</div>
+</div><div class="rating-badge">3/5</div></div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Indie folk / dream pop</div></div>
+<div class="card-section"><div class="card-section-label">Similar</div><div class="card-section-text">Weyes Blood, Sharon Van Etten</div></div>
+<div class="card-divider"></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">"Welcome Home" is a beautiful record. Understated and lovely — perfect slow Sunday opener before the day ramps up.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<a class="spotify-btn" href="https://open.spotify.com/search/Hannah%20Cohen" target="_blank">▶ Open in Spotify</a>
+</div>
+<div class="card r3">
+<div class="card-top"><div class="card-left">
+<div class="card-name">Smerz</div>
+<div class="card-meta">
+<span class="stage-tag stage-lake">Lake Stage</span>
+<span class="card-day-badge">Sun · 2:10–2:50</span>
+</div>
+</div><div class="rating-badge">3/5</div></div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Electronic / avant-pop / experimental</div></div>
+<div class="card-section"><div class="card-section-label">Similar</div><div class="card-section-text">Arca, Kelela, Yves Tumor</div></div>
+<div class="card-divider"></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Norwegian minimalist electronic — hypnotic and strange. Not your usual zone but worth 20 minutes if nearby.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<a class="spotify-btn" href="https://open.spotify.com/search/Smerz" target="_blank">▶ Open in Spotify</a>
+</div>
+</div>
+</div>
+</div><!-- /day-review -->
+<div class="day-panel" id="day-reviewed">
+<div class="reviewed-intro">
+<h2>✅ Already Know These</h2>
+<p>Artists you've already listened to enough that no pre-festival homework is needed. Notes pre-filled with your Last.fm data where available. Still editable in Edit Mode.</p>
+</div>
+<div class="slot-cards">
+<div class="card r5">
+<div class="card-top"><div class="card-left">
+<div class="card-name">Modest Mouse</div>
+<div class="card-meta">
+<span class="stage-tag stage-lake">Lake Stage</span>
+<span class="card-day-badge">Fri · 7:55–8:55</span>
+<span class="scrobble-tag">283 scrobbles · #39</span><span class="note-badge">⭐ New album June 5</span>
+</div>
+</div><div class="rating-badge">5/5</div></div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Indie rock / alternative / post-punk</div></div>
+<div class="card-section"><div class="card-section-label">Similar Artists</div><div class="card-section-text">Built to Spill, Pavement, The Shins</div></div>
+<div class="card-divider"></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">283 scrobbles, your #39 all-time. "Float On," "Dashboard," "Ocean Breathes Salty," "Missed the Boat" — career-spanning set from a band that's been defining indie rock forever. The Friday night anchor.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes...">283 scrobbles — my #39 all-time. Favorites: Float On, Dashboard, Spitting Venom, Ocean Breathes Salty, Missed the Boat, 3rd Planet, Cowboy Dan. ⭐ New album "An Eraser and a Maze" drops June 5, 2026 — right after the festival!</div></div>
+</div>
+<div class="card r5">
+<div class="card-top"><div class="card-left">
+<div class="card-name">Lorde</div>
+<div class="card-meta">
+<span class="stage-tag stage-kilby">Kilby Stage</span>
+<span class="card-day-badge">Sun · 9:00–10:30</span>
+<span class="scrobble-tag">132 scrobbles · #95</span>
+</div>
+</div><div class="rating-badge">5/5</div></div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Art pop / indie pop / electropop</div></div>
+<div class="card-section"><div class="card-section-label">Similar Artists</div><div class="card-section-text">Melodrama is its own genre</div></div>
+<div class="card-divider"></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">The Sunday headliner. 132 scrobbles and one of the best live performers in pop. She's been away for years and this feels like a proper return. "Green Light," "Liability," "Supercut," "Writer in the Dark." Weekend finale.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes...">132 scrobbles — my #95 all-time. Favorites: Green Light, Liability, Tennis Court, Ribs, Hard Feelings/Loveless, Solar Power, Royals.</div></div>
+</div>
+<div class="card r4">
+<div class="card-top"><div class="card-left">
+<div class="card-name">Flipturn</div>
+<div class="card-meta">
+<span class="stage-tag stage-kilby">Kilby Stage</span>
+<span class="card-day-badge">Sun · 4:50–5:40</span>
+<span class="scrobble-tag">150 scrobbles · #86</span>
+</div>
+</div><div class="rating-badge">4/5</div></div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Indie rock / dream pop / alternative</div></div>
+<div class="card-section"><div class="card-section-label">Similar Artists</div><div class="card-section-text">Local Natives, Washed Out, Alvvays</div></div>
+<div class="card-divider"></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">150 scrobbles and your #86 artist — you clearly love flipturn already. Great in the open air right before the evening headliners. (⚡ Tough conflict: American Football is also playing)</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes...">150 scrobbles — my #86 all-time. Favorites: Serving Tray, Chicago, Sad Disco, Chairs, Burn, Sad Drug.</div></div>
+</div>
+<div class="card r4">
+<div class="card-top"><div class="card-left">
+<div class="card-name">Father John Misty</div>
+<div class="card-meta">
+<span class="stage-tag stage-lake">Lake Stage</span>
+<span class="card-day-badge">Fri · 5:45–6:45</span>
+<span class="scrobble-tag">77 scrobbles · #141</span>
+</div>
+</div><div class="rating-badge">4/5</div></div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Indie folk / baroque pop / art rock</div></div>
+<div class="card-section"><div class="card-section-label">Similar Artists</div><div class="card-section-text">Fleet Foxes, Andy Shauf, Destroyer</div></div>
+<div class="card-divider"></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">77 scrobbles. Josh Tillman is one of the most compelling live performers alive. He might talk for 5 minutes about existential dread, or not say a word. Golden hour + FJM is a perfect combination.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+</div>
+
+<div class="card r5">
+<div class="card-top"><div class="card-left">
+<div class="card-name">Blood Orange</div>
+<div class="card-meta">
+<span class="stage-tag stage-lake">Lake Stage</span>
+<span class="card-day-badge">Sun · 7:55–8:55</span>
+<span class="scrobble-tag">535 scrobbles · #16</span>
+</div>
+</div><div class="rating-badge">5/5</div></div>
+<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">R&amp;B / indie soul / neo-soul / electronic</div></div>
+<div class="card-section"><div class="card-section-label">Similar</div><div class="card-section-text">Frank Ocean, Solange, How to Dress Well</div></div>
+<div class="card-divider"></div>
+<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Your #16 all-time artist. 535 scrobbles says you know this music is for you. Dev Hynes is immersive and cinematic live — Freetown Sound, Negro Swan, Cupid Deluxe. The penultimate set before Lorde. Be at the Lake Stage.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-placeholder="Click ✏️ Edit Mode to add your notes...">#16 all-time most scrobbled artist. Older electronic/synthy stuff, newer stuff is a little different, sometimes weird, but mostly good. All time Favorites: Champagne Coast, You're Not Good Enough, Augustine, Desirée, Jewelry, Smoke.</div></div>
+<a class="spotify-btn" href="https://open.spotify.com/search/Blood%20Orange" target="_blank">▶ Open in Spotify</a>
+</div>
+</div>
+</div><!-- /day-reviewed -->
+<footer>
+  Built for <strong>Taylor</strong> · Data from <a href="https://www.last.fm/user/TD789" target="_blank">TD789 on Last.fm</a> (68,789 scrobbles) · <a href="https://www.kilbyblockparty.com" target="_blank">Kilby Block Party 2026</a> · May 15–17, SLC
+</footer>
+<div class="private-nav">
+  <button class="private-nav-btn" onclick="showDay('review', this)">· · ·</button>
+</div>
+<div class="pw-overlay" id="pw-overlay">
+<div class="pw-box">
+<h3>🔒 Private Section</h3>
+<p>This section contains behind-the-scenes notes.<br/>Enter the password to unlock.</p>
+<div class="pw-error" id="pw-error">Incorrect password — try again.</div>
+<input class="pw-input" id="pw-input" onkeydown="if(event.key==='Enter') submitPw()" placeholder="Password" type="password"/>
+<button class="pw-submit" onclick="submitPw()">Unlock</button>
+<button class="pw-cancel" onclick="closePwModal()">Cancel</button>
+</div>
+</div>
+<button class="edit-fab" id="edit-fab" onclick="toggleEditMode()">✏️ Edit Notes</button>
+<button class="export-btn" id="export-btn" onclick="exportHTML()">📋 Export HTML</button>
+<script>
+  let privateUnlocked = false;
+  let pendingDay = null, pendingBtn = null;
+
+  // Auto-hide Kickoff Shows tab after 1 AM May 15, 2026 (Mountain Time = UTC-6)
+  (function() {
+    const hideAfter = new Date('2026-05-15T07:00:00Z'); // 1 AM MDT (UTC-6)
+    if (new Date() >= hideAfter) {
+      const tab = document.getElementById('kickoff-tab');
+      if (tab) tab.style.display = 'none';
+    }
+  })();
+
+  function showDay(day, btn) {
+    if ((day === 'review' || day === 'reviewed') && !privateUnlocked) {
+      pendingDay = day; pendingBtn = btn;
+      document.getElementById('pw-overlay').classList.add('open');
+      setTimeout(() => document.getElementById('pw-input').focus(), 50);
+      return;
+    }
+    document.querySelectorAll('.day-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('day-' + day).classList.add('active');
+    btn.classList.add('active');
+  }
+  function submitPw() {
+    const val = document.getElementById('pw-input').value;
+    if (val === 'clarinex64') {
+      privateUnlocked = true;
+      document.querySelectorAll('.tab-btn.locked').forEach(b => b.classList.remove('locked'));
+      closePwModal();
+      if (pendingDay) showDay(pendingDay, pendingBtn);
+    } else {
+      document.getElementById('pw-error').style.display = 'block';
+      document.getElementById('pw-input').value = '';
+      document.getElementById('pw-input').focus();
+    }
+  }
+  function closePwModal() {
+    document.getElementById('pw-overlay').classList.remove('open');
+    document.getElementById('pw-error').style.display = 'none';
+    document.getElementById('pw-input').value = '';
+  }
+  // Mobile-friendly conflict tooltip toggle
+  document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('conflict-badge') && e.target.dataset.conflict) {
+      e.target.classList.toggle('tip-open');
+    } else {
+      document.querySelectorAll('.conflict-badge.tip-open').forEach(b => b.classList.remove('tip-open'));
+    }
+  });
+  let editMode = false;
+
+  function toggleInfoBox() {
+    document.getElementById('info-box').classList.toggle('open');
+  }
+  // Close info box when clicking outside
+  document.addEventListener('click', function(e) {
+    const box = document.getElementById('info-box');
+    const btn = document.querySelector('.info-trigger');
+    if (box && box.classList.contains('open') && !box.contains(e.target) && e.target !== btn) {
+      box.classList.remove('open');
+    }
+  });
+  function toggleFaq(el) {
+    el.closest('.faq-item').classList.toggle('open');
+  }
+
+  function toggleEditMode() {
+    editMode = !editMode;
+    document.body.classList.toggle('edit-mode', editMode);
+    document.querySelectorAll('.taylor-take').forEach(el => {
+      el.contentEditable = editMode ? 'true' : 'false';
+    });
+    const fab = document.getElementById('edit-fab');
+    const expBtn = document.getElementById('export-btn');
+    fab.textContent = editMode ? '✅ Done Editing' : '✏️ Edit Notes';
+    fab.classList.toggle('active', editMode);
+    expBtn.style.display = editMode ? 'inline-block' : 'none';
+  }
+  function exportHTML() {
+    const serializer = new XMLSerializer();
+    let src = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+    // Turn off contenteditable in exported HTML
+    src = src.replace(/contenteditable="true"/g, 'contenteditable="false"');
+    src = src.replace(/ class="edit-fab active"/, ' class="edit-fab"');
+    src = src.replace(/<body class="edit-mode"/, '<body');
+    try {
+      navigator.clipboard.writeText(src).then(() => {
+        alert('✅ Copied! Paste into index.html, then drag to Netlify to redeploy.');
+      });
+    } catch(e) {
+      const ta = document.createElement('textarea');
+      ta.value = src; ta.style.position='fixed'; ta.style.opacity='0';
+      document.body.appendChild(ta); ta.select();
+      document.execCommand('copy'); document.body.removeChild(ta);
+      alert('✅ Copied! Paste into index.html, then drag to Netlify to redeploy.');
+    }
+  }
+</script>
+</body>
+</html>
