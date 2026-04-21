@@ -64,12 +64,30 @@
     }
     .stage-pill {
       font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 20px;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.5px; cursor: pointer; background: none;
+      font-family: inherit; transition: all 0.18s; opacity: 0.6;
     }
-    .stage-kilby  { background: rgba(232,93,47,0.2);  color: var(--kilby); border: 1px solid rgba(232,93,47,0.3); }
-    .stage-desert { background: rgba(232,160,48,0.2); color: var(--desert);border: 1px solid rgba(232,160,48,0.3); }
-    .stage-lake   { background: rgba(74,144,217,0.2); color: var(--lake);  border: 1px solid rgba(74,144,217,0.3); }
-    .stage-mountain{ background: rgba(240,208,64,0.2);color: var(--mountain);border: 1px solid rgba(240,208,64,0.3); }
+    .stage-pill:hover { opacity: 1; }
+    .stage-pill.active { opacity: 1; }
+    .stage-pill.stage-faded { opacity: 0.25; }
+    .stage-kilby  { color: var(--kilby);    border: 1px solid rgba(232,93,47,0.4); }
+    .stage-desert { color: var(--desert);   border: 1px solid rgba(232,160,48,0.4); }
+    .stage-lake   { color: var(--lake);     border: 1px solid rgba(74,144,217,0.4); }
+    .stage-mountain{ color: var(--mountain);border: 1px solid rgba(240,208,64,0.4); }
+    .stage-kilby.active   { background: rgba(232,93,47,0.2); }
+    .stage-desert.active  { background: rgba(232,160,48,0.2); }
+    .stage-lake.active    { background: rgba(74,144,217,0.2); }
+    .stage-mountain.active{ background: rgba(240,208,64,0.2); }
+    /* filtered-out cards slide away cleanly */
+    .card.stage-hidden { display: none; }
+    /* show a subtle "X filters active" clear button */
+    .stage-filter-clear {
+      font-size: 11px; font-weight: 600; color: var(--muted); background: none;
+      border: 1px solid var(--border); border-radius: 20px; padding: 4px 10px;
+      cursor: pointer; font-family: inherit; transition: all 0.18s; display: none;
+    }
+    .stage-filter-clear.visible { display: inline-block; }
+    .stage-filter-clear:hover { color: var(--text); border-color: var(--muted); }
 
     /* ── RATING LEGEND ── */
     .rating-legend {
@@ -553,10 +571,11 @@
 </div>
 </header>
 <div class="stage-legend">
-<div class="stage-pill stage-kilby">● Kilby Stage</div>
-<div class="stage-pill stage-desert">● Desert Stage</div>
-<div class="stage-pill stage-lake">● Lake Stage</div>
-<div class="stage-pill stage-mountain">● Mountain Stage</div>
+<button class="stage-pill stage-kilby"   onclick="toggleStageFilter('kilby')"   id="sf-kilby">● Kilby Stage</button>
+<button class="stage-pill stage-desert"  onclick="toggleStageFilter('desert')"  id="sf-desert">● Desert Stage</button>
+<button class="stage-pill stage-lake"    onclick="toggleStageFilter('lake')"    id="sf-lake">● Lake Stage</button>
+<button class="stage-pill stage-mountain" onclick="toggleStageFilter('mountain')" id="sf-mountain">● Mountain Stage</button>
+<button class="stage-filter-clear" id="stage-filter-clear" onclick="clearStageFilters()">✕ Clear filter</button>
 </div>
 <div class="rating-legend">
 <div class="rl-item"><div class="rl-dot" style="background:var(--r5)"></div> 5/5 Must See</div>
@@ -2832,6 +2851,60 @@
   document.addEventListener('click', e => {
     if (!e.target.closest('.search-wrap')) closeSearch();
   });
+
+  // ── STAGE FILTERS ────────────────────────────────────────────────
+  let activeStages = new Set();
+
+  function toggleStageFilter(stage) {
+    if (activeStages.has(stage)) {
+      activeStages.delete(stage);
+    } else {
+      activeStages.add(stage);
+    }
+    applyStageFilters();
+  }
+
+  function applyStageFilters() {
+    const pills = ['kilby','desert','lake','mountain'];
+    const hasFilter = activeStages.size > 0;
+
+    // Update pill styles
+    pills.forEach(s => {
+      const pill = document.getElementById('sf-' + s);
+      pill.classList.toggle('active', activeStages.has(s));
+      pill.classList.toggle('stage-faded', hasFilter && !activeStages.has(s));
+    });
+
+    // Show/hide clear button
+    document.getElementById('stage-filter-clear').classList.toggle('visible', hasFilter);
+
+    // Filter cards in every day panel
+    document.querySelectorAll('.day-panel').forEach(panel => {
+      panel.querySelectorAll('.card').forEach(card => {
+        if (!hasFilter) {
+          card.classList.remove('stage-hidden');
+          return;
+        }
+        const stageTag = card.querySelector('[class*="stage-tag"]');
+        const cardStage = stageTag
+          ? [...stageTag.classList].find(c => c.startsWith('stage-') && c !== 'stage-tag')?.replace('stage-','')
+          : null;
+        card.classList.toggle('stage-hidden', !activeStages.has(cardStage));
+      });
+    });
+  }
+
+  function clearStageFilters() {
+    activeStages.clear();
+    applyStageFilters();
+  }
+
+  // Clear stage filters when switching tabs (fresh view each day)
+  const _origShowDay = showDay;
+  showDay = function(day, btn) {
+    clearStageFilters();
+    _origShowDay(day, btn);
+  };
 
   // Rebuild search index after rating changes
   const _origApplyRating = window.applyRating;
