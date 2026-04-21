@@ -401,6 +401,25 @@
     .publish-btn.dirty { border-color: var(--r35); color: var(--r35); }
     .publish-btn.dirty::after { content: ' ●'; }
     .publish-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+    /* ── RATING EDITING ── */
+    body.edit-mode .rating-badge {
+      cursor: pointer; outline: 1px dashed rgba(251,191,36,0.5); border-radius: 6px;
+    }
+    body.edit-mode .rating-badge:hover { outline-color: var(--r35); }
+    .rating-picker {
+      position: fixed; z-index: 3000; background: var(--bg2);
+      border: 1px solid var(--border); border-radius: 12px;
+      padding: 8px; display: none; flex-direction: column; gap: 4px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.6); min-width: 110px;
+    }
+    .rating-picker.open { display: flex; }
+    .rating-picker button {
+      background: none; border: none; color: var(--muted); font-size: 13px;
+      font-weight: 600; cursor: pointer; padding: 6px 12px; border-radius: 7px;
+      text-align: left; font-family: inherit; transition: all 0.15s;
+    }
+    .rating-picker button:hover { background: var(--bg3); color: var(--text); }
+    .rating-picker button.selected { color: var(--r35); background: rgba(251,191,36,0.1); }
     .autosave-toast {
       position: fixed; bottom: 72px; right: 195px; z-index: 999;
       background: rgba(30,30,46,0.92); border: 1px solid var(--border);
@@ -513,9 +532,16 @@
 <button class="tab-btn" onclick="showDay('faq',this)">❓ FAQ</button>
 </div>
 <div class="admin-sub-nav" id="admin-sub-nav" style="display:none">
-<button class="admin-sub-btn active" id="admin-sub-review" onclick="showAdminTab('review')">📋 To Review</button>
-<button class="admin-sub-btn" id="admin-sub-reviewed" onclick="showAdminTab('reviewed')">✅ Already Reviewed</button>
+<button class="admin-sub-btn active" id="admin-sub-review">📋 To Review</button>
 <button class="admin-sub-btn" onclick="exitAdmin()" style="margin-left:auto">← Back to Guide</button>
+</div>
+<div class="rating-picker" id="rating-picker">
+  <button onclick="applyRating('r5','5/5')">5/5 · Must See</button>
+  <button onclick="applyRating('r4','4/5')">4/5 · High Priority</button>
+  <button onclick="applyRating('r35','3.5/5')">3.5/5 · Worth It</button>
+  <button onclick="applyRating('r3','3/5')">3/5 · If Nearby</button>
+  <button onclick="applyRating('r2','2/5')">2/5 · Skip</button>
+  <button onclick="applyRating('r1','1/5')">1/5 · Hard Skip</button>
 </div>
 <!-- ═══════════════════════════════════════════ FRIDAY ═══ -->
 <div class="day-panel active" id="day-fri">
@@ -535,7 +561,7 @@
 <div class="time-slot">
 <div class="time-slot-header"><span class="time-label">11:45 – 12:10</span><div class="time-divider"></div></div>
 <div class="slot-cards">
-<div class="card r2">
+<div class="card r2" data-artist="gonk">
 <div class="card-top">
 <div class="card-left">
 <div class="card-name">Gonk</div>
@@ -547,7 +573,7 @@
 <div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Openers are openers. Grab food, find your people. Skip.</div></div>
 <div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="gonk" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
 <a class="spotify-btn" href="https://open.spotify.com/search/Gonk" target="_blank">▶ Open in Spotify</a></div>
-<div class="card r2">
+<div class="card r2" data-artist="dad-bod">
 <div class="card-top">
 <div class="card-left">
 <div class="card-name">Dad Bod</div>
@@ -565,7 +591,7 @@
 <div class="time-slot">
 <div class="time-slot-header"><span class="time-label">12:15 – 12:40</span><div class="time-divider"></div></div>
 <div class="slot-cards">
-<div class="card r2">
+<div class="card r2" data-artist="gelli-haha">
 <div class="card-top">
 <div class="card-left">
 <div class="card-name">Gelli Haha</div>
@@ -577,7 +603,7 @@
 <div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Local opener. Get your bearings first.</div></div>
 <div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="gelli-haha" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
 <a class="spotify-btn" href="https://open.spotify.com/search/Gelli%20Haha" target="_blank">▶ Open in Spotify</a></div>
-<div class="card r2">
+<div class="card r2" data-artist="nadezhda">
 <div class="card-top">
 <div class="card-left">
 <div class="card-name">Nadezhda</div>
@@ -595,7 +621,7 @@
 <div class="time-slot">
 <div class="time-slot-header"><span class="time-label">12:50 – 1:20</span><div class="time-divider"></div></div>
 <div class="slot-cards">
-<div class="card r4">
+<div class="card r4" data-artist="hotline-tnt">
 <div class="card-top">
 <div class="card-left">
 <div class="card-name">Hotline TNT</div>
@@ -611,7 +637,7 @@
 <div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="hotline-tnt" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
 <div class="rec-arrow">↑ Good opener for the day</div>
 <a class="spotify-btn" href="https://open.spotify.com/search/Hotline%20TNT" target="_blank">▶ Open in Spotify</a></div>
-<div class="card r2">
+<div class="card r2" data-artist="wombo">
 <div class="card-top">
 <div class="card-left">
 <div class="card-name">Wombo</div>
@@ -630,7 +656,7 @@
 <div class="time-slot">
 <div class="time-slot-header"><span class="time-label">1:30 – 2:00</span><div class="time-divider"></div></div>
 <div class="slot-cards">
-<div class="card r4">
+<div class="card r4" data-artist="newdad">
 <div class="card-top">
 <div class="card-left">
 <div class="card-name">NewDad</div>
@@ -646,7 +672,7 @@
 <div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="newdad" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
 <div class="rec-arrow">↑ Direct fit with your taste</div>
 <a class="spotify-btn" href="https://open.spotify.com/search/NewDad" target="_blank">▶ Open in Spotify</a></div>
-<div class="card r2">
+<div class="card r2" data-artist="provoker">
 <div class="card-top">
 <div class="card-left">
 <div class="card-name">Provoker</div>
@@ -664,7 +690,7 @@
 <div class="time-slot">
 <div class="time-slot-header"><span class="time-label">2:10 – 2:50</span><div class="time-divider"></div></div>
 <div class="slot-cards">
-<div class="card r2">
+<div class="card r2" data-artist="die-spitz">
 <div class="card-top">
 <div class="card-left">
 <div class="card-name">Die Spitz</div>
@@ -676,7 +702,7 @@
 <div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Emerging act. Pre-listen to evaluate but probably a break time.</div></div>
 <div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="die-spitz" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
 <a class="spotify-btn" href="https://open.spotify.com/search/Die%20Spitz" target="_blank">▶ Open in Spotify</a></div>
-<div class="card r35">
+<div class="card r35" data-artist="dry-cleaning">
 <div class="card-top">
 <div class="card-left">
 <div class="card-name">Dry Cleaning</div>
@@ -698,7 +724,7 @@
 <div class="time-slot">
 <div class="time-slot-header"><span class="time-label">3:00 – 3:50</span><div class="time-divider"></div></div>
 <div class="slot-cards">
-<div class="card r3">
+<div class="card r3" data-artist="ritt-momney">
 <div class="card-top">
 <div class="card-left">
 <div class="card-name">Ritt Momney</div>
@@ -713,7 +739,7 @@
 <div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">SLC's own. Earnest indie pop with real charm. "Into Your Arms" is lovely. A nice chill stretch before the evening heats up.</div></div>
 <div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="ritt-momney" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
 <a class="spotify-btn" href="https://open.spotify.com/search/Ritt%20Momney" target="_blank">▶ Open in Spotify</a></div>
-<div class="card r2">
+<div class="card r2" data-artist="show-me-the-body">
 <div class="card-top">
 <div class="card-left">
 <div class="card-name">Show Me The Body</div>
@@ -735,7 +761,7 @@
 <span class="conflict-badge">⚡ CONFLICT</span>
 </div>
 <div class="slot-cards">
-<div class="card r3">
+<div class="card r3" data-artist="drugdealer">
 <div class="card-top">
 <div class="card-left">
 <div class="card-name">Drugdealer</div>
@@ -750,7 +776,7 @@
 <div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Breezy vintage pop-rock with real charm. Good — but Snail Mail is playing at the same time. This is a Snail Mail slot.</div></div>
 <div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="drugdealer" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
 <a class="spotify-btn" href="https://open.spotify.com/search/Drugdealer" target="_blank">▶ Open in Spotify</a></div>
-<div class="card r5">
+<div class="card r5" data-artist="snail-mail">
 <div class="card-top">
 <div class="card-left">
 <div class="card-name">Snail Mail</div>
@@ -776,7 +802,7 @@
 <div class="time-slot">
 <div class="time-slot-header"><span class="time-label">4:50 – 5:40</span><div class="time-divider"></div></div>
 <div class="slot-cards">
-<div class="card r35">
+<div class="card r35" data-artist="beach-bunny">
 <div class="card-top">
 <div class="card-left">
 <div class="card-name">Beach Bunny</div>
@@ -792,7 +818,7 @@
 <div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="beach-bunny" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
 <div class="rec-arrow">→ Solid 4:50 choice</div>
 <a class="spotify-btn" href="https://open.spotify.com/search/Beach%20Bunny" target="_blank">▶ Open in Spotify</a></div>
-<div class="card r3">
+<div class="card r3" data-artist="kevin-morby">
 <div class="card-top">
 <div class="card-left">
 <div class="card-name">Kevin Morby</div>
@@ -817,7 +843,7 @@
 <span class="conflict-badge">⚡ CONFLICT</span>
 </div>
 <div class="slot-cards">
-<div class="card r3">
+<div class="card r3" data-artist="chanel-beads">
 <div class="card-top">
 <div class="card-left">
 <div class="card-name">Chanel Beads</div>
@@ -830,7 +856,7 @@
 <div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Interesting but Father John Misty is an easy call at this time. Catch Chanel Beads if FJM is in a weird spoken-word phase.</div></div>
 <div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="chanel-beads" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
 <a class="spotify-btn" href="https://open.spotify.com/search/Chanel%20Beads" target="_blank">▶ Open in Spotify</a></div>
-<div class="card r4">
+<div class="card r4" data-artist="father-john-misty">
 <div class="card-top">
 <div class="card-left">
 <div class="card-name">Father John Misty</div>
@@ -856,7 +882,7 @@
 <div class="time-slot">
 <div class="time-slot-header"><span class="time-label">6:50 – 7:50</span><div class="time-divider"></div></div>
 <div class="slot-cards">
-<div class="card r4">
+<div class="card r4" data-artist="japanese-breakfast">
 <div class="card-top">
 <div class="card-left">
 <div class="card-name">Japanese Breakfast</div>
@@ -876,7 +902,7 @@
 <div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="japanese-breakfast" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
 <div class="rec-arrow">↑ Strong evening set</div>
 <a class="spotify-btn" href="https://open.spotify.com/search/Japanese%20Breakfast" target="_blank">▶ Open in Spotify</a></div>
-<div class="card r2">
+<div class="card r2" data-artist="pattie-gonia">
 <div class="card-top">
 <div class="card-left">
 <div class="card-name">Pattie Gonia</div>
@@ -894,7 +920,7 @@
 <div class="time-slot">
 <div class="time-slot-header"><span class="time-label">7:55 – 8:55</span><div class="time-divider"></div></div>
 <div class="slot-cards">
-<div class="card r2">
+<div class="card r2" data-artist="sports">
 <div class="card-top">
 <div class="card-left">
 <div class="card-name">Sports</div>
@@ -906,7 +932,7 @@
 <div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Modest Mouse is right there. Easy call.</div></div>
 <div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="sports" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
 <a class="spotify-btn" href="https://open.spotify.com/search/Sports" target="_blank">▶ Open in Spotify</a></div>
-<div class="card r5">
+<div class="card r5" data-artist="modest-mouse">
 <div class="card-top">
 <div class="card-left">
 <div class="card-name">Modest Mouse</div>
@@ -932,7 +958,7 @@
 <div class="time-slot">
 <div class="time-slot-header"><span class="time-label">9:00 – 10:15</span><div class="time-divider"></div></div>
 <div class="slot-cards">
-<div class="card r35">
+<div class="card r35" data-artist="turnstile">
 <div class="card-top">
 <div class="card-left">
 <div class="card-name">Turnstile</div>
@@ -967,34 +993,34 @@
 <div class="time-slot">
 <div class="time-slot-header"><span class="time-label">11:45 – 12:10</span><div class="time-divider"></div></div>
 <div class="slot-cards">
-<div class="card r2"><div class="card-top"><div class="card-left"><div class="card-name">Chalk (SLC)</div><div class="card-meta"><span class="stage-tag stage-desert">Desert</span><span class="time-tag">11:45–12:10</span></div></div><div class="rating-badge">2/5</div></div><div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Local SLC act. Grab coffee and get settled first.</div></div>
+<div class="card r2" data-artist="chalk-slc"><div class="card-top"><div class="card-left"><div class="card-name">Chalk (SLC)</div><div class="card-meta"><span class="stage-tag stage-desert">Desert</span><span class="time-tag">11:45–12:10</span></div></div><div class="rating-badge">2/5</div></div><div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Local SLC act. Grab coffee and get settled first.</div></div>
 <div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="chalk-slc" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div><a class="spotify-btn" href="https://open.spotify.com/search/Chalk%20SLC" target="_blank">▶ Open in Spotify</a></div>
-<div class="card r2"><div class="card-top"><div class="card-left"><div class="card-name">Wilbere</div><div class="card-meta"><span class="stage-tag stage-lake">Lake</span><span class="time-tag">11:45–12:10</span></div></div><div class="rating-badge">2/5</div></div><div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Local opener. Ease in.</div></div>
+<div class="card r2" data-artist="wilbere"><div class="card-top"><div class="card-left"><div class="card-name">Wilbere</div><div class="card-meta"><span class="stage-tag stage-lake">Lake</span><span class="time-tag">11:45–12:10</span></div></div><div class="rating-badge">2/5</div></div><div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Local opener. Ease in.</div></div>
 <div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="wilbere" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div><a class="spotify-btn" href="https://open.spotify.com/search/Wilbere" target="_blank">▶ Open in Spotify</a></div>
 </div>
 </div>
 <div class="time-slot">
 <div class="time-slot-header"><span class="time-label">12:15 – 12:40</span><div class="time-divider"></div></div>
 <div class="slot-cards">
-<div class="card r2"><div class="card-top"><div class="card-left"><div class="card-name">Cardinals</div><div class="card-meta"><span class="stage-tag stage-kilby">Kilby</span><span class="time-tag">12:15–12:40</span></div></div><div class="rating-badge">2/5</div></div><div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Local act. Skip and get food.</div></div>
+<div class="card r2" data-artist="cardinals"><div class="card-top"><div class="card-left"><div class="card-name">Cardinals</div><div class="card-meta"><span class="stage-tag stage-kilby">Kilby</span><span class="time-tag">12:15–12:40</span></div></div><div class="rating-badge">2/5</div></div><div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Local act. Skip and get food.</div></div>
 <div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="cardinals" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div><a class="spotify-btn" href="https://open.spotify.com/search/Cardinals" target="_blank">▶ Open in Spotify</a></div>
-<div class="card r2"><div class="card-top"><div class="card-left"><div class="card-name">Jill Whit</div><div class="card-meta"><span class="stage-tag stage-mountain">Mountain</span><span class="time-tag">12:15–12:40</span></div></div><div class="rating-badge">2/5</div></div><div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Pre-listen. Low expectations.</div></div>
+<div class="card r2" data-artist="jill-whit"><div class="card-top"><div class="card-left"><div class="card-name">Jill Whit</div><div class="card-meta"><span class="stage-tag stage-mountain">Mountain</span><span class="time-tag">12:15–12:40</span></div></div><div class="rating-badge">2/5</div></div><div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Pre-listen. Low expectations.</div></div>
 <div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="jill-whit" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div><a class="spotify-btn" href="https://open.spotify.com/search/Jill%20Whit" target="_blank">▶ Open in Spotify</a></div>
 </div>
 </div>
 <div class="time-slot">
 <div class="time-slot-header"><span class="time-label">12:50 – 1:20</span><div class="time-divider"></div></div>
 <div class="slot-cards">
-<div class="card r2"><div class="card-top"><div class="card-left"><div class="card-name">The Kilans</div><div class="card-meta"><span class="stage-tag stage-desert">Desert</span><span class="time-tag">12:50–1:20</span></div></div><div class="rating-badge">2/5</div></div><div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Local act. Probably skip.</div></div>
+<div class="card r2" data-artist="the-kilans"><div class="card-top"><div class="card-left"><div class="card-name">The Kilans</div><div class="card-meta"><span class="stage-tag stage-desert">Desert</span><span class="time-tag">12:50–1:20</span></div></div><div class="rating-badge">2/5</div></div><div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Local act. Probably skip.</div></div>
 <div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="the-kilans" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div><a class="spotify-btn" href="https://open.spotify.com/search/The%20Kilans" target="_blank">▶ Open in Spotify</a></div>
-<div class="card r2"><div class="card-top"><div class="card-left"><div class="card-name">YHWH Nailgun</div><div class="card-meta"><span class="stage-tag stage-lake">Lake</span><span class="time-tag">12:50–1:20</span></div></div><div class="rating-badge">1/5</div></div><div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Experimental noise</div></div><div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">That name alone. Hard pass.</div></div>
+<div class="card r2" data-artist="yhwh-nailgun"><div class="card-top"><div class="card-left"><div class="card-name">YHWH Nailgun</div><div class="card-meta"><span class="stage-tag stage-lake">Lake</span><span class="time-tag">12:50–1:20</span></div></div><div class="rating-badge">1/5</div></div><div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Experimental noise</div></div><div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">That name alone. Hard pass.</div></div>
 <div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="yhwh-nailgun" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div><a class="spotify-btn" href="https://open.spotify.com/search/YHWH%20Nailgun" target="_blank">▶ Open in Spotify</a></div>
 </div>
 </div>
 <div class="time-slot">
 <div class="time-slot-header"><span class="time-label">1:30 – 2:00</span><div class="time-divider"></div></div>
 <div class="slot-cards">
-<div class="card r35">
+<div class="card r35" data-artist="feeble-little-horse">
 <div class="card-top">
 <div class="card-left">
 <div class="card-name">Feeble Little Horse</div>
@@ -1010,14 +1036,14 @@
 <div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="feeble-little-horse" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
 <div class="rec-arrow">→ Good Saturday opener</div>
 <a class="spotify-btn" href="https://open.spotify.com/search/Feeble%20Little%20Horse" target="_blank">▶ Open in Spotify</a></div>
-<div class="card r2"><div class="card-top"><div class="card-left"><div class="card-name">FIGHTMASTER</div><div class="card-meta"><span class="stage-tag stage-mountain">Mountain</span><span class="time-tag">1:30–2:00</span></div></div><div class="rating-badge">2/5</div></div><div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Pre-listen to decide. Feeble Little Horse is the obvious call.</div></div>
+<div class="card r2" data-artist="fightmaster"><div class="card-top"><div class="card-left"><div class="card-name">FIGHTMASTER</div><div class="card-meta"><span class="stage-tag stage-mountain">Mountain</span><span class="time-tag">1:30–2:00</span></div></div><div class="rating-badge">2/5</div></div><div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Pre-listen to decide. Feeble Little Horse is the obvious call.</div></div>
 <div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="fightmaster" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div><a class="spotify-btn" href="https://open.spotify.com/search/FIGHTMASTER" target="_blank">▶ Open in Spotify</a></div>
 </div>
 </div>
 <div class="time-slot">
 <div class="time-slot-header"><span class="time-label">2:10 – 2:50</span><div class="time-divider"></div></div>
 <div class="slot-cards">
-<div class="card r3">
+<div class="card r3" data-artist="automatic">
 <div class="card-top">
 <div class="card-left">
 <div class="card-name">Automatic</div>
@@ -1032,7 +1058,7 @@
 <div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">LA trio with sharp electronic post-punk. "Damage Control" is good. Decent afternoon bridging act.</div></div>
 <div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="automatic" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
 <a class="spotify-btn" href="https://open.spotify.com/search/Automatic" target="_blank">▶ Open in Spotify</a></div>
-<div class="card r3">
+<div class="card r3" data-artist="lyn-lapid">
 <div class="card-top">
 <div class="card-left">
 <div class="card-name">Lyn Lapid</div>
@@ -1050,7 +1076,7 @@
 <div class="time-slot">
 <div class="time-slot-header"><span class="time-label">3:00 – 3:50</span><div class="time-divider"></div></div>
 <div class="slot-cards">
-<div class="card r35">
+<div class="card r35" data-artist="clap-your-hands-say-yeah">
 <div class="card-top">
 <div class="card-left">
 <div class="card-name">Clap Your Hands Say Yeah</div>
@@ -1066,7 +1092,7 @@
 <div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="clap-your-hands-say-yeah" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
 <div class="rec-arrow">→ Indie nostalgia worth catching</div>
 <a class="spotify-btn" href="https://open.spotify.com/search/Clap%20Your%20Hands%20Say%20Yeah" target="_blank">▶ Open in Spotify</a></div>
-<div class="card r2">
+<div class="card r2" data-artist="jane-remover">
 <div class="card-top">
 <div class="card-left">
 <div class="card-name">Jane Remover</div>
@@ -1083,7 +1109,7 @@
 <div class="time-slot">
 <div class="time-slot-header"><span class="time-label">3:55 – 4:45</span><div class="time-divider"></div></div>
 <div class="slot-cards">
-<div class="card r3">
+<div class="card r3" data-artist="ben-kweller">
 <div class="card-top">
 <div class="card-left">
 <div class="card-name">Ben Kweller</div>
@@ -1096,7 +1122,7 @@
 <div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">KBP regular and fan favorite. Warm, charming, easy-going set. "On My Way" is a genuine crowd-pleaser. Good chill stretch before the evening heats up.</div></div>
 <div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="ben-kweller" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
 <a class="spotify-btn" href="https://open.spotify.com/search/Ben%20Kweller" target="_blank">▶ Open in Spotify</a></div>
-<div class="card r3">
+<div class="card r3" data-artist="between-friends">
 <div class="card-top">
 <div class="card-left">
 <div class="card-name">Between Friends</div>
@@ -1116,7 +1142,7 @@
 <div class="time-slot">
 <div class="time-slot-header"><span class="time-label">4:50 – 5:40</span><div class="time-divider"></div></div>
 <div class="slot-cards">
-<div class="card r3">
+<div class="card r3" data-artist="briston-maroney">
 <div class="card-top">
 <div class="card-left">
 <div class="card-name">Briston Maroney</div>
@@ -1131,7 +1157,7 @@
 <div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">"Fences" and "June" are genuinely good songs. Clean, polished, easy to like. Good pre-evening energy. Not groundbreaking but solid.</div></div>
 <div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="briston-maroney" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
 <a class="spotify-btn" href="https://open.spotify.com/search/Briston%20Maroney" target="_blank">▶ Open in Spotify</a></div>
-<div class="card r35">
+<div class="card r35" data-artist="dehd">
 <div class="card-top">
 <div class="card-left">
 <div class="card-name">Dehd</div>
@@ -1157,7 +1183,7 @@
 <span class="conflict-badge">⚡ CONFLICT</span>
 </div>
 <div class="slot-cards">
-<div class="card r35">
+<div class="card r35" data-artist="caroline">
 <div class="card-top">
 <div class="card-left">
 <div class="card-name">Caroline</div>
@@ -1170,7 +1196,7 @@
 <div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Critically adored and genuinely fascinating. But The Last Dinner Party is a better time-slot call for overall energy. Catch Caroline if TDP doesn't sound appealing after a listen.</div></div>
 <div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="caroline" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
 <a class="spotify-btn" href="https://open.spotify.com/search/Caroline" target="_blank">▶ Open in Spotify</a></div>
-<div class="card r4">
+<div class="card r4" data-artist="the-last-dinner-party">
 <div class="card-top">
 <div class="card-left">
 <div class="card-name">The Last Dinner Party</div>
@@ -1191,7 +1217,7 @@
 <div class="time-slot">
 <div class="time-slot-header"><span class="time-label">6:50 – 7:50</span><div class="time-divider"></div></div>
 <div class="slot-cards">
-<div class="card r4">
+<div class="card r4" data-artist="lucy-dacus">
 <div class="card-top">
 <div class="card-left">
 <div class="card-name">Lucy Dacus</div>
@@ -1207,7 +1233,7 @@
 <div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="lucy-dacus" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
 <div class="rec-arrow">↑ You love Snail Mail — try this</div>
 <a class="spotify-btn" href="https://open.spotify.com/search/Lucy%20Dacus" target="_blank">▶ Open in Spotify</a></div>
-<div class="card r3">
+<div class="card r3" data-artist="the-moss">
 <div class="card-top">
 <div class="card-left">
 <div class="card-name">The Moss</div>
@@ -1224,7 +1250,7 @@
 <div class="time-slot">
 <div class="time-slot-header"><span class="time-label">7:55 – 8:55</span><div class="time-divider"></div></div>
 <div class="slot-cards">
-<div class="card r2">
+<div class="card r2" data-artist="quadeca">
 <div class="card-top">
 <div class="card-left">
 <div class="card-name">Quadeca</div>
@@ -1236,7 +1262,7 @@
 <div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">YouTube-turned-rapper. Nothing in your listening history points to this. Alex G is right there.</div></div>
 <div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="quadeca" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
 <a class="spotify-btn" href="https://open.spotify.com/search/Quadeca" target="_blank">▶ Open in Spotify</a></div>
-<div class="card r35">
+<div class="card r35" data-artist="alex-g">
 <div class="card-top">
 <div class="card-left">
 <div class="card-name">Alex G</div>
@@ -1257,7 +1283,7 @@
 <div class="time-slot">
 <div class="time-slot-header"><span class="time-label">9:00 – 10:15</span><div class="time-divider"></div></div>
 <div class="slot-cards">
-<div class="card r5">
+<div class="card r5" data-artist="the-xx">
 <div class="card-top">
 <div class="card-left">
 <div class="card-name">The xx</div>
@@ -1299,34 +1325,34 @@
 <div class="time-slot">
 <div class="time-slot-header"><span class="time-label">11:45 – 12:10</span><div class="time-divider"></div></div>
 <div class="slot-cards">
-<div class="card r2"><div class="card-top"><div class="card-left"><div class="card-name">Bad Luck Brigade</div><div class="card-meta"><span class="stage-tag stage-desert">Desert</span><span class="time-tag">11:45–12:10</span></div></div><div class="rating-badge">2/5</div></div><div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Local act. Opening slot. Get in, get food.</div></div>
+<div class="card r2" data-artist="bad-luck-brigade"><div class="card-top"><div class="card-left"><div class="card-name">Bad Luck Brigade</div><div class="card-meta"><span class="stage-tag stage-desert">Desert</span><span class="time-tag">11:45–12:10</span></div></div><div class="rating-badge">2/5</div></div><div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Local act. Opening slot. Get in, get food.</div></div>
 <div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="bad-luck-brigade" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div><a class="spotify-btn" href="https://open.spotify.com/search/Bad%20Luck%20Brigade" target="_blank">▶ Open in Spotify</a></div>
-<div class="card r2"><div class="card-top"><div class="card-left"><div class="card-name">Rachael Jenkins</div><div class="card-meta"><span class="stage-tag stage-lake">Lake</span><span class="time-tag">11:45–12:10</span></div></div><div class="rating-badge">2/5</div></div><div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Emerging singer-songwriter. Pre-listen to decide.</div></div>
+<div class="card r2" data-artist="rachael-jenkins"><div class="card-top"><div class="card-left"><div class="card-name">Rachael Jenkins</div><div class="card-meta"><span class="stage-tag stage-lake">Lake</span><span class="time-tag">11:45–12:10</span></div></div><div class="rating-badge">2/5</div></div><div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Emerging singer-songwriter. Pre-listen to decide.</div></div>
 <div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="rachael-jenkins" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div><a class="spotify-btn" href="https://open.spotify.com/search/Rachael%20Jenkins" target="_blank">▶ Open in Spotify</a></div>
 </div>
 </div>
 <div class="time-slot">
 <div class="time-slot-header"><span class="time-label">12:15 – 12:40</span><div class="time-divider"></div></div>
 <div class="slot-cards">
-<div class="card r2"><div class="card-top"><div class="card-left"><div class="card-name">Folk Bitch Trio</div><div class="card-meta"><span class="stage-tag stage-kilby">Kilby</span><span class="time-tag">12:15–12:40</span></div></div><div class="rating-badge">2/5</div></div><div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Indie folk / wry acoustic</div></div><div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">The name is doing a lot of work. Low stakes early slot.</div></div>
+<div class="card r2" data-artist="folk-bitch-trio"><div class="card-top"><div class="card-left"><div class="card-name">Folk Bitch Trio</div><div class="card-meta"><span class="stage-tag stage-kilby">Kilby</span><span class="time-tag">12:15–12:40</span></div></div><div class="rating-badge">2/5</div></div><div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Indie folk / wry acoustic</div></div><div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">The name is doing a lot of work. Low stakes early slot.</div></div>
 <div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="folk-bitch-trio" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div><a class="spotify-btn" href="https://open.spotify.com/search/Folk%20Bitch%20Trio" target="_blank">▶ Open in Spotify</a></div>
-<div class="card r2"><div class="card-top"><div class="card-left"><div class="card-name">Starr 67</div><div class="card-meta"><span class="stage-tag stage-mountain">Mountain</span><span class="time-tag">12:15–12:40</span></div></div><div class="rating-badge">2/5</div></div><div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Local act. Skip.</div></div>
+<div class="card r2" data-artist="starr-67"><div class="card-top"><div class="card-left"><div class="card-name">Starr 67</div><div class="card-meta"><span class="stage-tag stage-mountain">Mountain</span><span class="time-tag">12:15–12:40</span></div></div><div class="rating-badge">2/5</div></div><div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Local act. Skip.</div></div>
 <div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="starr-67" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div><a class="spotify-btn" href="https://open.spotify.com/search/Starr%2067" target="_blank">▶ Open in Spotify</a></div>
 </div>
 </div>
 <div class="time-slot">
 <div class="time-slot-header"><span class="time-label">12:50 – 1:20</span><div class="time-divider"></div></div>
 <div class="slot-cards">
-<div class="card r2"><div class="card-top"><div class="card-left"><div class="card-name">Old Mervs</div><div class="card-meta"><span class="stage-tag stage-desert">Desert</span><span class="time-tag">12:50–1:20</span></div></div><div class="rating-badge">2/5</div></div><div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Local act. Skip.</div></div>
+<div class="card r2" data-artist="old-mervs"><div class="card-top"><div class="card-left"><div class="card-name">Old Mervs</div><div class="card-meta"><span class="stage-tag stage-desert">Desert</span><span class="time-tag">12:50–1:20</span></div></div><div class="rating-badge">2/5</div></div><div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Local act. Skip.</div></div>
 <div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="old-mervs" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div><a class="spotify-btn" href="https://open.spotify.com/search/Old%20Mervs" target="_blank">▶ Open in Spotify</a></div>
-<div class="card r2"><div class="card-top"><div class="card-left"><div class="card-name">Mustard Service</div><div class="card-meta"><span class="stage-tag stage-lake">Lake</span><span class="time-tag">12:50–1:20</span></div></div><div class="rating-badge">2/5</div></div><div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Indie pop / indie rock</div></div><div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Chicago indie pop with a blogosphere following. Pre-listen to decide — might surprise you.</div></div>
+<div class="card r2" data-artist="mustard-service"><div class="card-top"><div class="card-left"><div class="card-name">Mustard Service</div><div class="card-meta"><span class="stage-tag stage-lake">Lake</span><span class="time-tag">12:50–1:20</span></div></div><div class="rating-badge">2/5</div></div><div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Indie pop / indie rock</div></div><div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Chicago indie pop with a blogosphere following. Pre-listen to decide — might surprise you.</div></div>
 <div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="mustard-service" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div><a class="spotify-btn" href="https://open.spotify.com/search/Mustard%20Service" target="_blank">▶ Open in Spotify</a></div>
 </div>
 </div>
 <div class="time-slot">
 <div class="time-slot-header"><span class="time-label">1:30 – 2:00</span><div class="time-divider"></div></div>
 <div class="slot-cards">
-<div class="card r3">
+<div class="card r3" data-artist="hannah-cohen">
 <div class="card-top">
 <div class="card-left">
 <div class="card-name">Hannah Cohen</div>
@@ -1339,7 +1365,7 @@
 <div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">"Welcome Home" is a beautiful record. Understated and lovely — perfect for a slow Sunday afternoon opener before the day ramps up.</div></div>
 <div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="hannah-cohen" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
 <a class="spotify-btn" href="https://open.spotify.com/search/Hannah%20Cohen" target="_blank">▶ Open in Spotify</a></div>
-<div class="card r2">
+<div class="card r2" data-artist="this-is-lorelei">
 <div class="card-top">
 <div class="card-left">
 <div class="card-name">This Is Lorelei</div>
@@ -1356,9 +1382,9 @@
 <div class="time-slot">
 <div class="time-slot-header"><span class="time-label">2:10 – 2:50</span><div class="time-divider"></div></div>
 <div class="slot-cards">
-<div class="card r2"><div class="card-top"><div class="card-left"><div class="card-name">Glom</div><div class="card-meta"><span class="stage-tag stage-desert">Desert</span><span class="time-tag">2:10–2:50</span></div></div><div class="rating-badge">2/5</div></div><div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Local / emerging. Pre-listen.</div></div>
+<div class="card r2" data-artist="glom"><div class="card-top"><div class="card-left"><div class="card-name">Glom</div><div class="card-meta"><span class="stage-tag stage-desert">Desert</span><span class="time-tag">2:10–2:50</span></div></div><div class="rating-badge">2/5</div></div><div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Local / emerging. Pre-listen.</div></div>
 <div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="glom" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div><a class="spotify-btn" href="https://open.spotify.com/search/Glom" target="_blank">▶ Open in Spotify</a></div>
-<div class="card r3">
+<div class="card r3" data-artist="smerz">
 <div class="card-top">
 <div class="card-left">
 <div class="card-name">Smerz</div>
@@ -1383,7 +1409,7 @@
 <span class="conflict-badge">⚡ CONFLICT</span>
 </div>
 <div class="slot-cards">
-<div class="card r35">
+<div class="card r35" data-artist="melody-s-echo-chamber">
 <div class="card-top">
 <div class="card-left">
 <div class="card-name">Melody's Echo Chamber</div>
@@ -1398,7 +1424,7 @@
 <div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">"Bon Voyage" is gorgeous — lush psychedelic French pop. Dreamy and atmospheric in a way that fits your taste well. But TOPS is also playing right now…</div></div>
 <div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="melody-s-echo-chamber" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
 <a class="spotify-btn" href="https://open.spotify.com/search/Melodys%20Echo%20Chamber" target="_blank">▶ Open in Spotify</a></div>
-<div class="card r4">
+<div class="card r4" data-artist="tops">
 <div class="card-top">
 <div class="card-left">
 <div class="card-name">TOPS</div>
@@ -1423,9 +1449,9 @@
 <div class="time-slot">
 <div class="time-slot-header"><span class="time-label">3:55 – 4:45</span><div class="time-divider"></div></div>
 <div class="slot-cards">
-<div class="card r2"><div class="card-top"><div class="card-left"><div class="card-name">Freak Slug</div><div class="card-meta"><span class="stage-tag stage-desert">Desert</span><span class="time-tag">3:55–4:45</span></div></div><div class="rating-badge">2/5</div></div><div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Not much to go on. Grandaddy is playing at the same time.</div></div>
+<div class="card r2" data-artist="freak-slug"><div class="card-top"><div class="card-left"><div class="card-name">Freak Slug</div><div class="card-meta"><span class="stage-tag stage-desert">Desert</span><span class="time-tag">3:55–4:45</span></div></div><div class="rating-badge">2/5</div></div><div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Not much to go on. Grandaddy is playing at the same time.</div></div>
 <div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="freak-slug" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div><a class="spotify-btn" href="https://open.spotify.com/search/Freak%20Slug" target="_blank">▶ Open in Spotify</a></div>
-<div class="card r35">
+<div class="card r35" data-artist="grandaddy">
 <div class="card-top">
 <div class="card-left">
 <div class="card-name">Grandaddy</div>
@@ -1451,7 +1477,7 @@
 <span class="conflict-badge">⚡ CONFLICT</span>
 </div>
 <div class="slot-cards">
-<div class="card r4">
+<div class="card r4" data-artist="flipturn">
 <div class="card-top">
 <div class="card-left">
 <div class="card-name">Flipturn</div>
@@ -1471,7 +1497,7 @@
 <div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="flipturn" data-placeholder="Click ✏️ Edit Mode to add your notes...">150 scrobbles — my #86 all-time. Favorites: Serving Tray, Chicago, Sad Disco, Chairs, Burn, Sad Drug.</div></div>
 <div class="rec-arrow">↑ 150 scrobbles says you know what to do</div>
 <a class="spotify-btn" href="https://open.spotify.com/search/Flipturn" target="_blank">▶ Open in Spotify</a></div>
-<div class="card r35">
+<div class="card r35" data-artist="american-football">
 <div class="card-top">
 <div class="card-left">
 <div class="card-name">American Football</div>
@@ -1493,9 +1519,9 @@
 <div class="time-slot">
 <div class="time-slot-header"><span class="time-label">5:45 – 6:45</span><div class="time-divider"></div></div>
 <div class="slot-cards">
-<div class="card r2"><div class="card-top"><div class="card-left"><div class="card-name">KennyHoopla</div><div class="card-meta"><span class="stage-tag stage-desert">Desert</span><span class="time-tag">5:45–6:45</span></div></div><div class="rating-badge">2/5</div></div><div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Pop punk / alt pop</div></div><div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Not your genre. Magdalena Bay is playing right now.</div></div>
+<div class="card r2" data-artist="kennyhoopla"><div class="card-top"><div class="card-left"><div class="card-name">KennyHoopla</div><div class="card-meta"><span class="stage-tag stage-desert">Desert</span><span class="time-tag">5:45–6:45</span></div></div><div class="rating-badge">2/5</div></div><div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Pop punk / alt pop</div></div><div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Not your genre. Magdalena Bay is playing right now.</div></div>
 <div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="kennyhoopla" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div><a class="spotify-btn" href="https://open.spotify.com/search/KennyHoopla" target="_blank">▶ Open in Spotify</a></div>
-<div class="card r4">
+<div class="card r4" data-artist="magdalena-bay">
 <div class="card-top">
 <div class="card-left">
 <div class="card-name">Magdalena Bay</div>
@@ -1521,7 +1547,7 @@
 <span class="conflict-badge">⚡ BIGGEST CONFLICT OF THE WEEKEND</span>
 </div>
 <div class="slot-cards">
-<div class="card r4">
+<div class="card r4" data-artist="hayley-williams">
 <div class="card-top">
 <div class="card-left">
 <div class="card-name">Hayley Williams</div>
@@ -1536,7 +1562,7 @@
 <div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Hayley Williams solo is genuinely interesting — "Petals for Armor" went places Paramore never did. But this is THE hardest call of the weekend because Wild Nothing is playing Gemini in full at the same time...</div></div>
 <div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="hayley-williams" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
 <a class="spotify-btn" href="https://open.spotify.com/search/Hayley%20Williams" target="_blank">▶ Open in Spotify</a></div>
-<div class="card r5">
+<div class="card r4" data-artist="wild-nothing-playing-gemini">
 <div class="card-top">
 <div class="card-left">
 <div class="card-name">Wild Nothing (Playing Gemini)</div>
@@ -1546,14 +1572,14 @@
 <span class="scrobble-tag">74 scrobbles · #148</span>
 </div>
 </div>
-<div class="rating-badge">5/5</div>
+<div class="rating-badge">4/5</div>
 </div>
 <div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Dream pop / shoegaze / indie pop</div></div>
 <div class="card-section"><div class="card-section-label">Vibe</div><div class="card-section-text">Crystalline, lush, perfect dream pop — "Gemini" is a complete masterpiece</div></div>
 <div class="card-section"><div class="card-section-label">Similar Artists</div><div class="card-section-text">Beach House, The xx, Men I Trust</div></div>
 <div class="card-divider"></div>
 <div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">They are playing "Gemini" IN FULL. This is not a regular Wild Nothing set — this is a complete album performance of one of the great dream pop albums ever made. "Live in Dreams," "Chinatown," "Shadow" played front to back at sunset before Blood Orange and Lorde? This is the Mountain Stage call. Hayley Williams will tour again. A full Gemini performance may not happen again for years.</div></div>
-<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="wild-nothing-playing-gemini" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take r4" contenteditable="false" data-artist="wild-nothing-playing-gemini" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
 <div class="rec-arrow">★ Full "Gemini" album set — don't miss this</div>
 <a class="spotify-btn" href="https://open.spotify.com/search/Wild%20Nothing%20Playing%20Gemini" target="_blank">▶ Open in Spotify</a></div>
 </div>
@@ -1562,9 +1588,9 @@
 <div class="time-slot">
 <div class="time-slot-header"><span class="time-label">7:55 – 8:55</span><div class="time-divider"></div></div>
 <div class="slot-cards">
-<div class="card r2"><div class="card-top"><div class="card-left"><div class="card-name">Ethan Regan</div><div class="card-meta"><span class="stage-tag stage-desert">Desert</span><span class="time-tag">7:55–8:55</span></div></div><div class="rating-badge">2/5</div></div><div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Blood Orange is playing right now. This is not a difficult decision.</div></div>
+<div class="card r2" data-artist="ethan-regan"><div class="card-top"><div class="card-left"><div class="card-name">Ethan Regan</div><div class="card-meta"><span class="stage-tag stage-desert">Desert</span><span class="time-tag">7:55–8:55</span></div></div><div class="rating-badge">2/5</div></div><div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Blood Orange is playing right now. This is not a difficult decision.</div></div>
 <div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="ethan-regan" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div><a class="spotify-btn" href="https://open.spotify.com/search/Ethan%20Regan" target="_blank">▶ Open in Spotify</a></div>
-<div class="card r5">
+<div class="card r5" data-artist="blood-orange">
 <div class="card-top">
 <div class="card-left">
 <div class="card-name">Blood Orange</div>
@@ -1590,7 +1616,7 @@
 <div class="time-slot">
 <div class="time-slot-header"><span class="time-label">9:00 – 10:30</span><div class="time-divider"></div></div>
 <div class="slot-cards">
-<div class="card r5">
+<div class="card r5" data-artist="lorde">
 <div class="card-top">
 <div class="card-left">
 <div class="card-name">Lorde</div>
@@ -1816,7 +1842,7 @@
 <div class="review-tier">
 <div class="review-tier-header t1">🔥 Tier 1 — Start Here (Late-Night Headliner Territory)</div>
 <div class="slot-cards">
-<div class="card r5">
+<div class="card r4" data-artist="wild-nothing-playing-gemini">
 <div class="card-top"><div class="card-left">
 <div class="card-name">Wild Nothing (Playing Gemini)</div>
 <div class="card-meta">
@@ -1824,15 +1850,15 @@
 <span class="card-day-badge">Sun · 6:50–7:50</span>
 <span class="scrobble-tag">74 scrobbles · #148</span><span class="conflict-badge" data-conflict="vs Hayley Williams · Kilby Stage · same time" style="font-size:10px;padding:2px 6px" tabindex="0">⚡ Conflict</span>
 </div>
-</div><div class="rating-badge">5/5</div></div>
+</div><div class="rating-badge">4/5</div></div>
 <div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Dream pop / shoegaze / indie pop</div></div>
 <div class="card-section"><div class="card-section-label">Similar</div><div class="card-section-text">Beach House, The xx, Men I Trust</div></div>
 <div class="card-divider"></div>
 <div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Playing the full Gemini album front-to-back — one of dream pop's great records. "Live in Dreams," "Chinatown," "Shadow." This is a rare full-album set at sunset. If you haven't heard Gemini, fix that now. (⚡ Biggest conflict: vs Hayley Williams)</div></div>
-<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="wild-nothing-playing-gemini" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take r4" contenteditable="false" data-artist="wild-nothing-playing-gemini" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
 <a class="spotify-btn" href="https://open.spotify.com/search/Wild%20Nothing%20Playing%20Gemini" target="_blank">▶ Open in Spotify</a>
 </div>
-<div class="card r5">
+<div class="card r5" data-artist="the-xx">
 <div class="card-top"><div class="card-left">
 <div class="card-name">The xx</div>
 <div class="card-meta">
@@ -1848,7 +1874,7 @@
 <div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="the-xx" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
 <a class="spotify-btn" href="https://open.spotify.com/search/The%20xx" target="_blank">▶ Open in Spotify</a>
 </div>
-<div class="card r4">
+<div class="card r4" data-artist="hayley-williams">
 <div class="card-top"><div class="card-left">
 <div class="card-name">Hayley Williams</div>
 <div class="card-meta">
@@ -1864,7 +1890,7 @@
 <div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="hayley-williams" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
 <a class="spotify-btn" href="https://open.spotify.com/search/Hayley%20Williams" target="_blank">▶ Open in Spotify</a>
 </div>
-<div class="card r4">
+<div class="card r4" data-artist="magdalena-bay">
 <div class="card-top"><div class="card-left">
 <div class="card-name">Magdalena Bay</div>
 <div class="card-meta">
@@ -1879,7 +1905,7 @@
 <div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="magdalena-bay" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
 <a class="spotify-btn" href="https://open.spotify.com/search/Magdalena%20Bay" target="_blank">▶ Open in Spotify</a>
 </div>
-<div class="card r4">
+<div class="card r4" data-artist="the-last-dinner-party">
 <div class="card-top"><div class="card-left">
 <div class="card-name">The Last Dinner Party</div>
 <div class="card-meta">
@@ -1894,7 +1920,7 @@
 <div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="the-last-dinner-party" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
 <a class="spotify-btn" href="https://open.spotify.com/search/The%20Last%20Dinner%20Party" target="_blank">▶ Open in Spotify</a>
 </div>
-<div class="card r4">
+<div class="card r4" data-artist="lucy-dacus">
 <div class="card-top"><div class="card-left">
 <div class="card-name">Lucy Dacus</div>
 <div class="card-meta">
@@ -1909,7 +1935,7 @@
 <div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="lucy-dacus" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
 <a class="spotify-btn" href="https://open.spotify.com/search/Lucy%20Dacus" target="_blank">▶ Open in Spotify</a>
 </div>
-<div class="card r4">
+<div class="card r4" data-artist="japanese-breakfast">
 <div class="card-top"><div class="card-left">
 <div class="card-name">Japanese Breakfast</div>
 <div class="card-meta">
@@ -1925,7 +1951,7 @@
 <div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="japanese-breakfast" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
 <a class="spotify-btn" href="https://open.spotify.com/search/Japanese%20Breakfast" target="_blank">▶ Open in Spotify</a>
 </div>
-<div class="card r35">
+<div class="card r35" data-artist="turnstile">
 <div class="card-top"><div class="card-left">
 <div class="card-name">Turnstile</div>
 <div class="card-meta">
@@ -1945,7 +1971,7 @@
 <div class="review-tier">
 <div class="review-tier-header t2">⭐ Tier 2 — High Priority Afternoon/Evening Acts</div>
 <div class="slot-cards">
-<div class="card r5">
+<div class="card r5" data-artist="snail-mail">
 <div class="card-top"><div class="card-left">
 <div class="card-name">Snail Mail</div>
 <div class="card-meta">
@@ -1961,7 +1987,7 @@
 <div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="snail-mail" data-placeholder="Click ✏️ Edit Mode to add your notes...">201 scrobbles — my #65 all-time. ⭐ New album "Ricochet" (March 2026) — listen through before the show! Existing favorites: Pristine, Heat Wave, Ben Franklin, Headlock, Mia.</div></div>
 <a class="spotify-btn" href="https://open.spotify.com/search/Snail%20Mail" target="_blank">▶ Open in Spotify</a>
 </div>
-<div class="card r35">
+<div class="card r35" data-artist="alex-g">
 <div class="card-top"><div class="card-left">
 <div class="card-name">Alex G</div>
 <div class="card-meta">
@@ -1976,7 +2002,7 @@
 <div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="alex-g" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
 <a class="spotify-btn" href="https://open.spotify.com/search/Alex%20G" target="_blank">▶ Open in Spotify</a>
 </div>
-<div class="card r35">
+<div class="card r35" data-artist="american-football">
 <div class="card-top"><div class="card-left">
 <div class="card-name">American Football</div>
 <div class="card-meta">
@@ -1992,7 +2018,7 @@
 <div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="american-football" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
 <a class="spotify-btn" href="https://open.spotify.com/search/American%20Football" target="_blank">▶ Open in Spotify</a>
 </div>
-<div class="card r4">
+<div class="card r4" data-artist="tops">
 <div class="card-top"><div class="card-left">
 <div class="card-name">TOPS</div>
 <div class="card-meta">
@@ -2008,7 +2034,7 @@
 <div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="tops" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
 <a class="spotify-btn" href="https://open.spotify.com/search/TOPS" target="_blank">▶ Open in Spotify</a>
 </div>
-<div class="card r35">
+<div class="card r35" data-artist="grandaddy">
 <div class="card-top"><div class="card-left">
 <div class="card-name">Grandaddy</div>
 <div class="card-meta">
@@ -2023,7 +2049,7 @@
 <div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="grandaddy" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
 <a class="spotify-btn" href="https://open.spotify.com/search/Grandaddy" target="_blank">▶ Open in Spotify</a>
 </div>
-<div class="card r35">
+<div class="card r35" data-artist="melody-s-echo-chamber">
 <div class="card-top"><div class="card-left">
 <div class="card-name">Melody's Echo Chamber</div>
 <div class="card-meta">
@@ -2039,7 +2065,7 @@
 <div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="melody-s-echo-chamber" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
 <a class="spotify-btn" href="https://open.spotify.com/search/Melodys%20Echo%20Chamber" target="_blank">▶ Open in Spotify</a>
 </div>
-<div class="card r35">
+<div class="card r35" data-artist="caroline">
 <div class="card-top"><div class="card-left">
 <div class="card-name">Caroline</div>
 <div class="card-meta">
@@ -2060,7 +2086,7 @@
 <div class="review-tier">
 <div class="review-tier-header t3">🎸 Tier 3 — Solid Afternoon Acts</div>
 <div class="slot-cards">
-<div class="card r35">
+<div class="card r35" data-artist="dehd">
 <div class="card-top"><div class="card-left">
 <div class="card-name">Dehd</div>
 <div class="card-meta">
@@ -2075,7 +2101,7 @@
 <div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="dehd" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
 <a class="spotify-btn" href="https://open.spotify.com/search/Dehd" target="_blank">▶ Open in Spotify</a>
 </div>
-<div class="card r35">
+<div class="card r35" data-artist="clap-your-hands-say-yeah">
 <div class="card-top"><div class="card-left">
 <div class="card-name">Clap Your Hands Say Yeah</div>
 <div class="card-meta">
@@ -2090,7 +2116,7 @@
 <div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="clap-your-hands-say-yeah" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
 <a class="spotify-btn" href="https://open.spotify.com/search/Clap%20Your%20Hands%20Say%20Yeah" target="_blank">▶ Open in Spotify</a>
 </div>
-<div class="card r35">
+<div class="card r35" data-artist="beach-bunny">
 <div class="card-top"><div class="card-left">
 <div class="card-name">Beach Bunny</div>
 <div class="card-meta">
@@ -2105,7 +2131,7 @@
 <div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="beach-bunny" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
 <a class="spotify-btn" href="https://open.spotify.com/search/Beach%20Bunny" target="_blank">▶ Open in Spotify</a>
 </div>
-<div class="card r35">
+<div class="card r35" data-artist="dry-cleaning">
 <div class="card-top"><div class="card-left">
 <div class="card-name">Dry Cleaning</div>
 <div class="card-meta">
@@ -2120,7 +2146,7 @@
 <div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="dry-cleaning" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
 <a class="spotify-btn" href="https://open.spotify.com/search/Dry%20Cleaning" target="_blank">▶ Open in Spotify</a>
 </div>
-<div class="card r35">
+<div class="card r35" data-artist="feeble-little-horse">
 <div class="card-top"><div class="card-left">
 <div class="card-name">Feeble Little Horse</div>
 <div class="card-meta">
@@ -2135,7 +2161,7 @@
 <div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="feeble-little-horse" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
 <a class="spotify-btn" href="https://open.spotify.com/search/Feeble%20Little%20Horse" target="_blank">▶ Open in Spotify</a>
 </div>
-<div class="card r4">
+<div class="card r4" data-artist="hotline-tnt">
 <div class="card-top"><div class="card-left">
 <div class="card-name">Hotline TNT</div>
 <div class="card-meta">
@@ -2150,7 +2176,7 @@
 <div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="hotline-tnt" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
 <a class="spotify-btn" href="https://open.spotify.com/search/Hotline%20TNT" target="_blank">▶ Open in Spotify</a>
 </div>
-<div class="card r4">
+<div class="card r4" data-artist="newdad">
 <div class="card-top"><div class="card-left">
 <div class="card-name">NewDad</div>
 <div class="card-meta">
@@ -2170,7 +2196,7 @@
 <div class="review-tier">
 <div class="review-tier-header t4">📋 Tier 4 — Nice to Know (Lower Urgency)</div>
 <div class="slot-cards">
-<div class="card r3">
+<div class="card r3" data-artist="between-friends">
 <div class="card-top"><div class="card-left">
 <div class="card-name">Between Friends</div>
 <div class="card-meta">
@@ -2185,7 +2211,7 @@
 <div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="between-friends" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
 <a class="spotify-btn" href="https://open.spotify.com/search/Between%20Friends" target="_blank">▶ Open in Spotify</a>
 </div>
-<div class="card r3">
+<div class="card r3" data-artist="briston-maroney">
 <div class="card-top"><div class="card-left">
 <div class="card-name">Briston Maroney</div>
 <div class="card-meta">
@@ -2200,7 +2226,7 @@
 <div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="briston-maroney" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
 <a class="spotify-btn" href="https://open.spotify.com/search/Briston%20Maroney" target="_blank">▶ Open in Spotify</a>
 </div>
-<div class="card r3">
+<div class="card r3" data-artist="lyn-lapid">
 <div class="card-top"><div class="card-left">
 <div class="card-name">Lyn Lapid</div>
 <div class="card-meta">
@@ -2215,7 +2241,7 @@
 <div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="lyn-lapid" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
 <a class="spotify-btn" href="https://open.spotify.com/search/Lyn%20Lapid" target="_blank">▶ Open in Spotify</a>
 </div>
-<div class="card r3">
+<div class="card r3" data-artist="chanel-beads">
 <div class="card-top"><div class="card-left">
 <div class="card-name">Chanel Beads</div>
 <div class="card-meta">
@@ -2230,7 +2256,7 @@
 <div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="chanel-beads" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
 <a class="spotify-btn" href="https://open.spotify.com/search/Chanel%20Beads" target="_blank">▶ Open in Spotify</a>
 </div>
-<div class="card r3">
+<div class="card r3" data-artist="ben-kweller">
 <div class="card-top"><div class="card-left">
 <div class="card-name">Ben Kweller</div>
 <div class="card-meta">
@@ -2245,7 +2271,7 @@
 <div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="ben-kweller" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
 <a class="spotify-btn" href="https://open.spotify.com/search/Ben%20Kweller" target="_blank">▶ Open in Spotify</a>
 </div>
-<div class="card r3">
+<div class="card r3" data-artist="ritt-momney">
 <div class="card-top"><div class="card-left">
 <div class="card-name">Ritt Momney</div>
 <div class="card-meta">
@@ -2260,7 +2286,7 @@
 <div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="ritt-momney" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
 <a class="spotify-btn" href="https://open.spotify.com/search/Ritt%20Momney" target="_blank">▶ Open in Spotify</a>
 </div>
-<div class="card r3">
+<div class="card r3" data-artist="kevin-morby">
 <div class="card-top"><div class="card-left">
 <div class="card-name">Kevin Morby</div>
 <div class="card-meta">
@@ -2275,7 +2301,7 @@
 <div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="kevin-morby" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
 <a class="spotify-btn" href="https://open.spotify.com/search/Kevin%20Morby" target="_blank">▶ Open in Spotify</a>
 </div>
-<div class="card r3">
+<div class="card r3" data-artist="automatic">
 <div class="card-top"><div class="card-left">
 <div class="card-name">Automatic</div>
 <div class="card-meta">
@@ -2290,7 +2316,7 @@
 <div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="automatic" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
 <a class="spotify-btn" href="https://open.spotify.com/search/Automatic" target="_blank">▶ Open in Spotify</a>
 </div>
-<div class="card r3">
+<div class="card r3" data-artist="drugdealer">
 <div class="card-top"><div class="card-left">
 <div class="card-name">Drugdealer</div>
 <div class="card-meta">
@@ -2306,7 +2332,7 @@
 <div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="drugdealer" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
 <a class="spotify-btn" href="https://open.spotify.com/search/Drugdealer" target="_blank">▶ Open in Spotify</a>
 </div>
-<div class="card r3">
+<div class="card r3" data-artist="hannah-cohen">
 <div class="card-top"><div class="card-left">
 <div class="card-name">Hannah Cohen</div>
 <div class="card-meta">
@@ -2321,7 +2347,7 @@
 <div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="hannah-cohen" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
 <a class="spotify-btn" href="https://open.spotify.com/search/Hannah%20Cohen" target="_blank">▶ Open in Spotify</a>
 </div>
-<div class="card r3">
+<div class="card r3" data-artist="smerz">
 <div class="card-top"><div class="card-left">
 <div class="card-name">Smerz</div>
 <div class="card-meta">
@@ -2339,90 +2365,6 @@
 </div>
 </div>
 </div><!-- /day-review -->
-<div class="day-panel" id="day-reviewed">
-<div class="reviewed-intro">
-<h2>✅ Already Know These</h2>
-<p>Artists you've already listened to enough that no pre-festival homework is needed. Notes pre-filled with your Last.fm data where available. Still editable in Edit Mode.</p>
-</div>
-<div class="slot-cards">
-<div class="card r5">
-<div class="card-top"><div class="card-left">
-<div class="card-name">Modest Mouse</div>
-<div class="card-meta">
-<span class="stage-tag stage-lake">Lake Stage</span>
-<span class="card-day-badge">Fri · 7:55–8:55</span>
-<span class="scrobble-tag">283 scrobbles · #39</span><span class="note-badge">⭐ New album June 5</span>
-</div>
-</div><div class="rating-badge">5/5</div></div>
-<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Indie rock / alternative / post-punk</div></div>
-<div class="card-section"><div class="card-section-label">Similar Artists</div><div class="card-section-text">Built to Spill, Pavement, The Shins</div></div>
-<div class="card-divider"></div>
-<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">283 scrobbles, your #39 all-time. "Float On," "Dashboard," "Ocean Breathes Salty," "Missed the Boat" — career-spanning set from a band that's been defining indie rock forever. The Friday night anchor.</div></div>
-<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="modest-mouse" data-placeholder="Click ✏️ Edit Mode to add your notes...">283 scrobbles — my #39 all-time. Favorites: Float On, Dashboard, Spitting Venom, Ocean Breathes Salty, Missed the Boat, 3rd Planet, Cowboy Dan. ⭐ New album "An Eraser and a Maze" drops June 5, 2026 — right after the festival!</div></div>
-</div>
-<div class="card r5">
-<div class="card-top"><div class="card-left">
-<div class="card-name">Lorde</div>
-<div class="card-meta">
-<span class="stage-tag stage-kilby">Kilby Stage</span>
-<span class="card-day-badge">Sun · 9:00–10:30</span>
-<span class="scrobble-tag">132 scrobbles · #95</span>
-</div>
-</div><div class="rating-badge">5/5</div></div>
-<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Art pop / indie pop / electropop</div></div>
-<div class="card-section"><div class="card-section-label">Similar Artists</div><div class="card-section-text">Melodrama is its own genre</div></div>
-<div class="card-divider"></div>
-<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">The Sunday headliner. 132 scrobbles and one of the best live performers in pop. She's been away for years and this feels like a proper return. "Green Light," "Liability," "Supercut," "Writer in the Dark." Weekend finale.</div></div>
-<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="lorde" data-placeholder="Click ✏️ Edit Mode to add your notes...">132 scrobbles — my #95 all-time. Favorites: Green Light, Liability, Tennis Court, Ribs, Hard Feelings/Loveless, Solar Power, Royals.</div></div>
-</div>
-<div class="card r4">
-<div class="card-top"><div class="card-left">
-<div class="card-name">Flipturn</div>
-<div class="card-meta">
-<span class="stage-tag stage-kilby">Kilby Stage</span>
-<span class="card-day-badge">Sun · 4:50–5:40</span>
-<span class="scrobble-tag">150 scrobbles · #86</span>
-</div>
-</div><div class="rating-badge">4/5</div></div>
-<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Indie rock / dream pop / alternative</div></div>
-<div class="card-section"><div class="card-section-label">Similar Artists</div><div class="card-section-text">Local Natives, Washed Out, Alvvays</div></div>
-<div class="card-divider"></div>
-<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">150 scrobbles and your #86 artist — you clearly love flipturn already. Great in the open air right before the evening headliners. (⚡ Tough conflict: American Football is also playing)</div></div>
-<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="flipturn" data-placeholder="Click ✏️ Edit Mode to add your notes...">150 scrobbles — my #86 all-time. Favorites: Serving Tray, Chicago, Sad Disco, Chairs, Burn, Sad Drug.</div></div>
-</div>
-<div class="card r4">
-<div class="card-top"><div class="card-left">
-<div class="card-name">Father John Misty</div>
-<div class="card-meta">
-<span class="stage-tag stage-lake">Lake Stage</span>
-<span class="card-day-badge">Fri · 5:45–6:45</span>
-<span class="scrobble-tag">77 scrobbles · #141</span>
-</div>
-</div><div class="rating-badge">4/5</div></div>
-<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Indie folk / baroque pop / art rock</div></div>
-<div class="card-section"><div class="card-section-label">Similar Artists</div><div class="card-section-text">Fleet Foxes, Andy Shauf, Destroyer</div></div>
-<div class="card-divider"></div>
-<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">77 scrobbles. Josh Tillman is one of the most compelling live performers alive. He might talk for 5 minutes about existential dread, or not say a word. Golden hour + FJM is a perfect combination.</div></div>
-<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="father-john-misty" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
-</div>
-<div class="card r5">
-<div class="card-top"><div class="card-left">
-<div class="card-name">Blood Orange</div>
-<div class="card-meta">
-<span class="stage-tag stage-lake">Lake Stage</span>
-<span class="card-day-badge">Sun · 7:55–8:55</span>
-<span class="scrobble-tag">535 scrobbles · #16</span>
-</div>
-</div><div class="rating-badge">5/5</div></div>
-<div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">R&amp;B / indie soul / neo-soul / electronic</div></div>
-<div class="card-section"><div class="card-section-label">Similar</div><div class="card-section-text">Frank Ocean, Solange, How to Dress Well</div></div>
-<div class="card-divider"></div>
-<div class="card-section"><div class="card-section-label ai-label">AI's Take</div><div class="card-section-text ai-take">Your #16 all-time artist. 535 scrobbles says you know this music is for you. Dev Hynes is immersive and cinematic live — Freetown Sound, Negro Swan, Cupid Deluxe. The penultimate set before Lorde. Be at the Lake Stage.</div></div>
-<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="blood-orange" data-placeholder="Click ✏️ Edit Mode to add your notes...">#16 all-time most scrobbled artist. Older electronic/synthy stuff, newer stuff is a little different, sometimes weird, but mostly good. All time Favorites: Champagne Coast, You're Not Good Enough, Augustine, Desirée, Jewelry, Smoke.</div></div>
-<a class="spotify-btn" href="https://open.spotify.com/search/Blood%20Orange" target="_blank">▶ Open in Spotify</a>
-</div>
-</div>
-</div><!-- /day-reviewed -->
 <footer>
   Built for <strong>Taylor</strong> · Data from <a href="https://www.last.fm/user/TD789" target="_blank">TD789 on Last.fm</a> (68,789 scrobbles) · <a href="https://www.kilbyblockparty.com" target="_blank">Kilby Block Party 2026</a> · May 15–17, SLC
 </footer>
@@ -2484,15 +2426,48 @@
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
     document.getElementById('admin-sub-nav').style.display = 'flex';
     document.getElementById('day-review').classList.add('active');
-    document.getElementById('admin-sub-review').classList.add('active');
-    document.getElementById('admin-sub-reviewed').classList.remove('active');
   }
 
-  function showAdminTab(tab) {
-    document.querySelectorAll('.day-panel').forEach(p => p.classList.remove('active'));
-    document.getElementById('day-' + tab).classList.add('active');
-    document.getElementById('admin-sub-review').classList.toggle('active', tab === 'review');
-    document.getElementById('admin-sub-reviewed').classList.toggle('active', tab === 'reviewed');
+  // ── RATING PICKER ───────────────────────────────────────────────
+  let _ratingTargetArtist = null;
+
+  document.addEventListener('click', function(e) {
+    const badge = e.target.closest('.rating-badge');
+    if (badge && editMode) {
+      e.stopPropagation();
+      const card = badge.closest('.card[data-artist]');
+      _ratingTargetArtist = card ? card.dataset.artist : null;
+      const picker = document.getElementById('rating-picker');
+      // Mark current rating as selected
+      const current = badge.textContent.trim();
+      picker.querySelectorAll('button').forEach(btn => {
+        btn.classList.toggle('selected', btn.textContent.startsWith(current));
+      });
+      // Position near the badge
+      const rect = badge.getBoundingClientRect();
+      picker.style.top = (rect.bottom + 6) + 'px';
+      picker.style.left = Math.max(8, rect.left - 60) + 'px';
+      picker.classList.add('open');
+      return;
+    }
+    // Click outside closes picker
+    if (!e.target.closest('#rating-picker')) {
+      document.getElementById('rating-picker').classList.remove('open');
+    }
+  });
+
+  function applyRating(rClass, label) {
+    const picker = document.getElementById('rating-picker');
+    picker.classList.remove('open');
+    if (!_ratingTargetArtist) return;
+    // Update all cards with this artist
+    document.querySelectorAll(`.card[data-artist="${CSS.escape(_ratingTargetArtist)}"]`).forEach(card => {
+      card.className = card.className.replace(/\br\d+(\.\d+)?\b/g, '').trim() + ' ' + rClass;
+      const badge = card.querySelector('.rating-badge');
+      if (badge) badge.textContent = label;
+    });
+    saveNotesToStorage(); // marks dirty so Publish button lights up
+    _ratingTargetArtist = null;
   }
 
   function exitAdmin() {
