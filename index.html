@@ -1329,13 +1329,17 @@
 <span class="search-icon">🔍</span>
 <input autocomplete="off" class="search-input" id="search-input" oninput="onSearchInput()" onkeydown="onSearchKey(event)" placeholder="Search artists…" type="text">
 <button class="search-clear" id="search-clear" onclick="clearSearch()" title="Clear">×</button>
-<div class="search-results" id="search-results"></div>
+<div class="search-results" id="search-results"><div class="search-result" data-idx="0" onmousedown="selectResult(0)">
+        <div class="search-result-dot" style="background:#4ade80"></div>
+        <div class="search-result-name"><mark>Snail</mark> Mail</div>
+        <div class="search-result-meta">Fri May 15 · Lake · 3:55–4:45<span class="search-result-rating" style="color:#4ade80">5/5</span></div>
+      </div></div>
 </div>
 <div class="admin-sub-nav" id="admin-sub-nav" style="display:none">
 <button class="admin-sub-btn active" id="admin-sub-review">📋 To Review</button>
 <button class="admin-sub-btn" onclick="exitAdmin()" style="margin-left:auto">← Back to Guide</button>
 </div>
-<div class="rating-picker" id="rating-picker" style="top: 236.891px; left: 677.227px;">
+<div class="rating-picker" id="rating-picker" style="top: 136.375px; left: 677.227px;">
 <button onclick="applyRating('r5','5/5')">5/5 · Must See</button>
 <button onclick="applyRating('r4','4/5')" class="">4/5 · High Priority</button>
 <button onclick="applyRating('r35','3.5/5')" class="">3.5/5 · Worth It</button>
@@ -1363,15 +1367,15 @@
 </div>
 <div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Experimental / local SLC</div></div>
 <div class="card-section"><div class="card-section-label ai-label">Artist Summary</div><div class="card-section-text ai-take">A Salt Lake City-based indie act and part of the local underground music scene. Limited widely-available recorded output.</div></div>
-<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="gonk" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="gonk" data-placeholder="Click ✏️ Edit Mode to add your notes...">Local, meh.</div></div>
 <a class="spotify-btn" href="https://open.spotify.com/search/Gonk" target="_blank">▶ Open in Spotify</a></div>
-<div class="card r2" data-artist="dad-bod">
+<div class="card r35" data-artist="dad-bod">
 <div class="card-top">
 <div class="card-left">
 <div class="card-name">Dad Bod</div>
 <div class="card-meta"><span class="stage-tag stage-lake">Lake</span><span class="time-tag">11:45–12:10</span></div>
 </div>
-<div class="rating-badge">2/5</div>
+<div class="rating-badge">3.5/5</div>
 </div>
 <div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Local / emerging</div></div>
 <div class="card-section"><div class="card-section-label ai-label">Artist Summary</div><div class="card-section-text ai-take">A local Salt Lake City band with limited widely-available recorded output. Part of the Utah indie underground.</div></div>
@@ -1568,7 +1572,7 @@
 <div class="card-section"><div class="card-section-label ai-label">Artist Summary</div><div class="card-section-text ai-take">The project of Michael Collins, making woozy, sun-drenched pop with a deliberately vintage sensibility rooted in '70s AM radio, bossa nova, and California soft rock. The breezy, hazy warmth recalls Toro y Moi's chillwave side or Poolside at their most laid-back.</div></div>
 <div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="drugdealer" data-placeholder="Click ✏️ Edit Mode to add your notes...">"Pictures of You" is excellent. This is actually a great band and a tough time slot. But I probably gonna go with my sad, vulnerable lesbian Snail Mail.</div></div>
 <a class="spotify-btn" href="https://open.spotify.com/search/Drugdealer" target="_blank">▶ Open in Spotify</a></div>
-<div class="card r5" data-artist="snail-mail">
+<div class="card r5" data-artist="snail-mail" style="transition: box-shadow 0.3s;">
 <div class="card-top">
 <div class="card-left">
 <div class="card-name">Snail Mail</div>
@@ -1585,7 +1589,7 @@
 <div class="card-section"><div class="card-section-label">Similar Artists</div><div class="card-section-text">Soccer Mommy, Mitski, Lucy Dacus</div></div>
 <div class="card-divider"></div>
 <div class="card-section"><div class="card-section-label ai-label">Artist Summary</div><div class="card-section-text ai-take">Indie rock project of Lindsey Jordan, blending confessional songwriting, emo influences, and intimate guitar work into something emotionally raw and beautifully crafted. Her debut <em>Lush</em> (2018) and follow-up <em>Valentine</em> (2021) draw natural comparisons to Nilüfer Yanya, Wye Oak, and Jay Som — artists who make indie rock feel deeply personal.</div></div>
-<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="snail-mail" data-placeholder="Click ✏️ Edit Mode to add your notes...">New album "Ricochet" (March 2026).&nbsp;<br><br>Existing favorites: SPEAKING TERMS (!!!), Pristine, MADONNA (!!!) Heat Wave, Ben Franklin, Headlock, Mia.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="snail-mail" data-placeholder="Click ✏️ Edit Mode to add your notes...">New album "Ricochet" (March 2026). I love this vulnerable (kinda sad) Lesbian.&nbsp;<br><br>Existing favorites (older albuns): SPEAKING TERMS (!!!), Pristine, MADONNA (!!!) Heat Wave, Ben Franklin, Headlock, Mia.</div></div>
 <div class="rec-arrow">★ Must See · Go to Lake Stage</div>
 <a class="spotify-btn" href="https://open.spotify.com/search/Snail%20Mail" target="_blank">▶ Open in Spotify</a></div>
 </div>
@@ -2759,7 +2763,7 @@
 <div class="card-section"><div class="card-section-label">Similar</div><div class="card-section-text">Soccer Mommy, Mitski, Lucy Dacus</div></div>
 <div class="card-divider"></div>
 <div class="card-section"><div class="card-section-label ai-label">Artist Summary</div><div class="card-section-text ai-take">Indie rock project of Lindsey Jordan, blending confessional songwriting, emo influences, and intimate guitar work into something emotionally raw and beautifully crafted. Her debut <em>Lush</em> (2018) and follow-up <em>Valentine</em> (2021) draw natural comparisons to Nilüfer Yanya, Wye Oak, and Jay Som — artists who make indie rock feel deeply personal.</div></div>
-<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="snail-mail" data-placeholder="Click ✏️ Edit Mode to add your notes...">New album "Ricochet" (March 2026).&nbsp;<br><br>Existing favorites: SPEAKING TERMS (!!!), Pristine, MADONNA (!!!) Heat Wave, Ben Franklin, Headlock, Mia.</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="snail-mail" data-placeholder="Click ✏️ Edit Mode to add your notes...">New album "Ricochet" (March 2026). I love this vulnerable (kinda sad) Lesbian.&nbsp;<br><br>Existing favorites (older albuns): SPEAKING TERMS (!!!), Pristine, MADONNA (!!!) Heat Wave, Ben Franklin, Headlock, Mia.</div></div>
 <a class="spotify-btn" href="https://open.spotify.com/search/Snail%20Mail" target="_blank">▶ Open in Spotify</a>
 </div>
 <div class="card r35" data-artist="alex-g">
@@ -3694,4 +3698,4 @@
           Close
         </span></button></center></div><div class="v-snack__action "></div></div></div> <div class="v-snack shrink v-snack--bottom v-snack--has-background" gradient="#f72047,#ffd200,#1feaea" style="padding-bottom: 0px; padding-top: 0px;"><div class="v-snack__wrapper v-sheet theme--dark elevation-24" style="width: 320px; display: none;"><div role="status" aria-live="polite" class="v-snack__content"><div class="v-card__title pa-0 ma-0"><div class="row pb-2"><div class="col col-11" style="position: inherit; flex-basis: 0px; flex-grow: 1; font-size: 16px;">
           
-        </div> <div class="col col-1" style="position: inherit;"><button type="button" class="v-btn v-btn--icon v-btn--round theme--dark v-size--default" role="button" aria-haspopup="true" aria-expanded="false" style="position: absolute; right: 10px; top: 10px;"><span class="v-btn__content"><span aria-hidden="true" class="v-icon notranslate theme--dark"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" role="img" aria-hidden="true" class="v-icon__svg"><path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"></path></svg></span></span></button><div class="v-menu"><!----></div></div></div></div> <div class="row" style="cursor: pointer;"><div class="col col-11" style="position: inherit; flex-basis: 0px; flex-grow: 1; line-height: 20px; letter-spacing: 0.25px; font-weight: 400;"><!----><!----> <!----> <span style="font-size: 14px;">Use <strong>American Express Gold Card</strong></span><br> <span style="font-size: 12px; opacity: 0.8;">Save undefined% total on purchase (undefined×undefined¢)</span> <!----> <!----><!----> <!----></div> <div class="col col-1" style="position: inherit;"><button type="button" class="v-btn v-btn--icon v-btn--round theme--dark v-size--default" style="position: absolute; right: 10px;"><span class="v-btn__content"><span aria-hidden="true" class="v-icon notranslate theme--dark"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" role="img" aria-hidden="true" class="v-icon__svg"><path d="M12,18.17L8.83,15L7.42,16.41L12,21L16.59,16.41L15.17,15M12,5.83L15.17,9L16.58,7.59L12,3L7.41,7.59L8.83,9L12,5.83Z"></path></svg></span> <!----></span></button></div></div> <!----> <!----> <!----></div><div class="v-snack__action "></div></div></div> <div class="v-snack v-snack--bottom v-snack--has-background" style="padding-bottom: 0px; padding-top: 0px; cursor: pointer;"><div class="v-snack__wrapper v-sheet theme--dark elevation-24" style="background-color: rgb(191, 69, 245); border-color: rgb(191, 69, 245); display: none;"><div role="status" aria-live="polite" class="v-snack__content"><center><span>Something went wrong. Please try refreshing the page, or if the issue persists, please contact support@cardpointers.com.<br></span></center></div><div class="v-snack__action "></div></div></div></div></div></center></div></body></html>
+        </div> <div class="col col-1" style="position: inherit;"><button type="button" class="v-btn v-btn--icon v-btn--round theme--dark v-size--default" role="button" aria-haspopup="true" aria-expanded="false" style="position: absolute; right: 10px; top: 10px;"><span class="v-btn__content"><span aria-hidden="true" class="v-icon notranslate theme--dark"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" role="img" aria-hidden="true" class="v-icon__svg"><path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"></path></svg></span></span></button><div class="v-menu"><!----></div></div></div></div> <div class="row" style="cursor: pointer;"><div class="col col-11" style="position: inherit; flex-basis: 0px; flex-grow: 1; line-height: 20px; letter-spacing: 0.25px; font-weight: 400;"><!----><!----> <!----> <span style="font-size: 14px;">Use <strong>American Express Gold Card</strong></span><br> <span style="font-size: 12px; opacity: 0.8;">Save undefined% total on purchase (undefined×undefined¢)</span> <!----> <!----><!----> <!----></div> <div class="col col-1" style="position: inherit;"><button type="button" class="v-btn v-btn--icon v-btn--round theme--dark v-size--default" style="position: absolute; right: 10px;"><span class="v-btn__content"><span aria-hidden="true" class="v-icon notranslate theme--dark"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" role="img" aria-hidden="true" class="v-icon__svg"><path d="M12,18.17L8.83,15L7.42,16.41L12,21L16.59,16.41L15.17,15M12,5.83L15.17,9L16.58,7.59L12,3L7.41,7.59L8.83,9L12,5.83Z"></path></svg></span> <!----></span></button></div></div> <!----> <!----> <!----></div><div class="v-snack__action "></div></div></div> <div class="v-snack v-snack--bottom v-snack--has-background" style="padding-bottom: 0px; padding-top: 0px; cursor: pointer;"><div class="v-snack__wrapper v-sheet theme--dark elevation-24" style="background-color: rgb(191, 69, 245); border-color: rgb(191, 69, 245); display: none;"><div role="status" aria-live="polite" class="v-snack__content"><center><span>Something went wrong. Please try refreshing the page, or if the issue persists, please contact support@cardpointers.com.<br></span></center></div><div class="v-snack__action "></div></div></div></div></div></center></div><div id="1p-menu-live-region" role="status" aria-live="polite" aria-atomic="true" aria-relevant="all" style="clip: rect(0px, 0px, 0px, 0px); clip-path: inset(50%); height: 1px; overflow: hidden; position: fixed; top: 0px; left: 0px; white-space: nowrap; width: 1px; overflow-wrap: normal;">1Password menu is available. Press down arrow to select.</div></body></html>
