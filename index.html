@@ -614,15 +614,7 @@
 <div class="day-panel active" id="day-fri">
 <div class="shortlist">
 <h3>⚡ Friday Shortlist</h3>
-<div class="shortlist-items">
-<div class="shortlist-item">Hotline TNT <span>12:50 Desert</span></div>
-<div class="shortlist-item">NewDad <span>1:30 Kilby</span></div>
-<div class="shortlist-item">Snail Mail <span>3:55 Lake</span></div>
-<div class="shortlist-item">Beach Bunny <span>4:50 Kilby</span></div>
-<div class="shortlist-item">Father John Misty <span>5:45 Lake</span></div>
-<div class="shortlist-item">Japanese Breakfast <span>6:50 Kilby</span></div>
-<div class="shortlist-item">Modest Mouse <span>7:55 Lake</span></div>
-</div>
+<div class="shortlist-items" id="shortlist-fri"></div>
 </div>
 <!-- 11:45 -->
 <div class="time-slot">
@@ -1048,14 +1040,7 @@
 <div class="day-panel" id="day-sat">
 <div class="shortlist">
 <h3>⚡ Saturday Shortlist</h3>
-<div class="shortlist-items">
-<div class="shortlist-item">Feeble Little Horse <span>1:30 Kilby</span></div>
-<div class="shortlist-item">Clap Your Hands Say Yeah <span>3:00 Kilby</span></div>
-<div class="shortlist-item">The Last Dinner Party <span>5:45 Lake</span></div>
-<div class="shortlist-item">Lucy Dacus <span>6:50 Kilby</span></div>
-<div class="shortlist-item">Alex G <span>7:55 Lake</span></div>
-<div class="shortlist-item">The xx <span>9:00 Kilby</span></div>
-</div>
+<div class="shortlist-items" id="shortlist-sat"></div>
 </div>
 <div class="time-slot">
 <div class="time-slot-header"><span class="time-label">11:45 – 12:10</span><div class="time-divider"></div></div>
@@ -1377,17 +1362,7 @@
 <div class="day-panel" id="day-sun">
 <div class="shortlist">
 <h3>⚡ Sunday Shortlist — The Big Day</h3>
-<div class="shortlist-items">
-<div class="shortlist-item">TOPS <span>3:00 Mountain</span></div>
-<div class="shortlist-item">Grandaddy <span>3:55 Lake</span></div>
-<div class="shortlist-item">Flipturn <span>4:50 Kilby</span></div>
-<div class="shortlist-item">American Football <span>4:50 Mountain ⚡</span></div>
-<div class="shortlist-item">Magdalena Bay <span>5:45 Lake</span></div>
-<div class="shortlist-item">Wild Nothing (Gemini) <span>6:50 Mountain ⚡</span></div>
-<div class="shortlist-item">Hayley Williams <span>6:50 Kilby ⚡</span></div>
-<div class="shortlist-item">Blood Orange <span>7:55 Lake</span></div>
-<div class="shortlist-item">Lorde <span>9:00 Kilby</span></div>
-</div>
+<div class="shortlist-items" id="shortlist-sun"></div>
 </div>
 <div class="time-slot">
 <div class="time-slot-header"><span class="time-label">11:45 – 12:10</span><div class="time-divider"></div></div>
@@ -2911,7 +2886,63 @@
   window.applyRatingAndReindex = function(rClass, label) {
     applyRating(rClass, label);
     searchIndex = []; // force rebuild on next search
+    buildShortlists();
   };
+
+  // ── DYNAMIC SHORTLISTS ─────────────────────────────────────────
+  function timeToMinutes(timeStr) {
+    // Parses "12:50–1:20" or "12:50" → minutes since midnight
+    const start = timeStr.split('–')[0].trim();
+    const [h, m] = start.split(':').map(Number);
+    // Festival times: treat hours < 10 as afternoon (add 12)
+    const hour = h < 10 ? h + 12 : h;
+    return hour * 60 + (m || 0);
+  }
+
+  function buildShortlists() {
+    ['fri', 'sat', 'sun'].forEach(dayId => {
+      const container = document.getElementById('shortlist-' + dayId);
+      if (!container) return;
+      const panel = document.getElementById('day-' + dayId);
+      if (!panel) return;
+
+      const seen = new Set();
+      const items = [];
+
+      panel.querySelectorAll('.card').forEach(card => {
+        const rClass = [...card.classList].find(c => /^r\d/.test(c));
+        if (rClass !== 'r4' && rClass !== 'r5') return;
+        const artist = card.dataset.artist;
+        if (seen.has(artist)) return;
+        seen.add(artist);
+
+        const name = card.querySelector('.card-name')?.textContent.trim() || '';
+        const metaEl = card.querySelector('.card-meta');
+        const timeTag = metaEl?.querySelector('.time-tag')?.textContent.trim() || '';
+        const stageTag = metaEl?.querySelector('[class*="stage-tag"]')?.textContent.trim() || '';
+        const startTime = timeTag.split('–')[0].trim();
+
+        items.push({ name, timeTag, startTime, stageTag, rClass, sortKey: timeToMinutes(timeTag) });
+      });
+
+      items.sort((a, b) => a.sortKey - b.sortKey);
+
+      container.innerHTML = items.length
+        ? items.map(i => {
+            const star = i.rClass === 'r5' ? ' ★' : '';
+            return `<div class="shortlist-item${i.rClass === 'r5' ? ' shortlist-r5' : ''}">${i.name}${star} <span>${i.startTime} ${i.stageTag}</span></div>`;
+          }).join('')
+        : '<div style="color:var(--muted);font-size:13px;">No 4★ or 5★ artists yet</div>';
+    });
+  }
+
+  // Style 5-star shortlist items differently
+  const slStyle = document.createElement('style');
+  slStyle.textContent = '.shortlist-item.shortlist-r5 { color: var(--r5); border-color: rgba(74,222,128,0.4); background: rgba(74,222,128,0.15); }';
+  document.head.appendChild(slStyle);
+
+  // Build on load
+  buildShortlists();
 </script>
 </body>
 </html>
