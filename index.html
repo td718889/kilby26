@@ -1515,8 +1515,8 @@
 </div>
 <div class="tabs">
 <button class="tab-btn" id="kickoff-tab" onclick="showDay('kickoff',this)">🎪 Kick Off Party</button>
-<button class="tab-btn active" onclick="showDay('fri',this)">Friday May 15</button>
-<button class="tab-btn" onclick="showDay('sat',this)">Saturday May 16</button>
+<button class="tab-btn" onclick="showDay('fri',this)">Friday May 15</button>
+<button class="tab-btn active" onclick="showDay('sat',this)">Saturday May 16</button>
 <button class="tab-btn" onclick="showDay('sun',this)">Sunday May 17</button>
 <button class="tab-btn" onclick="showDay('parties',this)">🎉 After Parties</button>
 <button class="tab-btn" onclick="showDay('faq',this)">❓ FAQ</button>
@@ -1525,7 +1525,11 @@
 <span class="search-icon">🔍</span>
 <input autocomplete="off" class="search-input" id="search-input" oninput="onSearchInput()" onkeydown="onSearchKey(event)" placeholder="Search artists…" type="text">
 <button class="search-clear" id="search-clear" onclick="clearSearch()" title="Clear">×</button>
-<div class="search-results" id="search-results"></div>
+<div class="search-results" id="search-results"><div class="search-result" data-idx="0" onmousedown="selectResult(0)">
+        <div class="search-result-dot" style="background:#f87171"></div>
+        <div class="search-result-name"><mark>Sports</mark></div>
+        <div class="search-result-meta">Fri May 15 · Desert · 7:55–8:55<span class="search-result-rating" style="color:#f87171">2/5</span></div>
+      </div></div>
 </div>
 <div class="admin-sub-nav" id="admin-sub-nav" style="display:none">
 <button class="admin-sub-btn active" id="admin-sub-review">📋 To Review</button>
@@ -1540,7 +1544,7 @@
 <button onclick="applyRating('r1','1/5')">1/5 · Hard Skip</button>
 </div>
 <!-- ═══════════════════════════════════════════ FRIDAY ═══ -->
-<div class="day-panel active" id="day-fri">
+<div class="day-panel" id="day-fri">
 <div class="shortlist">
 <h3>⚡ Friday Shortlist</h3>
 <div class="shortlist-items" id="shortlist-fri"><div class="shortlist-item">Hotline TNT <span>12:50 Desert</span></div><div class="shortlist-item">NewDad <span>1:30 Kilby</span></div><div class="shortlist-item shortlist-r5">Snail Mail ★ <span>3:55 Lake</span></div><div class="shortlist-item">Father John Misty <span>5:45 Lake</span></div><div class="shortlist-item">Japanese Breakfast <span>6:50 Kilby</span></div><div class="shortlist-item shortlist-r5">Modest Mouse ★ <span>7:55 Lake</span></div></div>
@@ -1908,7 +1912,7 @@
 <div class="time-slot">
 <div class="time-slot-header"><span class="time-label">7:55 – 8:55</span><div class="time-divider"></div></div>
 <div class="slot-cards">
-<div class="card r2" data-artist="sports">
+<div class="card r2" data-artist="sports" style="transition: box-shadow 0.3s;">
 <div class="card-top">
 <div class="card-left">
 <div class="card-name">Sports</div>
@@ -1966,7 +1970,7 @@
 </div>
 </div><!-- /day-fri -->
 <!-- ═══════════════════════════════════════════ SATURDAY ═══ -->
-<div class="day-panel" id="day-sat">
+<div class="day-panel active" id="day-sat">
 <div class="shortlist">
 <h3>⚡ Saturday Shortlist</h3>
 <div class="shortlist-items" id="shortlist-sat"><div class="shortlist-item">The Last Dinner Party <span>5:45 Lake</span></div><div class="shortlist-item">Lucy Dacus <span>6:50 Kilby</span></div><div class="shortlist-item shortlist-r5">The xx ★ <span>9:00 Kilby</span></div></div>
@@ -2211,7 +2215,7 @@
 <div class="card-section"><div class="card-section-label">Similar Artists</div><div class="card-section-text">Phoebe Bridgers, Angel Olsen, boygenius</div></div>
 <div class="card-divider"></div>
 <div class="card-section"><div class="card-section-label ai-label">Artist Summary</div><div class="card-section-text ai-take">Richmond, Virginia-based indie rock and folk singer-songwriter known for rich, detailed lyricism and a warm, commanding voice. A member of supergroup boygenius alongside Phoebe Bridgers and Julien Baker. <em>Home Video</em> (2021) feels like a close cousin to Phoebe Bridgers and Angel Olsen — emotionally deep, beautifully performed indie rock.</div></div>
-<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="lucy-dacus" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="lucy-dacus" data-placeholder="Click ✏️ Edit Mode to add your notes...">YES. She's good. One of the first artists to get me turning up the volume 3x.&nbsp;<br><br>Faves: Night Shift.&nbsp;</div></div>
 <div class="rec-arrow">↑ You love Snail Mail — try this</div>
 <a class="spotify-btn" href="https://open.spotify.com/search/Lucy%20Dacus" target="_blank">▶ Open in Spotify</a></div>
 <div class="card r3" data-artist="the-moss">
@@ -2903,7 +2907,7 @@
 <div class="card-section"><div class="card-section-label">Similar</div><div class="card-section-text">Phoebe Bridgers, Angel Olsen, boygenius</div></div>
 <div class="card-divider"></div>
 <div class="card-section"><div class="card-section-label ai-label">Artist Summary</div><div class="card-section-text ai-take">Richmond, Virginia-based indie rock and folk singer-songwriter known for rich, detailed lyricism and a warm, commanding voice. A member of supergroup boygenius alongside Phoebe Bridgers and Julien Baker. <em>Home Video</em> (2021) feels like a close cousin to Phoebe Bridgers and Angel Olsen — emotionally deep, beautifully performed indie rock.</div></div>
-<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="lucy-dacus" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="lucy-dacus" data-placeholder="Click ✏️ Edit Mode to add your notes...">YES. She's good. One of the first artists to get me turning up the volume 3x.&nbsp;<br><br>Faves: Night Shift.&nbsp;</div></div>
 <a class="spotify-btn" href="https://open.spotify.com/search/Lucy%20Dacus" target="_blank">▶ Open in Spotify</a>
 </div>
 <div class="card r4" data-artist="japanese-breakfast">
@@ -3350,7 +3354,7 @@
 </div>
 </div>
 <button class="edit-fab" id="edit-fab" onclick="toggleEditMode()">✅ Done Editing</button>
-<button class="publish-btn" id="publish-btn" onclick="publishToSite()" style="display: inline-block;">🚀 Publish to Site</button>
+<button class="publish-btn dirty" id="publish-btn" onclick="publishToSite()" style="display: inline-block;">🚀 Publish to Site</button>
 <div class="autosave-toast" id="autosave-toast">✓ Saved locally</div>
 <script>
   let privateUnlocked = false;
@@ -3588,8 +3592,8 @@
     // Build clean HTML (strip edit-mode artifacts)
     let src = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
     src = src.replace(/contenteditable="false"/g, 'contenteditable="false"');
-    src = src.replace(/ class="edit-fab"/, ' class="edit-fab"');
-    src = src.replace(/<body/, '<body');
+    src = src.replace(/ class="edit-fab active"/, ' class="edit-fab"');
+    src = src.replace(/<body class="edit-mode"/, '<body');
 
     try {
       const res = await fetch('/.netlify/functions/publish', {
@@ -3905,4 +3909,4 @@
           Close
         </span></button></center></div><div class="v-snack__action "></div></div></div> <div class="v-snack shrink v-snack--bottom v-snack--has-background" gradient="#f72047,#ffd200,#1feaea" style="padding-bottom: 0px; padding-top: 0px;"><div class="v-snack__wrapper v-sheet theme--dark elevation-24" style="width: 320px; display: none;"><div role="status" aria-live="polite" class="v-snack__content"><div class="v-card__title pa-0 ma-0"><div class="row pb-2"><div class="col col-11" style="position: inherit; flex-basis: 0px; flex-grow: 1; font-size: 16px;">
           
-        </div> <div class="col col-1" style="position: inherit;"><button type="button" class="v-btn v-btn--icon v-btn--round theme--dark v-size--default" role="button" aria-haspopup="true" aria-expanded="false" style="position: absolute; right: 10px; top: 10px;"><span class="v-btn__content"><span aria-hidden="true" class="v-icon notranslate theme--dark"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" role="img" aria-hidden="true" class="v-icon__svg"><path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"></path></svg></span></span></button><div class="v-menu"><!----></div></div></div></div> <div class="row" style="cursor: pointer;"><div class="col col-11" style="position: inherit; flex-basis: 0px; flex-grow: 1; line-height: 20px; letter-spacing: 0.25px; font-weight: 400;"><!----><!----> <!----> <span style="font-size: 14px;">Use <strong>American Express Gold Card</strong></span><br> <span style="font-size: 12px; opacity: 0.8;">Save undefined% total on purchase (undefined×undefined¢)</span> <!----> <!----><!----> <!----></div> <div class="col col-1" style="position: inherit;"><button type="button" class="v-btn v-btn--icon v-btn--round theme--dark v-size--default" style="position: absolute; right: 10px;"><span class="v-btn__content"><span aria-hidden="true" class="v-icon notranslate theme--dark"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" role="img" aria-hidden="true" class="v-icon__svg"><path d="M12,18.17L8.83,15L7.42,16.41L12,21L16.59,16.41L15.17,15M12,5.83L15.17,9L16.58,7.59L12,3L7.41,7.59L8.83,9L12,5.83Z"></path></svg></span> <!----></span></button></div></div> <!----> <!----> <!----></div><div class="v-snack__action "></div></div></div> <div class="v-snack v-snack--bottom v-snack--has-background" style="padding-bottom: 0px; padding-top: 0px; cursor: pointer;"><div class="v-snack__wrapper v-sheet theme--dark elevation-24" style="background-color: rgb(191, 69, 245); border-color: rgb(191, 69, 245); display: none;"><div role="status" aria-live="polite" class="v-snack__content"><center><span>Something went wrong. Please try refreshing the page, or if the issue persists, please contact support@cardpointers.com.<br></span></center></div><div class="v-snack__action "></div></div></div></div></div></center></div><div id="claude-agent-glow-border" style="position: fixed; inset: 0px; pointer-events: none; z-index: 2147483646; opacity: 0; transition: opacity 0.3s ease-in-out; animation: 2s ease-in-out 0s infinite normal none running claude-pulse; box-shadow: rgba(217, 119, 87, 0.5) 0px 0px 10px inset, rgba(217, 119, 87, 0.3) 0px 0px 20px inset, rgba(217, 119, 87, 0.1) 0px 0px 30px inset;"></div></body></html>
+        </div> <div class="col col-1" style="position: inherit;"><button type="button" class="v-btn v-btn--icon v-btn--round theme--dark v-size--default" role="button" aria-haspopup="true" aria-expanded="false" style="position: absolute; right: 10px; top: 10px;"><span class="v-btn__content"><span aria-hidden="true" class="v-icon notranslate theme--dark"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" role="img" aria-hidden="true" class="v-icon__svg"><path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"></path></svg></span></span></button><div class="v-menu"><!----></div></div></div></div> <div class="row" style="cursor: pointer;"><div class="col col-11" style="position: inherit; flex-basis: 0px; flex-grow: 1; line-height: 20px; letter-spacing: 0.25px; font-weight: 400;"><!----><!----> <!----> <span style="font-size: 14px;">Use <strong>American Express Gold Card</strong></span><br> <span style="font-size: 12px; opacity: 0.8;">Save undefined% total on purchase (undefined×undefined¢)</span> <!----> <!----><!----> <!----></div> <div class="col col-1" style="position: inherit;"><button type="button" class="v-btn v-btn--icon v-btn--round theme--dark v-size--default" style="position: absolute; right: 10px;"><span class="v-btn__content"><span aria-hidden="true" class="v-icon notranslate theme--dark"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" role="img" aria-hidden="true" class="v-icon__svg"><path d="M12,18.17L8.83,15L7.42,16.41L12,21L16.59,16.41L15.17,15M12,5.83L15.17,9L16.58,7.59L12,3L7.41,7.59L8.83,9L12,5.83Z"></path></svg></span> <!----></span></button></div></div> <!----> <!----> <!----></div><div class="v-snack__action "></div></div></div> <div class="v-snack v-snack--bottom v-snack--has-background" style="padding-bottom: 0px; padding-top: 0px; cursor: pointer;"><div class="v-snack__wrapper v-sheet theme--dark elevation-24" style="background-color: rgb(191, 69, 245); border-color: rgb(191, 69, 245); display: none;"><div role="status" aria-live="polite" class="v-snack__content"><center><span>Something went wrong. Please try refreshing the page, or if the issue persists, please contact support@cardpointers.com.<br></span></center></div><div class="v-snack__action "></div></div></div></div></div></center></div><div id="claude-agent-glow-border" style="position: fixed; inset: 0px; pointer-events: none; z-index: 2147483646; opacity: 1; transition: opacity 0.3s ease-in-out; animation: 2s ease-in-out 0s infinite normal none running claude-pulse; box-shadow: rgba(217, 119, 87, 0.5) 0px 0px 10px inset, rgba(217, 119, 87, 0.3) 0px 0px 20px inset, rgba(217, 119, 87, 0.1) 0px 0px 30px inset;"></div><div id="1p-menu-live-region" role="status" aria-live="polite" aria-atomic="true" aria-relevant="all" style="clip: rect(0px, 0px, 0px, 0px); clip-path: inset(50%); height: 1px; overflow: hidden; position: fixed; top: 0px; left: 0px; white-space: nowrap; width: 1px; overflow-wrap: normal;">1Password menu is available. Press down arrow to select.</div></body></html>
