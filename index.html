@@ -1535,11 +1535,11 @@
 <button class="admin-sub-btn active" id="admin-sub-review">📋 To Review</button>
 <button class="admin-sub-btn" onclick="exitAdmin()" style="margin-left:auto">← Back to Guide</button>
 </div>
-<div class="rating-picker" id="rating-picker">
+<div class="rating-picker" id="rating-picker" style="top: 187.758px; left: 693.383px;">
 <button onclick="applyRating('r5','5/5')">5/5 · Must See</button>
 <button onclick="applyRating('r4','4/5')">4/5 · High Priority</button>
 <button onclick="applyRating('r35','3.5/5')">3.5/5 · Worth It</button>
-<button onclick="applyRating('r3','3/5')">3/5 · If Nearby</button>
+<button onclick="applyRating('r3','3/5')" class="selected">3/5 · If Nearby</button>
 <button onclick="applyRating('r2','2/5')">2/5 · Skip</button>
 <button onclick="applyRating('r1','1/5')">1/5 · Hard Skip</button>
 </div>
@@ -2218,17 +2218,17 @@
 <div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="lucy-dacus" data-placeholder="Click ✏️ Edit Mode to add your notes...">YES. She's good. One of the first artists to get me turning up the volume 3x.&nbsp;<br><br>And she's from Virginia ❤️&nbsp;<br><br>Faves: Night Shift.&nbsp;</div></div>
 <div class="rec-arrow">↑ You love Snail Mail — try this</div>
 <a class="spotify-btn" href="https://open.spotify.com/search/Lucy%20Dacus" target="_blank">▶ Open in Spotify</a></div>
-<div class="card r3" data-artist="the-moss">
+<div class="card r35" data-artist="the-moss">
 <div class="card-top">
 <div class="card-left">
 <div class="card-name">The Moss</div>
 <div class="card-meta"><span class="stage-tag stage-mountain">Mountain</span><span class="time-tag">6:50–7:50</span></div>
 </div>
-<div class="rating-badge">3/5</div>
+<div class="rating-badge">3.5/5</div>
 </div>
 <div class="card-section"><div class="card-section-label">Sound</div><div class="card-section-text">Indie rock / psych rock</div></div>
 <div class="card-section"><div class="card-section-label ai-label">Artist Summary</div><div class="card-section-text ai-take">Austin, Texas-based psych-rock band known for expansive, guitar-heavy compositions drawing on classic rock and psychedelia. Their sound shares DNA with Tame Impala and Unknown Mortal Orchestra filtered through a Texas heat haze.</div></div>
-<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="the-moss" data-placeholder="Click ✏️ Edit Mode to add your notes...">ernest california rock&nbsp;</div></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="false" data-artist="the-moss" data-placeholder="Click ✏️ Edit Mode to add your notes...">ernest california rock. Sound young, a bit like Dayglow.&nbsp;<br><br>Lyrics are a bit immature/a little too direct, but sure they're fun to listen to.&nbsp;</div></div>
 <a class="spotify-btn" href="https://open.spotify.com/search/The%20Moss" target="_blank">▶ Open in Spotify</a></div>
 </div>
 </div>
@@ -3355,7 +3355,7 @@
 </div>
 <button class="edit-fab" id="edit-fab" onclick="toggleEditMode()">✅ Done Editing</button>
 <button class="publish-btn dirty" id="publish-btn" onclick="publishToSite()" style="display: inline-block;">🚀 Publish to Site</button>
-<div class="autosave-toast" id="autosave-toast">✓ Saved locally</div>
+<div class="autosave-toast show" id="autosave-toast">✓ Saved locally</div>
 <script>
   let privateUnlocked = false;
   let pendingAction = null;
