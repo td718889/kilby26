@@ -1542,13 +1542,13 @@
 <button class="admin-sub-btn active" id="admin-sub-review">📋 To Review</button>
 <button class="admin-sub-btn" onclick="exitAdmin()" style="margin-left:auto">← Back to Guide</button>
 </div>
-<div class="rating-picker" id="rating-picker" style="top: 595.266px; left: 652.398px;">
+<div class="rating-picker" id="rating-picker" style="top: 434.692px; left: 300.577px;">
 <button onclick="applyRating('r5','5/5')">5/5 · Must See</button>
 <button onclick="applyRating('r4','4/5')" class="">4/5 · High Priority</button>
 <button onclick="applyRating('r35','3.5/5')" class="">3.5/5 · Worth It</button>
 <button onclick="applyRating('r3','3/5')" class="">3/5 · If Nearby</button>
-<button onclick="applyRating('r2','2/5')" class="">2/5 · Skip</button>
-<button onclick="applyRating('r1','1/5')" class="selected">1/5 · Hard Skip</button>
+<button onclick="applyRating('r2','2/5')" class="selected">2/5 · Skip</button>
+<button onclick="applyRating('r1','1/5')" class="">1/5 · Hard Skip</button>
 </div>
 <!-- ═══════════════════════════════════════════ FRIDAY ═══ -->
 <div class="day-panel" id="day-fri">
@@ -1996,7 +1996,7 @@
 <div class="slot-cards">
 <div class="card r2" data-artist="cardinals"><div class="card-top"><div class="card-left"><div class="card-name">Cardinals</div><div class="card-meta"><span class="stage-tag stage-kilby">Kilby</span><span class="time-tag">12:15–12:40</span></div></div><div class="rating-badge">2/5</div></div><div class="card-section"><div class="card-section-label ai-label">Artist Summary</div><div class="card-section-text ai-take">A local Salt Lake City act. Limited widely-available information.</div></div>
 <div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="true" data-artist="cardinals" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div><a class="spotify-btn" href="https://open.spotify.com/search/Cardinals" target="_blank">▶ Open in Spotify</a></div>
-<div class="card r2" data-artist="jill-whit"><div class="card-top"><div class="card-left"><div class="card-name">Jill Whit</div><div class="card-meta"><span class="stage-tag stage-mountain">Mountain</span><span class="time-tag">12:15–12:40</span></div></div><div class="rating-badge">2/5</div></div><div class="card-section"><div class="card-section-label ai-label">Artist Summary</div><div class="card-section-text ai-take">An emerging artist with limited widely-available information. Worth a pre-festival listen.</div></div>
+<div class="card r3" data-artist="jill-whit"><div class="card-top"><div class="card-left"><div class="card-name">Jill Whit</div><div class="card-meta"><span class="stage-tag stage-mountain">Mountain</span><span class="time-tag">12:15–12:40</span></div></div><div class="rating-badge">3/5</div></div><div class="card-section"><div class="card-section-label ai-label">Artist Summary</div><div class="card-section-text ai-take">An emerging artist with limited widely-available information. Worth a pre-festival listen.</div></div>
 <div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="true" data-artist="jill-whit" data-placeholder="Click ✏️ Edit Mode to add your notes...">Easy listening and chill.&nbsp;</div></div><a class="spotify-btn" href="https://open.spotify.com/search/Jill%20Whit" target="_blank">▶ Open in Spotify</a></div>
 </div>
 </div>
@@ -3362,7 +3362,7 @@
 </div>
 <button class="edit-fab" id="edit-fab" onclick="toggleEditMode()">✅ Done Editing</button>
 <button class="publish-btn dirty" id="publish-btn" onclick="publishToSite()" style="display: inline-block;" disabled="">⏳ Publishing...</button>
-<div class="autosave-toast show" id="autosave-toast">✓ Saved locally</div>
+<div class="autosave-toast" id="autosave-toast">✓ Saved locally</div>
 <script>
   let privateUnlocked = false;
   let pendingAction = null;
