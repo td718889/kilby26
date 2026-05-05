@@ -2,7 +2,7 @@
 <html lang="en"><head>
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
-<meta name="kbp-published-at" content="1778008870300">
+<meta name="kbp-published-at" content="1778008879716">
 <title>Kilby Block Party 2026 — Taylor's Guide</title>
 <style>
     :root {
@@ -2442,7 +2442,7 @@
 <div class="time-slot-header"><span class="time-label">3:55 – 4:45</span><div class="time-divider"></div></div>
 <div class="slot-cards">
 <div class="card r4" data-artist="freak-slug"><div class="card-top"><div class="card-left"><div class="card-name">Freak Slug</div><div class="card-meta"><span class="stage-tag stage-desert">Desert</span><span class="time-tag">3:55–4:45</span></div></div><div class="rating-badge">4/5</div></div><div class="card-section"><div class="card-section-label ai-label">Artist Summary</div><div class="card-section-text ai-take">Manchester-based British indie artist Xenya Genovese, known for hazy, lo-fi bedroom pop with a dreamy, woozy edge — think slacker-rock guitars filtered through fuzzed-out dream pop and trip-hop textures. Has built a devoted following in the UK indie scene off tracks like "I Wanna Be Yours" and "Suckerpunch," with her 2024 mixtape <em>I'm Not There</em> pushing into bigger, more confident territory. Lands in similar headspace to Mk.gee, Wisp, or a sleepier Beabadoobee.</div></div>
-<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="true" data-artist="freak-slug" data-placeholder="Click ✏️ Edit Mode to add your notes...">Freak Slug has a new album this year. She is dream poppy with this disengaged/bored voice trend (although her new album she actually sounds less like that).&nbsp;<br><br>It's good.&nbsp;</div></div><a class="spotify-btn" href="https://open.spotify.com/search/Freak%20Slug" target="_blank">▶ Open in Spotify</a></div>
+<div class="card-section"><div class="card-section-label taylor-label">Taylor's Take</div><div class="card-section-text taylor-take" contenteditable="true" data-artist="freak-slug" data-placeholder="Click ✏️ Edit Mode to add your notes..."></div></div><a class="spotify-btn" href="https://open.spotify.com/search/Freak%20Slug" target="_blank">▶ Open in Spotify</a></div>
 <div class="card r35" data-artist="grandaddy">
 <div class="card-top">
 <div class="card-left">
@@ -3373,7 +3373,7 @@
 <button class="lock-fab unlocked" id="lock-fab" onclick="onLockFabClick()" title="Click to lock this device">🔓 Lock</button>
 <button class="edit-fab" id="edit-fab" onclick="toggleEditMode()" style="display: inline-block;">✅ Done Editing</button>
 <button class="publish-btn dirty" id="publish-btn" onclick="publishToSite()" style="display: inline-block;">🚀 Publish to Site</button>
-<div class="autosave-toast" id="autosave-toast">✓ Saved locally</div>
+<div class="autosave-toast show" id="autosave-toast">✓ Saved locally</div>
 <script>
   let privateUnlocked = false;
   let pendingAction = null;
@@ -3796,8 +3796,8 @@
     // HTML ships with the button frozen in "⏳ Publishing... disabled".
     let src = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
     src = src.replace(/contenteditable="false"/g, 'contenteditable="false"');
-    src = src.replace(/ class="edit-fab active"/, ' class="edit-fab"');
-    src = src.replace(/<body class="edit-mode"/, '<body');
+    src = src.replace(/ class="edit-fab"/, ' class="edit-fab"');
+    src = src.replace(/<body/, '<body');
     // Belt-and-suspenders: scrub any stuck button state out of the serialized HTML.
     src = src.replace(/(<button[^>]*id="publish-btn"[^>]*?)\s+disabled(="[^"]*")?/g, '$1');
     src = src.replace(/(<button[^>]*id="publish-btn"[^>]*>)[^<]*?(<\/button>)/, '$1🚀 Publish to Site$2');
