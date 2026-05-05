@@ -3592,6 +3592,15 @@
   }
 
   function restoreNotesFromStorage() {
+    // Heal the publish button state on every page load. Previously-published
+    // HTML may have shipped with the button frozen in "⏳ Publishing... disabled"
+    // because the old publish flow serialized the DOM mid-publish.
+    const _btn = document.getElementById('publish-btn');
+    if (_btn) {
+      _btn.disabled = false;
+      _btn.textContent = '🚀 Publish to Site';
+    }
+
     // If this device has no draft newer than the published version, the live
     // HTML is authoritative — clear any stale local buffer and skip restore.
     // This is what makes "publish from any device → live always wins" work.
@@ -3691,8 +3700,6 @@
   // ── PUBLISH TO SITE ─────────────────────────────────────────────
   async function publishToSite() {
     const btn = document.getElementById('publish-btn');
-    btn.textContent = '⏳ Publishing...';
-    btn.disabled = true;
 
     // Stamp the publish timestamp into the HTML so other devices know to discard
     // any older local drafts on their next page load.
@@ -3700,11 +3707,19 @@
     const meta = document.querySelector('meta[name="kbp-published-at"]');
     if (meta) meta.setAttribute('content', String(publishedAt));
 
-    // Build clean HTML (strip edit-mode artifacts)
+    // Build clean HTML BEFORE mutating button state. Otherwise the published
+    // HTML ships with the button frozen in "⏳ Publishing... disabled".
     let src = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
     src = src.replace(/contenteditable="false"/g, 'contenteditable="false"');
     src = src.replace(/ class="edit-fab active"/, ' class="edit-fab"');
     src = src.replace(/<body class="edit-mode"/, '<body');
+    // Belt-and-suspenders: scrub any stuck button state out of the serialized HTML.
+    src = src.replace(/(<button[^>]*id="publish-btn"[^>]*?)\s+disabled(="[^"]*")?/g, '$1');
+    src = src.replace(/(<button[^>]*id="publish-btn"[^>]*>)[^<]*?(<\/button>)/, '$1🚀 Publish to Site$2');
+
+    // Now safe to mutate the visible button (post-serialization).
+    btn.textContent = '⏳ Publishing...';
+    btn.disabled = true;
 
     try {
       const res = await fetch('/.netlify/functions/publish', {
