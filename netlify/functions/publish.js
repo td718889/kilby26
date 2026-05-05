@@ -47,7 +47,34 @@ exports.handler = async (event) => {
       const err = await getRes.text();
       return { statusCode: 500, body: JSON.stringify({ error: `Failed to fetch file: ${err}` }) };
     }
-    const { sha } = await getRes.json();
+    const fileData = await getRes.json();
+    const { sha } = fileData;
+
+    // Stale-publish guard: if the client's page was loaded before the last
+    // publish (e.g. a second browser tab), reject so it can't overwrite newer notes.
+    const { clientPublishedAt } = body;
+    if (clientPublishedAt !== undefined) {
+      try {
+        const currentHtml = Buffer.from(fileData.content, 'base64').toString('utf-8');
+        const match = currentHtml.match(/name="kbp-published-at"\s+content="(\d+)"/);
+        if (match) {
+          const livePublishedAt = parseInt(match[1], 10);
+          if (livePublishedAt > parseInt(clientPublishedAt, 10)) {
+            return {
+              statusCode: 409,
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                error: 'stale',
+                livePublishedAt,
+                message: 'A newer version has already been published. Please refresh the page first.'
+              })
+            };
+          }
+        }
+      } catch (e) {
+        // If the check fails for any reason, proceed with the publish rather than blocking it.
+      }
+    }
 
     // Commit updated HTML
     const content = Buffer.from(html, 'utf-8').toString('base64');
