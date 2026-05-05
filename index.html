@@ -460,6 +460,15 @@
     .publish-btn.dirty { border-color: var(--r35); color: var(--r35); }
     .publish-btn.dirty::after { content: ' ●'; }
     .publish-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+    /* ── ADMIN LOCK FAB ── */
+    .lock-fab {
+      position: fixed; top: 16px; right: 16px; z-index: 1100;
+      background: var(--bg2); color: var(--muted, #888); border: 1px solid var(--border);
+      border-radius: 18px; padding: 6px 10px; font-size: 12px; font-weight: 600;
+      cursor: pointer; opacity: 0.55; transition: opacity 0.2s, color 0.2s, border-color 0.2s;
+    }
+    .lock-fab:hover { opacity: 1; }
+    .lock-fab.unlocked { color: var(--r5); border-color: rgba(74,222,128,0.4); opacity: 0.85; }
     /* ── RATING EDITING ── */
     body.edit-mode .rating-badge {
       cursor: pointer; outline: 1px dashed rgba(251,191,36,0.5); border-radius: 6px;
@@ -3361,8 +3370,9 @@
 <button class="pw-cancel" onclick="closePwModal()">Cancel</button>
 </div>
 </div>
-<button class="edit-fab" id="edit-fab" onclick="toggleEditMode()">✅ Done Editing</button>
-<button class="publish-btn dirty" id="publish-btn" onclick="publishToSite()" style="display: inline-block;" disabled="">⏳ Publishing...</button>
+<button class="lock-fab" id="lock-fab" onclick="onLockFabClick()" title="Admin">🔒</button>
+<button class="edit-fab" id="edit-fab" onclick="toggleEditMode()" style="display: none;">✏️ Edit Notes</button>
+<button class="publish-btn" id="publish-btn" onclick="publishToSite()" style="display: none;">🚀 Publish to Site</button>
 <div class="autosave-toast" id="autosave-toast">✓ Saved locally</div>
 <script>
   let privateUnlocked = false;
@@ -3467,24 +3477,96 @@
     }
   }
 
-  function submitPw() {
-    const val = document.getElementById('pw-input').value;
-    if (val === 'clarinex64') {
-      privateUnlocked = true;
-      closePwModal();
-      if (pendingAction === 'admin') {
-        pendingAction = null;
-        enterAdminMode();
+  // ── ADMIN AUTH ────────────────────────────────────────────────
+  // Password is no longer hardcoded in JS. We POST it to the publish function's
+  // verify endpoint; on success, we cache it in localStorage on this device only.
+  // Other devices remain locked unless they go through the same flow.
+  const ADMIN_PW_KEY = 'kilby26_admin_pw';
+
+  function getStoredPassword() {
+    return localStorage.getItem(ADMIN_PW_KEY);
+  }
+  function isUnlocked() {
+    return !!getStoredPassword();
+  }
+  function lock() {
+    localStorage.removeItem(ADMIN_PW_KEY);
+    privateUnlocked = false;
+    syncAdminUI();
+  }
+  function syncAdminUI() {
+    const unlocked = isUnlocked();
+    privateUnlocked = unlocked;
+    const lockFab = document.getElementById('lock-fab');
+    const editFab = document.getElementById('edit-fab');
+    if (lockFab) {
+      lockFab.textContent = unlocked ? '🔓 Lock' : '🔒';
+      lockFab.classList.toggle('unlocked', unlocked);
+      lockFab.title = unlocked ? 'Click to lock this device' : 'Admin login';
+    }
+    if (editFab) {
+      // Edit FAB only visible when unlocked. If locked, also bail out of edit mode.
+      if (!unlocked) {
+        editFab.style.display = 'none';
+        if (typeof editMode !== 'undefined' && editMode) toggleEditMode();
+      } else {
+        editFab.style.display = 'inline-block';
       }
-    } else {
-      document.getElementById('pw-error').style.display = 'block';
-      document.getElementById('pw-input').value = '';
-      document.getElementById('pw-input').focus();
+    }
+  }
+
+  function onLockFabClick() {
+    if (isUnlocked()) {
+      // Confirm lock — wipe stored password.
+      if (confirm('Lock this device? You will need to re-enter the password to edit again.')) {
+        lock();
+      }
+      return;
+    }
+    // Locked → open password modal to authenticate.
+    pendingAction = 'unlock';
+    document.getElementById('pw-overlay').classList.add('open');
+    setTimeout(() => document.getElementById('pw-input').focus(), 50);
+  }
+
+  async function submitPw() {
+    const val = document.getElementById('pw-input').value;
+    const errEl = document.getElementById('pw-error');
+    const submitBtn = document.querySelector('.pw-submit');
+    if (submitBtn) submitBtn.disabled = true;
+    errEl.style.display = 'none';
+    try {
+      const res = await fetch('/.netlify/functions/publish', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'verify', password: val })
+      });
+      if (res.ok) {
+        // Server says password is good — cache it on this device only.
+        localStorage.setItem(ADMIN_PW_KEY, val);
+        syncAdminUI();
+        closePwModal();
+        if (pendingAction === 'admin') {
+          pendingAction = null;
+          enterAdminMode();
+        }
+        pendingAction = null;
+      } else {
+        errEl.style.display = 'block';
+        document.getElementById('pw-input').value = '';
+        document.getElementById('pw-input').focus();
+      }
+    } catch (e) {
+      errEl.textContent = 'Network error — try again.';
+      errEl.style.display = 'block';
+    } finally {
+      if (submitBtn) submitBtn.disabled = false;
     }
   }
   function closePwModal() {
     document.getElementById('pw-overlay').classList.remove('open');
     document.getElementById('pw-error').style.display = 'none';
+    document.getElementById('pw-error').textContent = 'Incorrect password — try again.';
     document.getElementById('pw-input').value = '';
   }
   // Mobile-friendly conflict tooltip toggle
@@ -3656,6 +3738,9 @@
   // Restore notes immediately on load (before edit mode)
   restoreNotesFromStorage();
 
+  // Sync admin lock UI based on whether this device has cached the password.
+  syncAdminUI();
+
   function showAutosaveToast() {
     const toast = document.getElementById('autosave-toast');
     toast.classList.add('show');
@@ -3721,11 +3806,19 @@
     btn.textContent = '⏳ Publishing...';
     btn.disabled = true;
 
+    const pw = getStoredPassword();
+    if (!pw) {
+      // Shouldn't happen — Edit FAB is hidden unless unlocked — but defend anyway.
+      btn.textContent = '❌ Locked';
+      btn.disabled = false;
+      setTimeout(() => { btn.textContent = '🚀 Publish to Site'; }, 2500);
+      return;
+    }
     try {
       const res = await fetch('/.netlify/functions/publish', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ html: src, password: 'clarinex64' })
+        body: JSON.stringify({ html: src, password: pw })
       });
       if (!res.ok) {
         const err = await res.json().catch(() => ({ error: res.statusText }));

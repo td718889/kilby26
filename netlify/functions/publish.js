@@ -8,10 +8,27 @@ exports.handler = async (event) => {
   }
 
   try {
-    const { html, password } = JSON.parse(event.body);
+    const body = JSON.parse(event.body);
+    const { action, html, password } = body;
 
+    // All actions require a valid password.
     if (password !== process.env.ADMIN_PASSWORD) {
       return { statusCode: 401, body: JSON.stringify({ error: 'Unauthorized' }) };
+    }
+
+    // Verify-only action: just confirm the password is valid (used by the
+    // unlock flow on the client). No GitHub commit.
+    if (action === 'verify') {
+      return {
+        statusCode: 200,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ success: true })
+      };
+    }
+
+    // Otherwise this is a publish — html is required.
+    if (!html) {
+      return { statusCode: 400, body: JSON.stringify({ error: 'Missing html' }) };
     }
 
     const token = process.env.GITHUB_TOKEN;
