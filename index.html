@@ -88,14 +88,6 @@
     .stage-filter-clear.visible { display: inline-block; }
     .stage-filter-clear:hover { color: var(--text); border-color: var(--muted); }
 
-    /* ── RATING LEGEND ── */
-    .rating-legend {
-      display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;
-      padding: 16px 24px 0; max-width: 900px; margin: 0 auto;
-    }
-    .rl-item { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--muted); }
-    .rl-dot { width: 8px; height: 8px; border-radius: 50%; }
-
     /* ── DAY TABS ── */
     .tabs { display: flex; gap: 0; max-width: 1100px; margin: 32px auto 0; padding: 0 24px; border-bottom: 1px solid var(--border); }
     /* ── SEARCH ── */
@@ -1522,13 +1514,6 @@
 <button class="stage-pill stage-lake" id="sf-lake" onclick="toggleStageFilter('lake')">● Lake Stage</button>
 <button class="stage-pill stage-mountain" id="sf-mountain" onclick="toggleStageFilter('mountain')">● Mountain Stage</button>
 <button class="stage-filter-clear" id="stage-filter-clear" onclick="clearStageFilters()">✕ Clear filter</button>
-</div>
-<div class="rating-legend">
-<div class="rl-item"><div class="rl-dot" style="background:var(--r5)"></div> 5/5 MUST GO</div>
-<div class="rl-item"><div class="rl-dot" style="background:var(--r4)"></div> 4/5 Absolutely</div>
-<div class="rl-item"><div class="rl-dot" style="background:var(--r35)"></div> 3.5/5 Less into it, but probably going</div>
-<div class="rl-item"><div class="rl-dot" style="background:var(--r3)"></div> 3/5 Meh, not bad, not great</div>
-<div class="rl-item"><div class="rl-dot" style="background:var(--r2)"></div> 2/5 No thanks</div>
 </div>
 <div class="tabs">
 <button class="tab-btn" id="kickoff-tab" onclick="showDay('kickoff',this)">🎪 Kick Off Party</button>
