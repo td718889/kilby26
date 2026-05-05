@@ -2,6 +2,7 @@
 <html lang="en"><head>
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
+<meta name="kbp-published-at" content="">
 <title>Kilby Block Party 2026 — Taylor's Guide</title>
 <style>
     :root {
@@ -3533,7 +3534,30 @@
   // ── LOCAL STORAGE ──────────────────────────────────────────────
   const NOTES_KEY = 'kilby26_notes';
   const SIMILAR_KEY = 'kilby26_similar';
+  const DIRTY_AT_KEY = 'kilby26_dirty_at';
   let autoSaveTimer = null;
+
+  // Read the page's published-at timestamp from <meta name="kbp-published-at">.
+  // Returns 0 if missing/empty (treat as "never published").
+  function getPublishedAt() {
+    const meta = document.querySelector('meta[name="kbp-published-at"]');
+    const v = meta && meta.getAttribute('content');
+    const n = v ? parseInt(v, 10) : 0;
+    return isNaN(n) ? 0 : n;
+  }
+
+  // True if this device has a local draft newer than what's published.
+  function hasUnpublishedDraft() {
+    const dirtyAt = parseInt(localStorage.getItem(DIRTY_AT_KEY) || '0', 10);
+    return dirtyAt > getPublishedAt();
+  }
+
+  // Wipe local note buffers (used after successful publish, or when live is newer than local).
+  function clearLocalNoteBuffer() {
+    localStorage.removeItem(NOTES_KEY);
+    localStorage.removeItem(SIMILAR_KEY);
+    localStorage.removeItem(DIRTY_AT_KEY);
+  }
 
   function saveNotesToStorage() {
     const notes = {};
@@ -3561,32 +3585,46 @@
       }
     });
     localStorage.setItem(SIMILAR_KEY, JSON.stringify(similar));
+    localStorage.setItem(DIRTY_AT_KEY, String(Date.now()));
 
     markDirty();
     showAutosaveToast();
   }
 
   function restoreNotesFromStorage() {
+    // If this device has no draft newer than the published version, the live
+    // HTML is authoritative — clear any stale local buffer and skip restore.
+    // This is what makes "publish from any device → live always wins" work.
+    if (!hasUnpublishedDraft()) {
+      clearLocalNoteBuffer();
+      return;
+    }
+
     const saved = localStorage.getItem(NOTES_KEY);
-    if (!saved) return;
-    try {
-      const notes = JSON.parse(saved);
-      document.querySelectorAll('.taylor-take[data-artist]').forEach(el => {
-        const artist = el.dataset.artist;
-        if (notes[artist] !== undefined) el.innerHTML = notes[artist];
-      });
-    } catch(e) { /* ignore corrupt storage */ }
+    if (saved) {
+      try {
+        const notes = JSON.parse(saved);
+        document.querySelectorAll('.taylor-take[data-artist]').forEach(el => {
+          const artist = el.dataset.artist;
+          if (notes[artist] !== undefined) el.innerHTML = notes[artist];
+        });
+      } catch(e) { /* ignore corrupt storage */ }
+    }
 
     // Restore similar artists edits
     const savedSimilar = localStorage.getItem(SIMILAR_KEY);
-    if (!savedSimilar) return;
-    try {
-      const similar = JSON.parse(savedSimilar);
-      document.querySelectorAll('.similar-artists-text[data-artist]').forEach(el => {
-        const artist = el.dataset.artist;
-        if (similar[artist] !== undefined) el.textContent = similar[artist];
-      });
-    } catch(e) { /* ignore corrupt storage */ }
+    if (savedSimilar) {
+      try {
+        const similar = JSON.parse(savedSimilar);
+        document.querySelectorAll('.similar-artists-text[data-artist]').forEach(el => {
+          const artist = el.dataset.artist;
+          if (similar[artist] !== undefined) el.textContent = similar[artist];
+        });
+      } catch(e) { /* ignore corrupt storage */ }
+    }
+
+    // Mark the publish button as dirty so the user knows they have unpublished local edits.
+    markDirty();
   }
 
   // ── TAG SIMILAR ARTISTS FIELDS ─────────────────────────────────
@@ -3656,6 +3694,12 @@
     btn.textContent = '⏳ Publishing...';
     btn.disabled = true;
 
+    // Stamp the publish timestamp into the HTML so other devices know to discard
+    // any older local drafts on their next page load.
+    const publishedAt = Date.now();
+    const meta = document.querySelector('meta[name="kbp-published-at"]');
+    if (meta) meta.setAttribute('content', String(publishedAt));
+
     // Build clean HTML (strip edit-mode artifacts)
     let src = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
     src = src.replace(/contenteditable="false"/g, 'contenteditable="false"');
@@ -3672,6 +3716,8 @@
         const err = await res.json().catch(() => ({ error: res.statusText }));
         throw new Error(err.error || 'Unknown error');
       }
+      // Live is now authoritative — discard the local draft buffer on this device.
+      clearLocalNoteBuffer();
       btn.textContent = '✅ Published!';
       markClean();
       setTimeout(() => {
