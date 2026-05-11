@@ -1,7 +1,12 @@
 <!DOCTYPE html>
 <html lang="en"><head>
 <meta charset="utf-8">
-<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport">
+<meta name="theme-color" content="#0c0c12">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="KBP26">
+<meta name="description" content="Taylor's personal guide to Kilby Block Party 2026 — rankings, schedule, after parties, festival map, and FAQ.">
 <meta name="kbp-published-at" content="1778508666710">
 <title>Kilby Block Party 2026 — Taylor's Guide</title>
 <style>
@@ -354,6 +359,26 @@
     .venue-kilby { background: rgba(232,93,47,0.12); border: 1px solid rgba(232,93,47,0.3); color: #e85d2f; }
     .venue-complex { background: rgba(74,144,217,0.12); border: 1px solid rgba(74,144,217,0.3); color: #4a90d9; }
     .venue-bluegenes { background: rgba(240,100,150,0.12); border: 1px solid rgba(240,100,150,0.3); color: #f06496; }
+    .venue-fairpark { background: rgba(56,189,248,0.12); border: 1px solid rgba(56,189,248,0.3); color: #38bdf8; }
+    .party-night-header .night-type.wristband {
+      background: rgba(56,189,248,0.10); border-color: rgba(56,189,248,0.30); color: #38bdf8;
+    }
+    .wristband-row {
+      display: flex; gap: 16px; align-items: center; padding: 10px 0;
+      border-bottom: 1px dashed var(--border);
+    }
+    .wristband-row:last-child { border-bottom: none; }
+    .wristband-when {
+      min-width: 130px; font-size: 13px; color: var(--text); font-weight: 700;
+    }
+    .wristband-when .wristband-time {
+      display: block; font-weight: 600; color: var(--muted); font-size: 12px; margin-top: 2px;
+    }
+    .wristband-where { flex: 1; display: flex; flex-direction: column; gap: 6px; align-items: flex-start; }
+    .wristband-addr {
+      font-size: 12px; color: var(--muted); text-decoration: none;
+    }
+    .wristband-addr:hover { color: var(--r35); }
     .party-card-content { flex: 1; }
     .party-artists { font-size: 16px; font-weight: 800; color: var(--text); margin-bottom: 4px; }
     .party-meta { font-size: 12px; color: var(--muted); margin-bottom: 8px; }
@@ -363,6 +388,29 @@
       background: rgba(251,191,36,0.08); border: 1px solid rgba(251,191,36,0.2);
       color: var(--r35); margin-bottom: 8px;
     }
+    .party-skip-tag {
+      font-size: 11px; padding: 3px 8px; border-radius: 12px; display: inline-block;
+      background: rgba(220,38,38,0.10); border: 1px solid rgba(220,38,38,0.30);
+      color: #f87171; margin-bottom: 8px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    .party-skip-tag + .party-skip-reason {
+      font-size: 12px; color: var(--muted); margin: -4px 0 8px 0;
+      line-height: 1.5; font-style: italic;
+    }
+    .party-pick-tag {
+      font-size: 11px; padding: 3px 8px; border-radius: 12px; display: inline-block;
+      background: rgba(163,230,53,0.12); border: 1px solid rgba(163,230,53,0.35);
+      color: var(--r4); margin-bottom: 8px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    .party-pick-tag + .party-pick-reason {
+      font-size: 12px; color: var(--text); margin: -4px 0 8px 0;
+      line-height: 1.5;
+    }
+    /* Dim cards marked as skip so the page reads at a glance */
+    .party-card.is-skip { opacity: 0.55; }
+    .party-card.is-skip:hover { opacity: 0.85; border-color: rgba(220,38,38,0.30); }
     .party-ticket-btn {
       display: inline-block; font-size: 11px; font-weight: 700; color: var(--text);
       text-decoration: none; padding: 5px 12px; border: 1px solid var(--border);
@@ -548,10 +596,243 @@
       border: 1px solid rgba(251,191,36,0.3); border-radius: 4px; color: var(--r35); font-weight: 700;
     }
 
-    @media (max-width: 600px) {
-      .slot-cards { grid-template-columns: 1fr; }
-      .tabs { overflow-x: auto; }
-      .tab-btn { padding: 10px 16px; font-size: 13px; }
+    /* ── MAP TAB ── */
+    .map-intro {
+      background: var(--bg3); border: 1px solid var(--border); border-radius: 14px;
+      padding: 14px 18px; margin-bottom: 18px; font-size: 13px; color: var(--muted);
+      line-height: 1.55; display: flex; flex-wrap: wrap; align-items: center; gap: 12px;
+    }
+    .map-intro strong { color: var(--text); }
+    .map-directions-btn {
+      margin-left: auto; font-size: 12px; font-weight: 700; color: var(--r35);
+      text-decoration: none; padding: 6px 12px; border: 1px solid rgba(251,191,36,0.3);
+      border-radius: 8px; background: rgba(251,191,36,0.08); white-space: nowrap;
+      transition: all 0.15s;
+    }
+    .map-directions-btn:hover { background: rgba(251,191,36,0.16); border-color: var(--r35); }
+    .map-wrap {
+      background: var(--card); border: 1px solid var(--border); border-radius: 14px;
+      padding: 12px; margin-bottom: 18px;
+    }
+    .map-zoom-wrap {
+      width: 100%; overflow: auto; -webkit-overflow-scrolling: touch;
+      border-radius: 10px; background: #0a0a14; cursor: zoom-in;
+      max-height: 70vh;
+    }
+    .map-img {
+      width: 100%; display: block; border-radius: 10px;
+      transition: transform 0.25s ease;
+      transform-origin: 0 0;
+    }
+    .map-zoom-wrap.zoomed { cursor: zoom-out; }
+    .map-zoom-wrap.zoomed .map-img { width: 200%; max-width: none; }
+    .map-actions {
+      display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; justify-content: center;
+    }
+    .map-action-btn {
+      flex: 1; min-width: 130px; text-align: center;
+      background: var(--bg3); color: var(--text); border: 1px solid var(--border);
+      border-radius: 10px; padding: 10px 14px; font-size: 13px; font-weight: 600;
+      cursor: pointer; font-family: inherit; text-decoration: none;
+      transition: all 0.15s;
+    }
+    .map-action-btn:hover { border-color: var(--r35); color: var(--r35); }
+    /* Fullscreen mode for map */
+    .map-wrap.fullscreen {
+      position: fixed; inset: 0; z-index: 2500; background: #0a0a14;
+      border-radius: 0; padding: 8px; margin: 0;
+      display: flex; flex-direction: column;
+    }
+    .map-wrap.fullscreen .map-zoom-wrap {
+      flex: 1; max-height: none;
+    }
+    .map-wrap.fullscreen .map-img { width: 100%; }
+    .map-wrap.fullscreen.zoomed-mode .map-img { width: 250%; }
+    .map-legend {
+      background: var(--card); border: 1px solid var(--border); border-radius: 14px;
+      padding: 18px 20px;
+    }
+    .map-legend h3 {
+      font-size: 11px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--r35); margin-bottom: 12px;
+    }
+    .map-legend-row {
+      display: flex; align-items: center; gap: 10px; padding: 8px 0;
+      border-bottom: 1px dashed var(--border); font-size: 13px; color: var(--text);
+      flex-wrap: wrap;
+    }
+    .map-legend-row:last-of-type { border-bottom: none; }
+    .map-legend-row strong { font-weight: 700; min-width: 110px; }
+    .map-legend-note { font-size: 12px; color: var(--muted); flex: 1; min-width: 0; }
+    .map-legend-dot {
+      width: 14px; height: 14px; border-radius: 50%; flex-shrink: 0;
+    }
+    .map-stage-mountain { background: var(--mountain); box-shadow: 0 0 0 2px rgba(240,208,64,0.25); }
+    .map-stage-kilby { background: var(--kilby); box-shadow: 0 0 0 2px rgba(232,93,47,0.25); }
+    .map-stage-desert { background: var(--desert); box-shadow: 0 0 0 2px rgba(232,160,48,0.25); }
+    .map-stage-lake { background: var(--lake); box-shadow: 0 0 0 2px rgba(74,144,217,0.25); }
+    .map-tips {
+      padding-left: 18px; color: var(--muted); font-size: 13px; line-height: 1.7;
+    }
+    .map-tips li { margin-bottom: 4px; }
+    .map-tips strong { color: var(--text); }
+
+    /* Floating quick-access map button (mobile) */
+    .map-fab {
+      position: fixed; bottom: 24px; left: 16px; z-index: 999;
+      background: var(--bg2); color: var(--text);
+      border: 1px solid var(--border); border-radius: 50%;
+      width: 48px; height: 48px; font-size: 20px;
+      cursor: pointer; box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+      display: none; align-items: center; justify-content: center;
+      transition: all 0.2s;
+    }
+    .map-fab:hover, .map-fab:focus { border-color: var(--r35); color: var(--r35); }
+    .map-fab:active { transform: scale(0.94); }
+
+    /* ──────────────────────────────────────────────────────────────
+       MOBILE — comprehensive tightening for phone-first viewing
+       ────────────────────────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      /* Sticky tabs so users can switch days while scrolling */
+      .tabs {
+        overflow-x: auto; -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x proximity; gap: 0;
+        position: sticky; top: 0; z-index: 100;
+        background: var(--bg); padding: 0 12px;
+        margin-top: 18px; scrollbar-width: none;
+      }
+      .tabs::-webkit-scrollbar { display: none; }
+      .tab-btn {
+        padding: 11px 14px; font-size: 13px;
+        scroll-snap-align: start; flex-shrink: 0;
+      }
+
+      /* Show the floating map button on mobile */
+      .map-fab { display: flex; }
+
+      /* Tighter hero on mobile */
+      .hero { padding: 28px 16px 22px; }
+      .hero h1 { font-size: clamp(1.7rem, 8vw, 2.4rem); margin-bottom: 4px; }
+      .hero-dates { font-size: 13px; margin-bottom: 18px; }
+      .hero-eyebrow { font-size: 10px; letter-spacing: 2px; margin-bottom: 10px; }
+      .hero-tagline { font-size: 13px; line-height: 1.5; }
+      .hero-stats { gap: 16px; padding: 10px 18px; }
+      .hero-stat-num { font-size: 17px; }
+      .hero-stat-label { font-size: 9px; }
+
+      /* Stage legend more compact */
+      .stage-legend {
+        padding: 14px 12px 0; gap: 8px;
+        overflow-x: auto; flex-wrap: nowrap;
+        scrollbar-width: none; justify-content: flex-start;
+        -webkit-overflow-scrolling: touch;
+      }
+      .stage-legend::-webkit-scrollbar { display: none; }
+      .stage-pill {
+        font-size: 11px; padding: 6px 12px; white-space: nowrap; flex-shrink: 0;
+      }
+
+      /* Search a bit more touch-friendly */
+      .search-wrap { padding: 0 12px; margin-top: 14px; }
+      .search-input { padding: 13px 14px 13px 38px; font-size: 14px; }
+      .search-icon { left: 26px; }
+      .search-clear { right: 26px; }
+      .search-results { left: 12px; right: 12px; max-height: 50vh; }
+
+      /* Day panels — much less padding */
+      .day-panel { padding: 16px 12px 80px; }
+
+      /* Grid: single column with tighter gaps */
+      .slot-cards { grid-template-columns: 1fr; gap: 10px; margin-bottom: 14px; }
+      .card { padding: 14px; border-radius: 12px; }
+      .card-name { font-size: 15px; }
+
+      /* Time slot label spacing */
+      .time-slot-header { gap: 8px; margin-bottom: 8px; }
+      .time-label { font-size: 10.5px; }
+
+      /* Shortlist banner more compact */
+      .shortlist { padding: 14px 14px; margin-bottom: 18px; }
+      .shortlist h3 { font-size: 11px; letter-spacing: 1.5px; margin-bottom: 10px; }
+      .shortlist-item { font-size: 11px; padding: 5px 10px; }
+
+      /* FAQ */
+      .faq-intro, .parties-intro {
+        padding: 14px 16px; font-size: 12.5px; margin-bottom: 16px;
+      }
+      .faq-q { padding: 13px 14px; font-size: 13px; }
+      .faq-a { padding: 0 14px 13px; font-size: 12.5px; }
+      .faq-section-title { font-size: 11px; letter-spacing: 1.5px; padding: 6px 0 8px; margin-bottom: 12px; }
+
+      /* Party / kickoff cards */
+      .party-card { padding: 14px; gap: 10px; flex-wrap: wrap; }
+      .party-venue-pill { font-size: 9.5px; padding: 3px 8px; }
+      .party-artists { font-size: 14.5px; }
+      .party-meta { font-size: 11.5px; }
+      .party-night-header { font-size: 12px; letter-spacing: 1.5px; padding: 8px 0 10px; }
+      .wristband-when { min-width: 100px; font-size: 12px; }
+      .wristband-time { font-size: 11px; }
+
+      /* Info box positions correctly on small screens */
+      .info-box {
+        position: fixed !important; top: auto !important; bottom: 16px !important;
+        right: 12px !important; left: 12px !important; max-width: none !important;
+        max-height: 70vh; overflow-y: auto;
+      }
+
+      /* Tabs scroll-hint shadow on right */
+      .tabs { background-image:
+        linear-gradient(to right, var(--bg), var(--bg)),
+        linear-gradient(to right, var(--bg), var(--bg)),
+        linear-gradient(to right, rgba(12,12,18,0), rgba(12,12,18,0.7)),
+        linear-gradient(to left, rgba(12,12,18,0), rgba(12,12,18,0.7));
+        background-position: left center, right center, left center, right center;
+        background-repeat: no-repeat;
+        background-color: var(--bg);
+        background-size: 20px 100%, 20px 100%, 14px 100%, 14px 100%;
+        background-attachment: local, local, scroll, scroll;
+      }
+
+      /* Floating FAB stack: leave room for both edit + map */
+      .edit-fab { bottom: 16px; right: 16px; padding: 10px 16px; font-size: 12px; }
+      .publish-btn { bottom: 16px; right: 150px; padding: 10px 14px; font-size: 12px; }
+      .lock-fab { top: 12px; right: 12px; }
+
+      /* Map tab tweaks */
+      .map-intro { font-size: 12px; padding: 12px 14px; }
+      .map-directions-btn { margin-left: 0; width: 100%; text-align: center; }
+      .map-wrap { padding: 8px; }
+      .map-action-btn { padding: 11px 12px; font-size: 12.5px; min-width: 100px; }
+      .map-legend { padding: 14px 16px; }
+      .map-legend-row strong { min-width: 100%; }
+      .map-legend-note { flex-basis: 100%; padding-left: 24px; margin-top: -4px; }
+
+      /* Search results dot fix */
+      .search-result { padding: 12px 14px; }
+      .search-result-name { font-size: 13px; }
+      .search-result-meta { font-size: 11px; }
+    }
+
+    /* Even tighter for very small phones */
+    @media (max-width: 380px) {
+      .hero h1 { font-size: 1.65rem; }
+      .hero-tagline { font-size: 12px; gap: 6px; }
+      .hero-stats { gap: 12px; padding: 9px 14px; }
+      .hero-stat-num { font-size: 15px; }
+      .tab-btn { padding: 10px 12px; font-size: 12px; }
+      .day-panel { padding: 14px 10px 80px; }
+      .card { padding: 12px; }
+      .card-name { font-size: 14.5px; }
+      .map-action-btn { font-size: 11.5px; min-width: 0; }
+    }
+
+    /* Respect users who prefer less motion */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
     }
   </style>
 <style>.shortlist-item.shortlist-r5 { color: var(--r5); border-color: rgba(74,222,128,0.4); background: rgba(74,222,128,0.15); }</style><link id="myCss" rel="stylesheet" type="text/css" href="chrome-extension://hlambnnbnnjkabpgemeompijpdliimkm/content/content.css" media="all"><style type="text/css" id="vuetify-theme-stylesheet">.v-application a { color: #1976d2; }
@@ -1514,6 +1795,7 @@
 <button class="tab-btn" onclick="showDay('fri',this)">Friday May 15</button>
 <button class="tab-btn" onclick="showDay('sat',this)">Saturday May 16</button>
 <button class="tab-btn" onclick="showDay('sun',this)">Sunday May 17</button>
+<button class="tab-btn" onclick="showDay('map',this)">🗺️ Map</button>
 <button class="tab-btn" onclick="showDay('faq',this)">❓ FAQ</button>
 </div>
 <div class="search-wrap">
@@ -2766,20 +3048,95 @@ Official KBP after-parties via <a href="https://www.kilbyblockparty.com/afterpar
 <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Still have questions?</div><div class="faq-a">Ticketing: <a href="mailto:support@24tix.com">support@24tix.com</a> · Everything else: <a href="mailto:support@snspresents.com">support@snspresents.com</a></div></div>
 </div>
 </div><!-- /day-faq -->
+<div class="day-panel" id="day-map">
+<div class="map-intro">
+<strong>Festival Map</strong> — Utah State Fairpark, 155 N 1000 W. Tap to zoom · pinch to scale.
+<a href="https://maps.apple.com/?q=Utah+State+Fairpark+155+N+1000+W+Salt+Lake+City+UT" target="_blank" class="map-directions-btn">📍 Get Directions</a>
+</div>
+<div class="map-wrap">
+<div class="map-zoom-wrap" id="map-zoom-wrap">
+<img class="map-img" id="map-img" src="assets/kbp-map.jpg" alt="Kilby Block Party 2026 venue map" loading="lazy">
+</div>
+<div class="map-actions">
+<button class="map-action-btn" onclick="toggleMapFullscreen()">⛶ Fullscreen</button>
+<a class="map-action-btn" href="assets/kbp-map.jpg" target="_blank">↗ Open Image</a>
+<a class="map-action-btn" href="https://www.kilbyblockparty.com/schedule" target="_blank">🌐 Official Page</a>
+</div>
+</div>
+<div class="map-legend">
+<h3>Stages</h3>
+<div class="map-legend-row"><span class="map-legend-dot map-stage-mountain"></span><strong>Mountain Stage</strong><span class="map-legend-note">Big stage, north end — main draws</span></div>
+<div class="map-legend-row"><span class="map-legend-dot map-stage-kilby"></span><strong>Kilby Stage</strong><span class="map-legend-note">East side, by the Kilby Club lounge</span></div>
+<div class="map-legend-row"><span class="map-legend-dot map-stage-desert"></span><strong>Desert Stage</strong><span class="map-legend-note">South end, near North Temple St</span></div>
+<div class="map-legend-row"><span class="map-legend-dot map-stage-lake"></span><strong>Lake Stage</strong><span class="map-legend-note">West side, near Vendor World</span></div>
+<h3 style="margin-top:18px">Tips</h3>
+<ul class="map-tips">
+<li><strong>Main Entrance</strong> is on the north end (300 N). Wristband exchange is right inside.</li>
+<li><strong>Free water</strong> stations are all over — refillable bottles allowed.</li>
+<li><strong>Lockers</strong> + Info/Lost &amp; Found are in the central plaza near the Mountain stage.</li>
+<li><strong>Food trucks</strong> cluster between the four stages, with more along the south side near Desert.</li>
+<li><strong>VIP Lounge</strong> is on the east near Kilby Stage entrance.</li>
+<li>Need accessible viewing? <strong>Access Center</strong> is in the middle, near Lake/Kilby crossover.</li>
+</ul>
+</div>
+</div><!-- /day-map -->
 <div class="day-panel active" id="day-kickoff">
 <div class="parties-intro">
 <strong>KBP 2026 Kickoff Shows</strong> — official pre-festival shows on <strong>Wed May 13 &amp; Thu May 14</strong> at venues around SLC. Ticketed separately from the main fest. Lineups via <a href="https://www.kilbyblockparty.com/afterparties" style="color:var(--r35)" target="_blank">kilbyblockparty.com/afterparties</a> — check each venue for age restrictions.
   </div>
 <div class="party-night">
 <div class="party-night-header">
+<span class="night-date">🪪 Early Wristband Pickup</span>
+<span class="night-type wristband">Beat the Friday line</span>
+</div>
+<div class="party-card">
+<span class="party-venue-pill venue-fairpark">Pickup Times</span>
+<div class="party-card-content">
+<div class="party-artists">Skip the Friday gates — grab your wristband early</div>
+<div style="font-size:12px;color:var(--muted);margin:6px 0 4px">Two pickup locations across four days. Tap an address for directions.</div>
+<div class="wristband-row">
+<div class="wristband-when">Tue · May 12<span class="wristband-time">4–8 PM</span></div>
+<div class="wristband-where">
+<span class="party-venue-pill venue-fairpark">Utah State Fairpark</span>
+<a class="wristband-addr" href="https://maps.apple.com/?q=155+N+1000+W+Salt+Lake+City+UT+84116" target="_blank">155 N 1000 W, Salt Lake City UT 84116 →</a>
+</div>
+</div>
+<div class="wristband-row">
+<div class="wristband-when">Wed · May 13<span class="wristband-time">4–8 PM</span></div>
+<div class="wristband-where">
+<span class="party-venue-pill venue-fairpark">Utah State Fairpark</span>
+<a class="wristband-addr" href="https://maps.apple.com/?q=155+N+1000+W+Salt+Lake+City+UT+84116" target="_blank">155 N 1000 W, Salt Lake City UT 84116 →</a>
+</div>
+</div>
+<div class="wristband-row">
+<div class="wristband-when">Thu · May 14<span class="wristband-time">4–8 PM</span></div>
+<div class="wristband-where">
+<span class="party-venue-pill venue-bluegenes">Blue Genes</span>
+<a class="wristband-addr" href="https://maps.apple.com/?q=241+S+500+E+Salt+Lake+City+UT+84102" target="_blank">241 S 500 E, Salt Lake City UT 84102 →</a>
+</div>
+</div>
+<div class="wristband-row">
+<div class="wristband-when">Thu · May 14<span class="wristband-time">4–8 PM</span></div>
+<div class="wristband-where">
+<span class="party-venue-pill venue-fairpark">Utah State Fairpark</span>
+<a class="wristband-addr" href="https://maps.apple.com/?q=155+N+1000+W+Salt+Lake+City+UT+84116" target="_blank">155 N 1000 W, Salt Lake City UT 84116 →</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="party-night">
+<div class="party-night-header">
 <span class="night-date">Wednesday, May 13</span>
 <span class="night-type kickoff">Pre-Festival Kickoff</span>
 </div>
-<div class="party-card">
+<div class="party-card is-skip">
 <span class="party-venue-pill venue-urban">Urban Lounge · 21+</span>
 <div class="party-card-content">
 <div class="party-artists">Molotov Dress</div>
 <div style="font-size:13px;color:var(--text);margin-top:2px">w/ <strong>Lapdog</strong> + <strong>Get Born</strong> + <strong>Gilded Lillies</strong></div>
+<div class="party-skip-tag">⏭ Skip</div>
+<div class="party-skip-reason">Solid local SLC scrap, but nothing here punches above the B/C tier for me — not worth burning a Wednesday night.</div>
 <a class="party-ticket-btn" href="https://www.24tix.com/event/15822893970" target="_blank">🎟 Get Tickets</a>
 <div style="margin-top:8px;font-size:12px;color:var(--muted);line-height:1.5">
 <strong style="color:var(--text)">Molotov Dress</strong> — fuzzed-out, riot-grrrl-leaning indie rock out of SLC. Sharp female-fronted vocals, big crunchy guitars, a little garage, a little post-punk. Good Wednesday energy.<br><br>
@@ -2801,6 +3158,8 @@ Official KBP after-parties via <a href="https://www.kilbyblockparty.com/afterpar
 <div class="party-artists">Foxtide</div>
 <div style="font-size:13px;color:var(--text);margin-top:2px">w/ <strong>Hana Eid</strong> + <strong>Cutie</strong></div>
 <div class="party-kbp-note">🎪 At the namesake venue!</div>
+<div class="party-pick-tag">★ Top Kickoff Pick</div>
+<div class="party-pick-reason">The only kickoff lineup that maps to my actual taste — soft, melodic, dream-pop-leaning bedroom indie. Foxtide's cozy emotional swell is in Japanese House / Snail Mail territory, and Hana Eid is the tender Brooklyn singer-songwriter I'd put on a Bon Iver-adjacent playlist. Plus it's all-ages at the original Kilby Court — the most "Kilby spirit" room of the week.</div>
 <a class="party-ticket-btn" href="https://www.24tix.com/event/79774202169" target="_blank">🎟 Get Tickets</a>
 <div style="margin-top:8px;font-size:12px;color:var(--muted);line-height:1.5">
 <strong style="color:var(--text)">Foxtide</strong> — SLC indie act with a soft, melodic edge — gentle guitar pop with the kind of cozy emotional swell that fits the Kilby Court room perfectly. If you want the most "Kilby spirit" night of the week, this is it: small, intimate, all-ages, at the original venue.<br><br>
@@ -2809,12 +3168,14 @@ Official KBP after-parties via <a href="https://www.kilbyblockparty.com/afterpar
 </div>
 </div>
 </div>
-<div class="party-card">
+<div class="party-card is-skip">
 <span class="party-venue-pill venue-urban">Urban Lounge · All Ages</span>
 <div class="party-card-content">
 <div class="party-artists">Show Me The Body</div>
 <div style="font-size:13px;color:var(--text);margin-top:2px">w/ <strong>Provoker</strong> + <strong>Skin Show</strong></div>
 <div class="party-kbp-note">🎪 SMTB also plays Friday at KBP</div>
+<div class="party-skip-tag">⏭ Skip</div>
+<div class="party-skip-reason">Loudest, most abrasive lineup on the board — same "too much noise, I'm too old" lane as Die Spitz. Already catching SMTB at the main fest Friday, no need to double up.</div>
 <a class="party-ticket-btn" href="https://www.24tix.com/event/28122331380" target="_blank">🎟 Get Tickets</a>
 <div style="margin-top:8px;font-size:12px;color:var(--muted);line-height:1.5">
 <strong style="color:var(--text)">Show Me The Body</strong> — NYC hardcore/noise trio led by Julian Cashwan Pratt's banjo-driven distortion. Their shows are physical, abrasive, sample-heavy, and unrelenting. The Urban Lounge room will be loud and probably wet. Catch them here for the more intimate version before they hit Friday's main stage.<br><br>
@@ -2823,11 +3184,13 @@ Official KBP after-parties via <a href="https://www.kilbyblockparty.com/afterpar
 </div>
 </div>
 </div>
-<div class="party-card">
+<div class="party-card is-skip">
 <span class="party-venue-pill venue-urban">Urban Lounge · 21+</span>
 <div class="party-card-content">
 <div class="party-artists">Pixie &amp; The Partygrass Boys</div>
 <div style="font-size:13px;color:var(--text);margin-top:2px">w/ <strong>Local Kin</strong></div>
+<div class="party-skip-tag">⏭ Skip</div>
+<div class="party-skip-reason">They play SLC constantly — I can catch them any month of the year, no reason to spend a finite KBP-week night on a band that's basically a local fixture.</div>
 <a class="party-ticket-btn" href="https://www.24tix.com/event/56430623502" target="_blank">🎟 Get Tickets</a>
 <div style="margin-top:8px;font-size:12px;color:var(--muted);line-height:1.5">
 <strong style="color:var(--text)">Pixie &amp; The Partygrass Boys</strong> — Utah's beloved party-bluegrass band. Fiddle, banjo, stand-up bass, and the kind of high-energy stage chaos that makes a 21+ Urban Lounge show feel like a barn raising. A departure from the KBP indie-rock palette but a guaranteed good time.<br><br>
@@ -2842,17 +3205,6 @@ Official KBP after-parties via <a href="https://www.kilbyblockparty.com/afterpar
 <a class="party-ticket-btn" href="https://www.24tix.com/event/58986403916" target="_blank">🎟 Get Tickets</a>
 <div style="margin-top:8px;font-size:12px;color:var(--muted);line-height:1.5">
 <strong style="color:var(--text)">DYKED</strong> — touring queer dance-party brand built around DJ sets, drag energy, and a non-stop dance floor. Pairing here with <strong style="color:var(--text)">Jochis</strong> (SLC's Latinx queer-night collective) for an all-inclusive late-night. No bands — pure dance floor. The queer kickoff to the weekend before the Saturday-night Queerby afterparty.
-</div>
-</div>
-</div>
-<div class="party-card">
-<span class="party-venue-pill venue-bluegenes">Blue Genes · 21+</span>
-<div class="party-card-content">
-<div class="party-artists">KBP Karaoke Night (opens tonight)</div>
-<div class="party-kbp-note">🎤 Runs Thu / Fri / Sat at Blue Genes</div>
-<a class="party-ticket-btn" href="https://www.bluegenesslc.com/" target="_blank">🎟 More Info</a>
-<div style="margin-top:8px;font-size:12px;color:var(--muted);line-height:1.5">
-Official KBP karaoke runs every night of the kickoff/weekend at Blue Genes. Drop in if your night ends early or if the kickoff show went short — sing the catalog you'll hear at the fest 48 hours later.
 </div>
 </div>
 </div>
@@ -3405,6 +3757,7 @@ Official KBP karaoke runs every night of the kickoff/weekend at Blue Genes. Drop
 </div>
 </div>
 <button class="lock-fab" id="lock-fab" onclick="onLockFabClick()" title="Admin">🔒</button>
+<button class="map-fab" id="map-fab" onclick="jumpToMap()" title="Festival map" aria-label="Open festival map">🗺️</button>
 <button class="edit-fab" id="edit-fab" onclick="toggleEditMode()" style="display: none;">✏️ Edit Notes</button>
 <button class="publish-btn" id="publish-btn" onclick="publishToSite()" style="display: none;">🚀 Publish to Site</button>
 <div class="autosave-toast" id="autosave-toast">✓ Saved locally</div>
@@ -3435,7 +3788,56 @@ Official KBP karaoke runs every night of the kickoff/weekend at Blue Genes. Drop
       lastPublicDay = day;
       lastPublicBtn = btn;
     }
+    // Scroll a tapped tab into view for mobile (sticky tab strip)
+    if (btn && window.innerWidth <= 768) {
+      try { btn.scrollIntoView({ inline: 'center', block: 'nearest', behavior: 'smooth' }); } catch (e) {}
+    }
+    // Scroll to top of panel content
+    if (window.innerWidth <= 768) {
+      const panel = document.getElementById('day-' + day);
+      if (panel) {
+        const top = panel.getBoundingClientRect().top + window.scrollY - 60;
+        window.scrollTo({ top: top, behavior: 'smooth' });
+      }
+    }
   }
+
+  // ── MAP TAB ─────────────────────────────────────────────────────
+  function jumpToMap() {
+    const mapBtn = document.querySelector('.tab-btn[onclick*="\'map\'"]');
+    showDay('map', mapBtn);
+  }
+  function toggleMapFullscreen() {
+    const wrap = document.querySelector('#day-map .map-wrap');
+    if (!wrap) return;
+    wrap.classList.toggle('fullscreen');
+    document.body.style.overflow = wrap.classList.contains('fullscreen') ? 'hidden' : '';
+  }
+  // Tap-to-zoom on the map image
+  document.addEventListener('DOMContentLoaded', function() {
+    const zw = document.getElementById('map-zoom-wrap');
+    if (!zw) return;
+    zw.addEventListener('click', function(e) {
+      // Don't trigger on action buttons
+      if (e.target.closest('.map-actions')) return;
+      const wrap = zw.closest('.map-wrap');
+      if (wrap && wrap.classList.contains('fullscreen')) {
+        wrap.classList.toggle('zoomed-mode');
+      } else {
+        zw.classList.toggle('zoomed');
+      }
+    });
+    // Allow ESC to exit fullscreen
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        const wrap = document.querySelector('#day-map .map-wrap.fullscreen');
+        if (wrap) {
+          wrap.classList.remove('fullscreen', 'zoomed-mode');
+          document.body.style.overflow = '';
+        }
+      }
+    });
+  });
 
   function openAdmin() {
     if (!privateUnlocked) {
