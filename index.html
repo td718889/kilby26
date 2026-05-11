@@ -3768,9 +3768,9 @@ Official KBP after-parties via <a href="https://www.kilbyblockparty.com/afterpar
   let lastPublicDay = 'fri';
   let lastPublicBtn = null;
 
-  // Auto-hide Kickoff Shows tab after 1 AM May 15, 2026 (Mountain Time = UTC-6)
+  // Auto-hide Kickoff Shows tab after 11 PM Thu May 14, 2026 (Mountain Time = UTC-6)
   (function() {
-    const hideAfter = new Date('2026-05-15T07:00:00Z'); // 1 AM MDT (UTC-6)
+    const hideAfter = new Date('2026-05-15T05:00:00Z'); // 11 PM MDT Thu = 05:00 UTC Fri
     if (new Date() >= hideAfter) {
       const tab = document.getElementById('kickoff-tab');
       if (tab) tab.style.display = 'none';
@@ -4563,7 +4563,13 @@ Official KBP after-parties via <a href="https://www.kilbyblockparty.com/afterpar
   buildShortlists();
 
   // ── AUTO-SELECT TODAY'S TAB + AUTO-SCROLL TO CURRENT TIME (MOUNTAIN) ──
-  (function() {
+  // Extracted into a named function so it can be re-run without a page reload
+  // (on visibilitychange and on an interval timer).
+  let _lastAutoScrolledSlot = null;       // dedupe — don't re-snap if same slot
+  let _lastUserInteractionAt = 0;         // suspends auto-snap while user is actively browsing
+  function autoSelectAndScrollToNow(opts) {
+    opts = opts || {};
+    const force = !!opts.force;            // force=true bypasses the user-interaction guard
     // Get "now" as Mountain Time (America/Denver handles DST automatically).
     const mtNow = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Denver' }));
     const y = mtNow.getFullYear();
@@ -4588,6 +4594,10 @@ Official KBP after-parties via <a href="https://www.kilbyblockparty.com/afterpar
       }
     }
     if (!targetDay) return; // Outside fest window — leave default tab as-is.
+
+    // Don't yank a user out of a tab they're actively browsing (unless force=true).
+    // 90s since the last touch/scroll/click counts as "idle enough".
+    if (!force && (Date.now() - _lastUserInteractionAt) < 90 * 1000) return;
 
     const meta = dayMeta[targetDay];
     if (!meta) return;
@@ -4636,6 +4646,10 @@ Official KBP after-parties via <a href="https://www.kilbyblockparty.com/afterpar
     if (!chosen) chosen = upcoming;
     if (!chosen) return;
 
+    // Skip if we already auto-scrolled to this exact slot — no point re-snapping.
+    if (chosen === _lastAutoScrolledSlot) return;
+    _lastAutoScrolledSlot = chosen;
+
     // Delay slightly so the panel is laid out before we scroll.
     setTimeout(() => {
       chosen.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -4645,7 +4659,31 @@ Official KBP after-parties via <a href="https://www.kilbyblockparty.com/afterpar
       chosen.style.backgroundColor = 'rgba(251,191,36,0.15)';
       setTimeout(() => { chosen.style.backgroundColor = orig; }, 3500);
     }, 250);
-  })();
+  }
+
+  // ── KEEP-FRESH TRIGGERS (no reload needed) ─────────────────────────
+  // Track user interaction so we don't yank them off a tab they're actively reading.
+  ['scroll','touchstart','pointerdown','keydown','click'].forEach(ev => {
+    window.addEventListener(ev, () => { _lastUserInteractionAt = Date.now(); }, { passive: true });
+  });
+
+  // Re-run when the page becomes visible again (most common case — phone unlock,
+  // tab switch back, came out of pocket between sets, etc.). Force=true here:
+  // returning to the app is itself a signal the user wants "now".
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') {
+      autoSelectAndScrollToNow({ force: true });
+    }
+  });
+
+  // Re-run every 35 minutes while the page is visible (mid-set), in case it's
+  // been left open. Respects the 90s interaction guard and same-slot dedupe.
+  setInterval(() => {
+    if (document.visibilityState === 'visible') autoSelectAndScrollToNow();
+  }, 35 * 60 * 1000);
+
+  // Initial run on page load (preserves the original behavior).
+  autoSelectAndScrollToNow({ force: true });
 </script>
 
 
