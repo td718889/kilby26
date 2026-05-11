@@ -8,7 +8,23 @@
 <meta name="apple-mobile-web-app-title" content="KBP26">
 <meta name="description" content="Taylor's personal guide to Kilby Block Party 2026 — rankings, schedule, after parties, festival map, and FAQ.">
 <meta name="kbp-published-at" content="1778508666710">
+<link rel="manifest" href="/manifest.json">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/icons/icon-512.png">
 <title>Kilby Block Party 2026 — Taylor's Guide</title>
+<script>
+  // Register the service worker for offline access + instant repeat loads.
+  // The SW uses NetworkFirst for HTML so the publish flow's stale-check
+  // (kbp-published-at) stays accurate when you're online.
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js').catch((err) => {
+        console.warn('SW registration failed:', err);
+      });
+    });
+  }
+</script>
 <style>
     :root {
       --bg: #0c0c12;
@@ -3744,7 +3760,7 @@ Official KBP after-parties via <a href="https://www.kilbyblockparty.com/afterpar
 </div>
 </div><!-- /day-review -->
 <footer>
-  Built for <strong>Taylor</strong> · Data from <a href="https://www.last.fm/user/TD789" target="_blank">TD789 on Last.fm</a> (68,789 scrobbles) · <a href="https://www.kilbyblockparty.com" target="_blank">Kilby Block Party 2026</a> · May 15–17, SLC
+  Built for <strong>Taylor</strong> · Data from <a href="https://www.last.fm/user/TD789" target="_blank">TD789 on Last.fm</a> (68,789 scrobbles) · <a href="https://www.kilbyblockparty.com" target="_blank">Kilby Block Party 2026</a> · May 15–17, SLC · <a href="#" class="footer-admin" onclick="event.preventDefault(); (typeof openAdmin === 'function') && openAdmin();" style="color: var(--muted); opacity: 0.5; font-size: 0.85em; text-decoration: none;">admin</a>
 </footer>
 <div class="pw-overlay" id="pw-overlay">
 <div class="pw-box">
@@ -3768,12 +3784,20 @@ Official KBP after-parties via <a href="https://www.kilbyblockparty.com/afterpar
   let lastPublicDay = 'fri';
   let lastPublicBtn = null;
 
-  // Auto-hide Kickoff Shows tab after 11 PM Thu May 14, 2026 (Mountain Time = UTC-6)
+  // Auto-hide Kickoff Shows tab AND admin controls after 11 PM Thu May 14, 2026.
+  // Once edits are locked in, no need to see the prominent lock/admin/edit/publish
+  // controls on mobile — the discreet footer "admin" link is still there as a
+  // fallback if something needs editing during the festival.
   (function() {
     const hideAfter = new Date('2026-05-15T05:00:00Z'); // 11 PM MDT Thu = 05:00 UTC Fri
     if (new Date() >= hideAfter) {
-      const tab = document.getElementById('kickoff-tab');
-      if (tab) tab.style.display = 'none';
+      ['kickoff-tab', 'lock-fab', 'edit-fab', 'publish-btn'].forEach(function(id) {
+        const el = document.getElementById(id);
+        if (el) el.style.display = 'none';
+      });
+      document.querySelectorAll('.admin-link').forEach(function(el) {
+        el.style.display = 'none';
+      });
     }
   })();
 

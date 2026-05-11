@@ -1,2 +1,40 @@
 [build]
   functions = "netlify/functions"
+
+# Service worker must never be cached long-term — if it is, you lose the
+# ability to push updates. Browsers re-check it on every navigation.
+[[headers]]
+  for = "/sw.js"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+    Service-Worker-Allowed = "/"
+
+# Same goes for the HTML shell — the SW itself uses NetworkFirst, but the
+# very first load (before the SW exists) should also get the freshest copy.
+[[headers]]
+  for = "/"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/index.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# The manifest changes rarely but should be revalidated.
+[[headers]]
+  for = "/manifest.json"
+  [headers.values]
+    Cache-Control = "public, max-age=3600, must-revalidate"
+
+# Static assets are content-stable — cache them aggressively at the CDN
+# and in the browser. Bust by renaming if you ever change them.
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/icons/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
