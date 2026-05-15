@@ -4779,6 +4779,12 @@ Official KBP after-parties via <a href="https://www.kilbyblockparty.com/afterpar
   // ── NOW PLAYING + UP NEXT PILL ──
   // Inserts a live status panel at the top of each fest day-panel. Hidden unless
   // today (Mountain time) matches that day AND there's a current or upcoming slot.
+  //
+  // _nowNextTimer is hoisted here (instead of after the IIFE) because the IIFE
+  // calls scheduleNextNowNextRefresh() immediately, and that function references
+  // _nowNextTimer — a `let` binding in the TDZ throws and aborts the rest of the
+  // script (which would silently kill the tap-to-expand click handler below).
+  let _nowNextTimer = null;
   (function setupNowNextPill() {
     ['fri','sat','sun'].forEach(d => {
       const panel = document.getElementById('day-' + d);
@@ -4806,7 +4812,6 @@ Official KBP after-parties via <a href="https://www.kilbyblockparty.com/afterpar
     });
   })();
 
-  let _nowNextTimer = null;
   function scheduleNextNowNextRefresh() {
     if (_nowNextTimer) { clearTimeout(_nowNextTimer); _nowNextTimer = null; }
     const mtNow = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Denver' }));
